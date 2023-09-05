@@ -8,6 +8,10 @@ import morgan from 'morgan';
 import compression from 'compression';
 import CONFIG from './config/config';
 import mainRoutes from './routes';  // Import the routes
+import connectMongoDB from './config/mongoDatabase';
+
+// Connect to MongoDB
+connectMongoDB()
 
 const app: Application = express();
 
