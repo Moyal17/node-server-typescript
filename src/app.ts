@@ -6,7 +6,7 @@ import session from 'express-session';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import compression from 'compression';
-import CONFIG from './config';
+import CONFIG from './config/config';
 import mainRoutes from './routes';  // Import the routes
 
 const app: Application = express();
