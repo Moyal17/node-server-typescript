@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
-import users from '../modules/users';
-import items from '../modules/items';
+import users from '../modules/users/user.routes';
+import items from '../modules/items/item.routes';
 
 const publicRouter: Router = express.Router();
 
