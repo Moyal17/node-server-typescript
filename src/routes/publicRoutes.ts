@@ -6,10 +6,10 @@ const publicRouter: Router = express.Router();
 
 const routes: { [key: string]: Router } = {
   users,
-  items
+  items,
 };
 
-Object.keys(routes).forEach(routeName => {
+Object.keys(routes).forEach((routeName) => {
   publicRouter.use(`/${routeName}`, routes[routeName]);
 });
 

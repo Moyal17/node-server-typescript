@@ -7,11 +7,11 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import compression from 'compression';
 import CONFIG from './config/config';
-import mainRoutes from './routes';  // Import the routes
+import mainRoutes from './routes'; // Import the routes
 import connectMongoDB from './config/mongoDatabase';
 
 // Connect to MongoDB
-connectMongoDB()
+connectMongoDB();
 
 const app: Application = express();
 
@@ -19,16 +19,18 @@ const app: Application = express();
 app.use(helmet());
 app.use(cors());
 app.use(cookieParser());
-app.use(session({
-  secret: CONFIG.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true
-}));
+app.use(
+  session({
+    secret: CONFIG.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(compression());
 
 // Here, you'd also define your routes, e.g., app.use('/users', usersRouter);
-app.use(mainRoutes);  // Use the imported routes
+app.use(mainRoutes); // Use the imported routes
 export default app;
