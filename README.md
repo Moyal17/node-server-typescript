@@ -11,10 +11,14 @@ root/
 |   |   |-- config.js
 |   |   |-- mongoDatabase.js
 |   |-- modules/
+|   |   |-- auth/
+|   |   |   |-- auth.controller.ts       // Request/Error Handling & Response for auth
+|   |   |   |-- auth.routes.ts           // Express routes for auth
+|   |   |   |-- user.service.ts          // Business logic for auth
 |   |   |-- users/
-|   |   |   |-- auth.controller.ts       // Request/Error Handling & Response for users
-|   |   |   |-- auth.routes.ts           // Express routes for users
-|   |   |   |-- auth.service.ts          // Business logic for users
+|   |   |   |-- user.controller.ts       // Request/Error Handling & Response for users
+|   |   |   |-- user.routes.ts           // Express routes for users
+|   |   |   |-- user.service.ts          // Business logic for users
 |   |   |   |-- user.model.ts            // Users Model
 |   |   |   |-- user.interface.ts        // Users Interface
 |   |   |-- items/
@@ -22,9 +26,9 @@ root/
 |   |-- routes/
 |   |   |-- apiRoutes.ts                 // API - authorization/authentication check routes
 |   |   |-- publicRoutes.ts              // Public routes
-|   |   |-- user.item.routes.ts          // Entry file for routes
-|   |-- utils/
-|   |-- middlewares/
+|   |   |-- index.ts                     // Entry file for routes
+|   |-- utils/                           // Utility functions
+|   |-- middlewares/                     // Custom middlewares
 |   |-- app.ts                           // Core Express setup (middleware, routes, error handling)
 |   |-- main.ts                          // Entry file, bootstrapping the Express application
 |-- test/
