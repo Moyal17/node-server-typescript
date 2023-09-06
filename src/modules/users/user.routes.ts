@@ -1,12 +1,13 @@
 import express, { Router } from 'express';
+import { setCacheHeaders } from '../../middlewares/cache';
 import { createUser, deleteUser, getUserById, getUsers, updateUser } from './user.controller';
 import { validateBody, validateParams } from '../../middlewares/validation';
-import { createUserSchema, editUserSchema, validateId } from './dto';
-import { setCacheHeaders } from '../../middlewares/cache';
+import { createUserSchema, editUserSchema } from './dto';
+import { validateId } from '../shared/validations';
 
 const router: Router = express.Router();
 
-const users = {
+const usersRoutes = {
   publicRoutes: () => {
     router.get('/', setCacheHeaders('public', 5), getUsers);
     return router;
@@ -19,4 +20,4 @@ const users = {
     return router;
   },
 };
-export default users;
+export default usersRoutes;

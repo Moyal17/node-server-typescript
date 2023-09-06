@@ -4,9 +4,9 @@ import ICategory from './category.interface'; // Assuming you have a Mongoose mo
 export class CategoryService {
   async getCategories(): Promise<Partial<ICategory[]> | null> {
     try {
-      const Categories = await Category.find({}).exec();
-      console.log('getCategories: ', Categories);
-      return Categories;
+      const categories = await Category.find({}).exec();
+      console.log('getCategories: ', categories);
+      return categories;
     } catch (error) {
       return error;
     }
@@ -15,7 +15,7 @@ export class CategoryService {
   // Fetch a Category by their ID
   async getCategoryById(CategoryId: string): Promise<Partial<ICategory> | null> {
     try {
-      const category = await Category.findById(CategoryId).exec();
+      const category = await Category.findById(CategoryId).lean().exec();
       console.log('getCategoryById: ', category);
       return category;
     } catch (error) {

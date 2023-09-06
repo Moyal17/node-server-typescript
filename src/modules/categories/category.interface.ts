@@ -1,25 +1,29 @@
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
+import { categoryGroup } from './dto';
+
+interface ISeo {
+  title?: string;
+  description?: string;
+}
 
 interface ICategory extends Document {
-  group?: string;
-  public_id: string;
+  group?: string | categoryGroup;
+  public_id?: string; // Optional because it's not required in the schema
   uri: string;
-  language: string; // he ; en ; es
-  title: string;
+  language?: string;
+  title?: string;
   description?: string;
   subtitle?: string;
   order?: number;
-  media?: string;
-  seo?: {
-    title?: string;
-    description?: string;
-  };
+  media?: mongoose.Types.ObjectId; // Reference to the Media document
+  seo?: ISeo;
   searchKeywords?: string[];
   isFilter?: boolean;
   isShow?: boolean;
   isRemoved?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export default ICategory;
+

@@ -1,12 +1,13 @@
 import express, { Router } from 'express';
 import { createCategory, deleteCategory, getCategories, getCategoryById, updateCategory } from './category.controller';
 import { validateBody, validateParams } from '../../middlewares/validation';
-import { createCategorySchema, editCategorySchema, validateId } from './dto';
+import { createCategorySchema, editCategorySchema } from './dto';
 import { setCacheHeaders } from '../../middlewares/cache';
+import { validateId } from '../shared/validations';
 
 const router: Router = express.Router();
 
-const users = {
+const categoriesRoutes = {
   publicRoutes: () => {
     router.get('/', setCacheHeaders('public', 5), getCategories);
     return router;
@@ -19,4 +20,4 @@ const users = {
     return router;
   },
 };
-export default users;
+export default categoriesRoutes;
