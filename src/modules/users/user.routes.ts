@@ -11,7 +11,7 @@ const users = {
     router.get('/', setCacheHeaders('public', 5), getUsers);
     return router;
   },
-  authorize: () => {
+  apiRoutes: () => {
     router.get('/:id', validateParams(validateId), getUserById);
     router.post('/', validateBody(createUserSchema), createUser);
     router.put('/:id', validateParams(validateId), validateBody(editUserSchema), updateUser);

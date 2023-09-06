@@ -6,12 +6,12 @@ import passport from '../config/passport';
 const apiRouter: Router = express.Router();
 
 const routes: { [key: string]: Router } = {
-  auth: auth.authorized(),
-  users: users.authorize(),
+  auth: auth.apiRoutes(),
+  users: users.apiRoutes(),
 };
 
 Object.keys(routes).forEach((routeName) => {
-  apiRouter.use(`/${routeName}`, routes[routeName]);
+  apiRouter.use(`/${routeName}`, passport.authenticate('jwt', { session: false }), routes[routeName]);
 });
 
 export default apiRouter;

@@ -12,7 +12,7 @@ const auth = {
     router.post('/login', validateBody(logInSchema), passport.authenticate('local', { session: false }), loginUser);
     return router;
   },
-  authorized: () => {
+  apiRoutes: () => {
     router.get('/protected', passport.authenticate('jwt', { session: false }), (req, res) => {
       res.send('You have accessed a protected endpoint!');
     });
