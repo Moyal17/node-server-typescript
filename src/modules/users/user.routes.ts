@@ -1,15 +1,22 @@
-import express, { Router, Request, Response } from 'express';
-import { createUser, getUserById } from './user.controller';
-import { validationMiddleware } from '../../middlewares/validationMiddleware';
-import { createUserSchema } from './dto';
+import express, { Router } from 'express';
+import { createUser, deleteUser, getUserById, getUsers, updateUser } from './user.controller';
+import { validateBody, validateParams } from '../../middlewares/validation';
+import { createUserSchema, editUserSchema, validateId } from './dto';
+import { setCacheHeaders } from '../../middlewares/cache';
 
 const router: Router = express.Router();
 
-router.get('/', (req: Request, res: Response) => {
-  // Your logic here
-  res.send('Users route');
-});
-router.get('/:id', getUserById);
-router.post('/', validationMiddleware(createUserSchema), createUser);
-
-export default router;
+const users = {
+  publicRoutes: () => {
+    router.get('/', setCacheHeaders('public', 5), getUsers);
+    return router;
+  },
+  authorize: () => {
+    router.get('/:id', validateParams(validateId), getUserById);
+    router.post('/', validateBody(createUserSchema), createUser);
+    router.put('/:id', validateParams(validateId), validateBody(editUserSchema), updateUser);
+    router.delete('/:id', validateParams(validateId), deleteUser);
+    return router;
+  },
+};
+export default users;

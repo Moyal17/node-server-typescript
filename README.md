@@ -12,9 +12,9 @@ root/
 |   |   |-- mongoDatabase.js
 |   |-- modules/
 |   |   |-- users/
-|   |   |   |-- user.controller.ts       // Request/Error Handling & Response for users
-|   |   |   |-- user.routes.ts           // Express routes for users
-|   |   |   |-- user.service.ts          // Business logic for users
+|   |   |   |-- auth.controller.ts       // Request/Error Handling & Response for users
+|   |   |   |-- auth.routes.ts           // Express routes for users
+|   |   |   |-- auth.service.ts          // Business logic for users
 |   |   |   |-- user.model.ts            // Users Model
 |   |   |   |-- user.interface.ts        // Users Interface
 |   |   |-- items/

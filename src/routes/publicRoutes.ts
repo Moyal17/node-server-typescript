@@ -1,12 +1,12 @@
 import express, { Router } from 'express';
+import auth from '../modules/auth/auth.routes';
 import users from '../modules/users/user.routes';
-import items from '../modules/items/item.routes';
 
 const publicRouter: Router = express.Router();
 
 const routes: { [key: string]: Router } = {
-  users,
-  items,
+  auth: auth.publicRoutes(),
+  users: users.publicRoutes(),
 };
 
 Object.keys(routes).forEach((routeName) => {

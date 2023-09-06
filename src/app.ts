@@ -9,11 +9,13 @@ import compression from 'compression';
 import CONFIG from './config/config';
 import mainRoutes from './routes'; // Import the routes
 import connectMongoDB from './config/mongoDatabase';
+import passport from './config/passport';
 
 // Connect to MongoDB
 connectMongoDB();
 
 const app: Application = express();
+app.use(passport.initialize());
 
 // Middleware setup
 app.use(helmet());
