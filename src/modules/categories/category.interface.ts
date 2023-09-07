@@ -26,4 +26,3 @@ interface ICategory extends Document {
 }
 
 export default ICategory;
-

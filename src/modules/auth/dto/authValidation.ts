@@ -10,4 +10,3 @@ export const logInSchema: Schema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(8).required(),
 }).unknown(false); // this will remove any unexpected keys
-
