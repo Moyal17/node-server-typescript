@@ -1,2 +1,2 @@
-export * from './model.types';
+export * from './media.types';
 export * from './mediaValidation';

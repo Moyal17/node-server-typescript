@@ -1,5 +1,7 @@
-import Media from './media.model'; // Assuming you have a Mongoose model for Media
-import IMedia from './media.interface'; // Assuming you have a Mongoose model for Media
+import Media from './media.model';
+import IMedia from './media.interface';
+import {configAWSObjectToMedia, generateUploadURL} from '../../services/uploadService';
+import { preSignedBody } from './dto';
 
 export class MediaService {
   async getMedia(): Promise<Partial<IMedia[]> | undefined> {
@@ -32,6 +34,27 @@ export class MediaService {
       return res;
     } catch (error) {
       throw new Error(`Error creating Media: ${error.message}`);
+    }
+  }
+
+  async createManyMediaObjs(MediaData: IMedia[]): Promise<Partial<IMedia>[]> {
+    try {
+      const results = await Media.insertMany(MediaData, { ordered: true });
+      console.log('createMedia: ', results);
+      return results;
+    } catch (error) {
+      throw new Error(`Error creating Media: ${error.message}`);
+    }
+  }
+
+  async generateUploadURL(body: preSignedBody): Promise<string> {
+    try {
+      const uploadURL: string = await generateUploadURL(body);
+      console.log('Generated pre-signed URL:', uploadURL);
+      return uploadURL;
+    } catch (error) {
+      console.log('Error generating pre-signed URL', error);
+      throw error;
     }
   }
 

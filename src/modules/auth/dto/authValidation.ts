@@ -11,7 +11,3 @@ export const logInSchema: Schema = Joi.object({
   password: Joi.string().min(8).required(),
 }).unknown(false); // this will remove any unexpected keys
 
-export const validateId = Joi.object({
-  id: Joi.string().pattern(new RegExp('^[0-9a-fA-F]{24}$')).required(),
-  // This regex is for MongoDB ObjectIDs, adjust if you're using another type of ID
-});

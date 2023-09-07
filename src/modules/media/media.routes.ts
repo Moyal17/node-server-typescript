@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
 import { setCacheHeaders } from '../../middlewares/cache';
-import { createMedia, deleteMedia, getMedia, getMediaById, updateMedia } from './media.controller';
+import { generateUploadURL, deleteMedia, getMedia, getMediaById, updateMedia, createMedia } from './media.controller';
 import { validateBody, validateParams } from '../../middlewares/validation';
-import { createMediaSchema, editMediaSchema } from './dto';
+import { editMediaSchema, generatePreSignedUrl, createMediaSchema } from './dto';
 import { validateId } from '../shared/validations';
 
 const router: Router = express.Router();
@@ -14,7 +14,8 @@ const mediaRoutes = {
   },
   apiRoutes: () => {
     router.get('/:id', validateParams(validateId), getMediaById);
-    router.post('/', validateBody(createMediaSchema), createMedia);
+    router.post('/aws/generateUploadURL', validateBody(generatePreSignedUrl), generateUploadURL); // pre-sign for aws upload
+    router.post('/', validateBody(createMediaSchema), createMedia); // create media document foe each upload
     router.put('/:id', validateParams(validateId), validateBody(editMediaSchema), updateMedia);
     router.delete('/:id', validateParams(validateId), deleteMedia);
     return router;

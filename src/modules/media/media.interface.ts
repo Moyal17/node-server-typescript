@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { mediaType, sourceType } from './dto';
+import { mediaTypes, sourceTypes } from './dto';
 
 interface ISourceHls {
   master?: string;
@@ -12,11 +12,11 @@ interface ISourceHls {
 
 interface IMedia {
   user?: mongoose.Types.ObjectId;
-  title: string;
+  name: string;
   description?: string;
   isPublic?: boolean;
-  type?: mediaType;
-  sourceType?: sourceType;
+  type?: mediaTypes;
+  sourceType?: sourceTypes;
   sourceOrigin?: string;
   source?: string;
   sourceHls?: ISourceHls;

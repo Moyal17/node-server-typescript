@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { mediaType, sourceType } from './dto';
+import { mediaTypes, sourceTypes } from './dto';
 
 const sourceHls = {
   master: String,
@@ -12,11 +12,11 @@ const sourceHls = {
 
 const mediaSchema = new Schema({
   user: { type: Schema.Types.ObjectId },
-  title: { type: String, required: true },
+  name: { type: String, required: true },
   description: String,
   isPublic: { type: Boolean, default: false },
-  type: { type: String, enum: Object.values(mediaType), default: mediaType.image },
-  sourceType: { type: String, enum: Object.values(sourceType), default: sourceType.amazonS3 },
+  type: { type: String, enum: Object.values(mediaTypes), default: mediaTypes.image },
+  sourceType: { type: String, enum: Object.values(sourceTypes), default: sourceTypes.amazonS3 },
   sourceOrigin: String, // original url
   source: String, // secure_url .mp4
   sourceHls: sourceHls, // Hls source
@@ -24,6 +24,7 @@ const mediaSchema = new Schema({
   thumbnail: String,
   thumbnailSquare: String,
   format: String, // cloudinary format 'jpg'
+  size: Number,
   isRemoved: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
