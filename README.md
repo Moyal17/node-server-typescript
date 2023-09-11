@@ -31,9 +31,9 @@ root/
 |   |   |-- index.ts                     // Entry file for routes
 |   |-- utils/                           // Utility & helper functions.
 |   |-- middlewares/                     // Custom middlewares
+|   |-- test/                            // Tests on API
 |   |-- app.ts                           // Core Express setup (middleware, routes, error handling)
 |   |-- main.ts                          // Entry file, bootstrapping the Express application
-|-- test/
 |-- package.json
 |-- README.md
 ```
