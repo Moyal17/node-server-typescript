@@ -1,5 +1,5 @@
-import Page from './page.model'; // Assuming you have a Mongoose model for Page
-import IPage from './page.interface'; // Assuming you have a Mongoose model for Page
+import Page from './page.model';
+import IPage from './page.interface';
 
 export class PageService {
   async getPages(): Promise<Partial<IPage[]> | null> {
