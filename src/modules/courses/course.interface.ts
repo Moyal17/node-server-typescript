@@ -9,9 +9,10 @@ interface ICourse extends Document {
   order?: number;
   duration?: number;
   category: mongoose.Types.ObjectId[];
-  itemCollection: mongoose.Types.ObjectId[];
+  itemCollection?: mongoose.Types.ObjectId[];
+  sections?: mongoose.Types.ObjectId[];
   thumbnail?: mongoose.Types.ObjectId;
-  previewVideo?: mongoose.Types.ObjectId;
+  source?: mongoose.Types.ObjectId;
   price?: number;
   currency?: string;
   rating?: number;

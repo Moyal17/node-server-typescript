@@ -10,7 +10,7 @@ interface ILecture extends Document {
   duration?: number;
   category: mongoose.Types.ObjectId[];
   thumbnail?: mongoose.Types.ObjectId;
-  previewVideo?: mongoose.Types.ObjectId;
+  source?: mongoose.Types.ObjectId;
   price?: number;
   currency?: string;
   rating?: number;

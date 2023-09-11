@@ -8,9 +8,10 @@ const lectureSchema = new Schema({
   order: Number,
   template: String,
   duration: Number,
+  type: String, // enum: video / article
   category: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
   thumbnail: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
-  previewVideo: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
+  source: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
   isDraft: { type: Boolean, default: true },
   isRemoved: { type: Boolean, default: false },
   publishedAt: { type: Date, default: Date.now },
