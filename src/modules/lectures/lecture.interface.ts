@@ -8,6 +8,7 @@ interface ILecture extends Document {
   template?: string;
   order?: number;
   duration?: number;
+  type?: string;
   category: mongoose.Types.ObjectId[];
   thumbnail?: mongoose.Types.ObjectId;
   source?: mongoose.Types.ObjectId;
