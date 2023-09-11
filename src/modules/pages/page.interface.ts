@@ -14,7 +14,7 @@ interface IPage extends Document {
   order?: number;
   media?: mongoose.Types.ObjectId;
   seo?: ISeo;
-  itemCollection?: mongoose.Types.ObjectId[];
+  itemCollection: mongoose.Types.ObjectId[];
   isDraft?: boolean;
   isRemoved?: boolean;
   createdAt?: Date;

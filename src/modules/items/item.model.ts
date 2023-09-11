@@ -5,7 +5,9 @@ const itemSchema = new Schema({
   subtitle: String,
   content: String,
   order: Number,
+  template: String,
   media: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
+  isRemovable: { type: Boolean, default: true },
   isRemoved: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
 });

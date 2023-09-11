@@ -13,7 +13,7 @@ const pageSchema = new Schema({
     title: String,
     description: String,
   },
-  itemCollection: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ItemCollection' }],
+  itemCollection: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Collection' }],
   isDraft: { type: Boolean, default: true },
   isRemoved: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },

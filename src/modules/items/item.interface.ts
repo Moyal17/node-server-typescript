@@ -5,7 +5,9 @@ interface IItem extends Document {
   subtitle?: string;
   content?: string;
   order?: number;
+  template?: string;
   media?: mongoose.Types.ObjectId;
+  isRemovable?: boolean;
   isRemoved?: boolean;
   createdAt?: Date;
 }
