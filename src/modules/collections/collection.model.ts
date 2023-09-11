@@ -10,7 +10,6 @@ const collectionSchema = new Schema({
   isDraft: { type: Boolean, default: true },
   isRemoved: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
 });
 
 const Collection = mongoose.model('Collection', collectionSchema);

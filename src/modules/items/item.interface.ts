@@ -8,6 +8,5 @@ interface IItem extends Document {
   media?: mongoose.Types.ObjectId;
   isRemoved?: boolean;
   createdAt?: Date;
-  updatedAt?: Date;
 }
 export default IItem;

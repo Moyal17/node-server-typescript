@@ -10,6 +10,5 @@ interface ICollection extends Document {
   isDraft?: boolean;
   isRemoved?: boolean;
   createdAt?: Date;
-  updatedAt?: Date;
 }
 export default ICollection;

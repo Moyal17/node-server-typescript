@@ -8,7 +8,6 @@ const itemSchema = new Schema({
   media: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
   isRemoved: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
 });
 
 const Item = mongoose.model('Item', itemSchema);
