@@ -1,6 +1,6 @@
 import Media from './media.model';
 import IMedia from './media.interface';
-import { configAWSObjectToMedia, generateUploadURL } from '../../services/uploadService';
+import { generateUploadURL } from '../../services/uploadService_v3';
 import { preSignedBody } from './dto';
 
 export class MediaService {
