@@ -1,5 +1,5 @@
 import Lecture from './lecture.model'; // Assuming you have a Mongoose model for Lecture
-import ILecture from './lecture.interface'; // Assuming you have a Mongoose model for Lecture
+import ILecture from './lecture.interface';
 
 export class LectureService {
   async getLectures(): Promise<Partial<ILecture[]> | null> {
@@ -16,19 +16,32 @@ export class LectureService {
   async getLectureById(lectureId: string): Promise<Partial<ILecture> | null> {
     try {
       const lecture = await Lecture.findById(lectureId).lean().exec();
-      console.log('getLectureByUri: ', lecture);
       return lecture;
     } catch (error) {
       return error;
     }
   }
 
+  async getLectureByUri(uri: string): Promise<Partial<ILecture> | null> {
+    try {
+      return await Lecture.findOne({ uri }).lean().exec();
+    } catch (error) {
+      return error;
+    }
+  }
   // Create a new Lecture
   async createLecture(LectureData: ILecture): Promise<Partial<ILecture>> {
     try {
       const newLecture = new Lecture(LectureData);
       const res = await newLecture.save();
       return res;
+    } catch (error) {
+      throw new Error(`Error creating Lecture: ${error.message}`);
+    }
+  }
+  async createMultiLectures(Lectures: ILecture[]): Promise<Partial<ILecture>[]> {
+    try {
+      return await Lecture.insertMany(Lectures, { ordered: true });
     } catch (error) {
       throw new Error(`Error creating Lecture: ${error.message}`);
     }

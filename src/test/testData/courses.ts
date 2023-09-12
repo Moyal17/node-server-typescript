@@ -1,4 +1,5 @@
 import { Lecture, Section } from './types';
+import { generateId } from '../../utils';
 
 export const course = {
   uri: 'mastering-python-programming',
@@ -57,4 +58,16 @@ export const createFullCourseMockUp = () => {
   // @ts-ignore
   fullCourse.sections = sectionsArray;
   return fullCourse;
+};
+
+export const createMultipleLecturesMockUp = (sectionId: string, lecturesNum: number = 3) => {
+  const lectures: Lecture[] = [];
+  for (let j = 0; j < lecturesNum; j++) {
+    const lectureMock = { ...lecture };
+    lectureMock.sectionId = sectionId;
+    lectureMock.uri = `${lectureMock.uri}_ ${generateId(6)}`;
+    lectureMock.title = `${lectureMock.title}_${j + 1}`;
+    lectures.push(lectureMock);
+  }
+  return lectures;
 };

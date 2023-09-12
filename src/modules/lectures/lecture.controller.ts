@@ -36,6 +36,19 @@ export const createLecture = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'createLecture', message: error.message });
   }
 };
+
+export const createMultiLectures = async (req: Request, res: Response) => {
+  try {
+    const lectureBody = req.body.lectures;
+    const lectures = await lectureService.createMultiLectures(lectureBody);
+    if (!lectures) {
+      return res.status(404).json({ message: 'Lecture not found' });
+    }
+    res.json(lectures);
+  } catch (error) {
+    res.status(500).json({ error: 'createLecture', message: error.message });
+  }
+};
 export const updateLecture = async (req: Request, res: Response) => {
   try {
     const lectureId = req.params.id;

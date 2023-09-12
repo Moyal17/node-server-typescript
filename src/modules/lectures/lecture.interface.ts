@@ -1,6 +1,7 @@
 import mongoose, { Document } from 'mongoose';
 
 interface ILecture extends Document {
+  sectionId: mongoose.Types.ObjectId;
   uri: string;
   title?: string;
   subtitle?: string;
@@ -9,7 +10,7 @@ interface ILecture extends Document {
   order?: number;
   duration?: number;
   type?: string;
-  category: mongoose.Types.ObjectId[];
+  category?: mongoose.Types.ObjectId[];
   thumbnail?: mongoose.Types.ObjectId;
   source?: mongoose.Types.ObjectId;
   price?: number;
