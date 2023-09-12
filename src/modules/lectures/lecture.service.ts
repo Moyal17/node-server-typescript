@@ -28,7 +28,6 @@ export class LectureService {
     try {
       const newLecture = new Lecture(LectureData);
       const res = await newLecture.save();
-      console.log('createLecture: ', res);
       return res;
     } catch (error) {
       throw new Error(`Error creating Lecture: ${error.message}`);

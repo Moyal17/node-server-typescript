@@ -1,5 +1,11 @@
 import express, { Router } from 'express';
-import { createLecture, deleteLecture, getLectures, getLectureById, updateLecture } from './lecture.controller';
+import {
+  createLecture,
+  deleteLecture,
+  getLectures,
+  getLectureById,
+  updateLecture,
+} from './lecture.controller';
 import { validateBody, validateParams } from '../../middlewares/validation';
 import { createLectureSchema, editLectureSchema } from './dto';
 import { setCacheHeaders } from '../../middlewares/cache';

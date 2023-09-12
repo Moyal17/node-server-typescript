@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 const lectureSchema = new Schema({
+  sectionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Section', required: true },
   uri: { type: String, required: true, unique: true },
   title: String,
   subtitle: String,

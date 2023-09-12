@@ -30,7 +30,6 @@ export class MediaService {
     try {
       const newMedia = new Media(MediaData);
       const res = await newMedia.save();
-      console.log('createMedia: ', res);
       return res;
     } catch (error) {
       throw new Error(`Error creating Media: ${error.message}`);
@@ -40,7 +39,6 @@ export class MediaService {
   async createManyMediaObjs(MediaData: IMedia[]): Promise<Partial<IMedia>[]> {
     try {
       const results = await Media.insertMany(MediaData, { ordered: true });
-      console.log('createMedia: ', results);
       return results;
     } catch (error) {
       throw new Error(`Error creating Media: ${error.message}`);

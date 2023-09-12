@@ -28,7 +28,6 @@ export class PageService {
     try {
       const newPage = new Page(PageData);
       const res = await newPage.save();
-      console.log('createPage: ', res);
       return res;
     } catch (error) {
       throw new Error(`Error creating Page: ${error.message}`);

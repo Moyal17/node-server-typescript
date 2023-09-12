@@ -28,7 +28,6 @@ export class CourseService {
     try {
       const newCourse = new Course(CourseData);
       const res = await newCourse.save();
-      console.log('createCourse: ', res);
       return res;
     } catch (error) {
       throw new Error(`Error creating Course: ${error.message}`);

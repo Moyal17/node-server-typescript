@@ -28,7 +28,6 @@ export class SectionService {
     try {
       const newSection = new Section(SectionData);
       const res = await newSection.save();
-      console.log('createSection: ', res);
       return res;
     } catch (error) {
       throw new Error(`Error creating Section: ${error.message}`);

@@ -4,7 +4,7 @@ export const createCourseSchema: Schema = Joi.object({
   uri: Joi.string().min(2).required(),
   title: Joi.string().min(2).required(),
   price: Joi.number().min(1).optional(),
-});
+}).unknown(true);
 
 export const editCourseSchema: Schema = Joi.object({
   uri: Joi.string().min(2).required(),

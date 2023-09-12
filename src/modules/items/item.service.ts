@@ -28,7 +28,6 @@ export class ItemService {
     try {
       const newItem = new Item(ItemData);
       const res = await newItem.save();
-      console.log('createItem: ', res);
       return res;
     } catch (error) {
       throw new Error(`Error creating Item: ${error.message}`);

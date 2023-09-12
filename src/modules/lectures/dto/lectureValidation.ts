@@ -1,10 +1,12 @@
 import Joi, { Schema } from 'joi';
 
 export const createLectureSchema: Schema = Joi.object({
+  sectionId: Joi.string().required(),
   uri: Joi.string().min(2).required(),
   title: Joi.string().min(2).required(),
-  price: Joi.number().min(1).optional(),
-});
+  subtitle: Joi.string().optional(),
+  price: Joi.number().optional(),
+}).unknown(true);
 
 export const editLectureSchema: Schema = Joi.object({
   uri: Joi.string().min(2).required(),

@@ -28,7 +28,6 @@ export class CategoryService {
     try {
       const newCategory = new Category(CategoryData);
       const res = await newCategory.save();
-      console.log('createCategory: ', res);
       return res;
     } catch (error) {
       throw new Error(`Error creating Category: ${error.message}`);
@@ -36,7 +35,10 @@ export class CategoryService {
   }
 
   // Update a Category
-  async updateCategory(CategoryId: string, updatedData: Partial<ICategory>): Promise<Partial<ICategory> | null> {
+  async updateCategory(
+    CategoryId: string,
+    updatedData: Partial<ICategory>,
+  ): Promise<Partial<ICategory> | null> {
     try {
       const updatedCategory = await Category.findByIdAndUpdate(CategoryId, updatedData, {
         new: true,

@@ -9,7 +9,12 @@ const router: Router = express.Router();
 const auth = {
   publicRoutes: () => {
     router.post('/signup', validateBody(signUpSchema), signup);
-    router.post('/login', validateBody(logInSchema), passport.authenticate('local', { session: false }), loginUser);
+    router.post(
+      '/login',
+      validateBody(logInSchema),
+      passport.authenticate('local', { session: false }),
+      loginUser,
+    );
     return router;
   },
   apiRoutes: () => {

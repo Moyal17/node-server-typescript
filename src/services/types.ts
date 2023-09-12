@@ -4,4 +4,4 @@ export type putObject = {
   contentType: string;
   timestamp: string;
   name: string;
-}
+};

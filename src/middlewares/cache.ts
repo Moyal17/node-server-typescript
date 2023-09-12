@@ -12,7 +12,10 @@ export const setCacheHeaders = (cacheType: string, time: number = 0) => {
       res.setHeader('Pragma', 'no-cache');
       res.setHeader('Expires', '-1');
     } else {
-      res.setHeader('Cache-Control', `${cacheType === CacheTypes.PRIVATE ? 'private' : 'public'}, max-age=${time}`);
+      res.setHeader(
+        'Cache-Control',
+        `${cacheType === CacheTypes.PRIVATE ? 'private' : 'public'}, max-age=${time}`,
+      );
       res.removeHeader('Pragma');
       res.removeHeader('Expires');
     }

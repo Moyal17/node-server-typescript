@@ -27,9 +27,7 @@ export class UserService {
   async createUser(userData: IUser): Promise<Partial<IUser>> {
     try {
       const newUser = new User(userData);
-      const res = await newUser.save();
-      console.log('createUser: ', res);
-      return res;
+      return await newUser.save();
     } catch (error) {
       throw new Error(`Error creating user: ${error.message}`);
     }
