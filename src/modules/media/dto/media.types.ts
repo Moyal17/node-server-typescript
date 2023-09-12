@@ -15,7 +15,7 @@ export enum sourceTypes {
 export type preSignedBody = {
   fileName: string;
   folder: string;
-  fileType: string;
+  contentType: string;
 };
 
 export type awsObject = {

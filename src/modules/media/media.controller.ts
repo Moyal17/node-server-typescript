@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { MediaService } from './media.service';
-import { configAWSObjectToMedia } from '../../services/uploadService';
+import { configAWSObjectToMedia } from '../../services/uploadService_v3';
 import IMedia from './media.interface';
 import { awsObject } from './dto';
 const mediaService = new MediaService();
