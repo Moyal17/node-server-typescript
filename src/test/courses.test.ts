@@ -1,10 +1,13 @@
 import request from 'supertest';
 import { describe, expect } from '@jest/globals';
-import { createFullCourseMockUp } from './testData/courses';
-import app from '../app';
+import { course, lecture, section } from './testData/courses';
 import { userLogin } from './testData/users';
+import app from '../app';
+import { generateId } from '../utils';
 
 let jwtToken: string;
+let courseObjectId: string;
+let sectionObjectId: string;
 describe('Login and get user JWT Access', () => {
   beforeAll(async () => {
     const loginResponse = await request(app).post('/public/auth/login').send(userLogin);
@@ -12,12 +15,42 @@ describe('Login and get user JWT Access', () => {
     expect(loginResponse.status).toBe(200);
   });
 
-  it('should get data from protected route using JWT', async () => {
+  it('Create New Course object', async () => {
     // Access protected route with JWT token
-    const course = createFullCourseMockUp();
-    console.log('course: ', course);
-    // const response = await request(app).get('/api/users/').set('Authorization', `Bearer ${jwtToken}`);
-    //  expect(response.status).toBe(200);
+    const courseObj = { ...course };
+    courseObj.uri = `${courseObj.uri}_${generateId(5)}`;
+    const response = await request(app)
+      .post('/api/courses/')
+      .set('Authorization', `Bearer ${jwtToken}`)
+      .send(courseObj);
+    courseObjectId = response.body._id;
+    expect(response.status).toBe(200);
+    // ... add other expectations as needed ...
+  });
+
+  it('Create New Section In Course', async () => {
+    // Access protected route with JWT token
+    const sectionObj = { ...section };
+    sectionObj.courseId = courseObjectId;
+    const response = await request(app)
+      .post('/api/sections/')
+      .set('Authorization', `Bearer ${jwtToken}`)
+      .send(sectionObj);
+    sectionObjectId = response.body._id;
+    expect(response.status).toBe(200);
+    // ... add other expectations as needed ...
+  });
+
+  it('Create New Lecture In Section', async () => {
+    // Access protected route with JWT token
+    const lectureObj = { ...lecture };
+    lectureObj.uri = `${lectureObj.title}_${generateId(5)}`;
+    lectureObj.sectionId = sectionObjectId;
+    const response = await request(app)
+      .post('/api/lectures/')
+      .set('Authorization', `Bearer ${jwtToken}`)
+      .send(lectureObj);
+    expect(response.status).toBe(200);
     // ... add other expectations as needed ...
   });
 });

@@ -1,9 +1,5 @@
-type lecture = {
-  title: string;
-  subtitle: string;
-  type: string;
-  duration: number;
-};
+import { Lecture, Section } from './types';
+
 export const course = {
   uri: 'mastering-python-programming',
   title: 'Mastering Python Programming',
@@ -13,7 +9,6 @@ export const course = {
   order: 1,
   duration: 1200, // in seconds (20:00)
   // category: [{ uri: 'programming', title: 'Programming' }],
-  itemCollection: [], // instructor card
   // thumbnail: 'https://example.com/path/to/thumbnail.jpg',
   // source: 'https://example.com/path/to/video.mp4',
   price: 59.9,
@@ -29,14 +24,16 @@ export const course = {
   sections: [],
 };
 
-export const section = {
+export const section: Section = {
+  courseId: null,
   title: 'Introduction',
   duration: 3600, // 60 minutes in seconds
   order: 1,
-  lectures: [],
 };
 
-export const lecture: lecture = {
+export const lecture: Lecture = {
+  sectionId: null,
+  uri: null,
   title: 'Mastering Python Programming',
   subtitle: 'A complete guide to Python programming for beginners and professionals.',
   type: 'article',
@@ -53,9 +50,6 @@ export const createFullCourseMockUp = () => {
     for (let j = 0; j < lecturesNum; j++) {
       const lectureMock = { ...lecture };
       lectureMock.title = `${lectureMock.title}_${j + 1}`;
-      if (!sectionMock.lectures) sectionMock.lectures = [];
-      // @ts-ignore
-      sectionMock.lectures.push(lectureMock);
     }
     sectionsArray.push(sectionMock);
   }
