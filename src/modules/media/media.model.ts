@@ -14,7 +14,7 @@ const mediaSchema = new Schema({
   user: { type: Schema.Types.ObjectId },
   name: { type: String, required: true },
   description: String,
-  isPublic: { type: Boolean, default: false },
+  isPublic: { type: Boolean, default: true },
   type: { type: String, enum: Object.values(mediaTypes), default: mediaTypes.image },
   sourceType: { type: String, enum: Object.values(sourceTypes), default: sourceTypes.amazonS3 },
   sourceOrigin: String, // original url
