@@ -1,11 +1,38 @@
 import Joi, { Schema } from 'joi';
 
-export const createCourseSchema: Schema = Joi.object({
+export const courseSchema: Schema = Joi.object({
   uri: Joi.string().min(2).required(),
   title: Joi.string().min(2).required(),
+  subtitle: Joi.string().optional(),
+  content: Joi.string().optional(),
+  template: Joi.string().optional(),
+  order: Joi.number().min(1).optional(),
+  duration: Joi.number().min(1).optional(),
+  category: Joi.array().items(Joi.string()).optional(),
+  thumbnail: Joi.string().optional(),
+  source: Joi.string().optional(),
   price: Joi.number().min(1).optional(),
+  currency: Joi.string().optional(),
+  rating: Joi.number().min(1).optional(),
+  numberOfRatings: Joi.number().min(1).optional(),
+  isBestSeller: Joi.boolean().optional(),
 }).unknown(true);
 
+export const createCourseSchema: Schema = courseSchema;
 export const editCourseSchema: Schema = Joi.object({
-  uri: Joi.string().min(2).required(),
+  _id: Joi.string().required(),
+  title: Joi.string().min(2).required(),
+  subtitle: Joi.string().optional(),
+  content: Joi.string().optional(),
+  template: Joi.string().optional(),
+  order: Joi.number().min(1).optional(),
+  duration: Joi.number().min(1).optional(),
+  category: Joi.array().items(Joi.string()).optional(),
+  thumbnail: Joi.string().optional(),
+  source: Joi.string().optional(),
+  price: Joi.number().min(1).optional(),
+  currency: Joi.string().optional(),
+  rating: Joi.number().min(1).optional(),
+  numberOfRatings: Joi.number().min(1).optional(),
+  isBestSeller: Joi.boolean().optional(),
 }).unknown(false); // this will remove any unexpected keys
