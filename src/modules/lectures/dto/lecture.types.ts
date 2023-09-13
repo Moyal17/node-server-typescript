@@ -1,4 +1,4 @@
-import { categoryObject } from '../../categories/dto';
+import { CategoryObject } from '../../categories/dto';
 import mongoose from 'mongoose';
 
 export type LectureObject = {
@@ -12,7 +12,7 @@ export type LectureObject = {
   order?: number;
   duration?: number;
   type?: string;
-  category?: string[] | categoryObject[];
+  category?: string[] | CategoryObject[];
   thumbnail?: string;
   source?: string;
   price?: number;

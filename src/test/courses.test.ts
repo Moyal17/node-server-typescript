@@ -6,6 +6,7 @@ import app from '../app';
 import { generateId } from '../utils';
 
 let jwtToken: string;
+let courseUri: string;
 let courseObjectId: string;
 let sectionObjectId: string;
 describe('Login and get user JWT Access', () => {
@@ -20,6 +21,7 @@ describe('Login and get user JWT Access', () => {
     const courseObj = { ...course };
     courseObj.uri = `${courseObj.uri}_${generateId(5)}`;
     const response = await request(app).post('/api/courses/').set('Authorization', `Bearer ${jwtToken}`).send(courseObj);
+    courseUri = courseObj.uri;
     courseObjectId = response.body._id;
     expect(response.status).toBe(200);
     // ... add other expectations as needed ...
@@ -48,6 +50,13 @@ describe('Login and get user JWT Access', () => {
   it('Create New 3 Lecture In Section', async () => {
     const lectures = createMultipleLecturesMockUp(sectionObjectId, 3);
     const response = await request(app).post('/api/lectures/multiple').set('Authorization', `Bearer ${jwtToken}`).send({ lectures });
+    expect(response.status).toBe(200);
+    // ... add other expectations as needed ...
+  });
+
+  it('Get Course Details', async () => {
+    const response = await request(app).get(`/public/courses/${courseUri}`);
+    console.log('response course:\n', response.body);
     expect(response.status).toBe(200);
     // ... add other expectations as needed ...
   });

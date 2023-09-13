@@ -6,7 +6,7 @@ export enum categoryGroup {
   blog = 9,
 }
 
-export type categoryObject = {
+export type CategoryObject = {
   _id?: string;
   group?: string | categoryGroup;
   public_id?: string;

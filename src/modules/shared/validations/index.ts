@@ -6,6 +6,5 @@ export const validateId = Joi.object({
 });
 
 export const validateUri = Joi.object({
-  uri: Joi.string().pattern(new RegExp('^[0-9a-fA-F]$')).required(),
-  // This regex is for MongoDB ObjectIDs, adjust if you're using another type of ID
+  uri: Joi.string().required(),
 });
