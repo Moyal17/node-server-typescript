@@ -2,11 +2,9 @@ import Section from './section.model'; // Assuming you have a Mongoose model for
 import ISection from './section.interface'; // Assuming you have a Mongoose model for Section
 
 export class SectionService {
-  async getSections(): Promise<Partial<ISection[]> | null> {
+  async getSections(query = {}): Promise<Partial<ISection[]> | null> {
     try {
-      const sections = await Section.find({}).exec();
-      console.log('getSections: ', sections);
-      return sections;
+      return await Section.find(query).lean().exec();
     } catch (error) {
       return error;
     }
@@ -15,9 +13,7 @@ export class SectionService {
   // Fetch a Section by their ID
   async getSectionById(sectionId: string): Promise<Partial<ISection> | null> {
     try {
-      const section = await Section.findById(sectionId).lean().exec();
-      console.log('getSectionByUri: ', section);
-      return section;
+      return await Section.findById(sectionId).lean().exec();
     } catch (error) {
       return error;
     }
@@ -27,8 +23,7 @@ export class SectionService {
   async createSection(SectionData: ISection): Promise<Partial<ISection>> {
     try {
       const newSection = new Section(SectionData);
-      const res = await newSection.save();
-      return res;
+      return await newSection.save();
     } catch (error) {
       throw new Error(`Error creating Section: ${error.message}`);
     }
@@ -50,9 +45,7 @@ export class SectionService {
   // Delete a Section
   async deleteSection(SectionId: string): Promise<Partial<ISection> | null> {
     try {
-      const deletedSection = await Section.findByIdAndRemove(SectionId).exec();
-      console.log('deletedSection: ', deletedSection);
-      return deletedSection;
+      return await Section.findByIdAndRemove(SectionId).exec();
     } catch (error) {
       throw new Error(`Error deleting Section ${SectionId}: ${error.message}`);
     }

@@ -1,11 +1,5 @@
 import express, { Router } from 'express';
-import {
-  createCategory,
-  deleteCategory,
-  getCategories,
-  getCategoryById,
-  updateCategory,
-} from './category.controller';
+import { createCategory, deleteCategory, getCategories, getCategoryById, updateCategory } from './category.controller';
 import { validateBody, validateParams } from '../../middlewares/validation';
 import { createCategorySchema, editCategorySchema } from './dto';
 import { setCacheHeaders } from '../../middlewares/cache';

@@ -19,10 +19,7 @@ describe('Login and get user JWT Access', () => {
     // Access protected route with JWT token
     const courseObj = { ...course };
     courseObj.uri = `${courseObj.uri}_${generateId(5)}`;
-    const response = await request(app)
-      .post('/api/courses/')
-      .set('Authorization', `Bearer ${jwtToken}`)
-      .send(courseObj);
+    const response = await request(app).post('/api/courses/').set('Authorization', `Bearer ${jwtToken}`).send(courseObj);
     courseObjectId = response.body._id;
     expect(response.status).toBe(200);
     // ... add other expectations as needed ...
@@ -32,10 +29,7 @@ describe('Login and get user JWT Access', () => {
     // Access protected route with JWT token
     const sectionObj = { ...section };
     sectionObj.courseId = courseObjectId;
-    const response = await request(app)
-      .post('/api/sections/')
-      .set('Authorization', `Bearer ${jwtToken}`)
-      .send(sectionObj);
+    const response = await request(app).post('/api/sections/').set('Authorization', `Bearer ${jwtToken}`).send(sectionObj);
     sectionObjectId = response.body._id;
     expect(response.status).toBe(200);
     // ... add other expectations as needed ...
@@ -46,20 +40,14 @@ describe('Login and get user JWT Access', () => {
     const lectureObj = { ...lecture };
     lectureObj.uri = `${lectureObj.title}_${generateId(5)}`;
     lectureObj.sectionId = sectionObjectId;
-    const response = await request(app)
-      .post('/api/lectures/')
-      .set('Authorization', `Bearer ${jwtToken}`)
-      .send(lectureObj);
+    const response = await request(app).post('/api/lectures/').set('Authorization', `Bearer ${jwtToken}`).send(lectureObj);
     expect(response.status).toBe(200);
     // ... add other expectations as needed ...
   });
 
   it('Create New 3 Lecture In Section', async () => {
     const lectures = createMultipleLecturesMockUp(sectionObjectId, 3);
-    const response = await request(app)
-      .post('/api/lectures/multiple')
-      .set('Authorization', `Bearer ${jwtToken}`)
-      .send({ lectures });
+    const response = await request(app).post('/api/lectures/multiple').set('Authorization', `Bearer ${jwtToken}`).send({ lectures });
     expect(response.status).toBe(200);
     // ... add other expectations as needed ...
   });

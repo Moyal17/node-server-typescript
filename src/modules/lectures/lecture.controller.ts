@@ -1,5 +1,7 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { LectureService } from './lecture.service';
+import { ExtendedRequest } from '../shared/types';
+
 const lectureService = new LectureService();
 export const getLectures = async (req: Request, res: Response) => {
   try {
@@ -21,9 +23,23 @@ export const getLectureById = async (req: Request, res: Response) => {
     }
     res.json(lecture);
   } catch (error) {
-    res.status(500).json({ error: 'getLectureByUri', message: error.message });
+    res.status(500).json({ error: 'getLectureById', message: error.message });
   }
 };
+
+export const getLecturesBySectionId = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
+  try {
+    if (req.sections && req.sections.length > 0) {
+      const sectionIds = req.sections.map((section) => section!._id);
+      const query = { sectionId: { $in: sectionIds } };
+      req.lectures = await lectureService.getLectures(query);
+    }
+    next();
+  } catch (error) {
+    res.status(500).json({ error: 'getLecturesBySectionId', message: error.message });
+  }
+};
+
 export const createLecture = async (req: Request, res: Response) => {
   try {
     const lectureBody = req.body;

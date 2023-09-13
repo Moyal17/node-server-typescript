@@ -1,6 +1,7 @@
-import { Document } from 'mongoose';
+import mongoose from 'mongoose';
 
-interface IUser extends Document {
+interface IUser {
+  _id?: mongoose.Types.ObjectId | string;
   name: string;
   hash: string;
   email: string;

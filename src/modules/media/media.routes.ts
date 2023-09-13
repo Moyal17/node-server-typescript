@@ -1,13 +1,6 @@
 import express, { Router } from 'express';
 import { setCacheHeaders } from '../../middlewares/cache';
-import {
-  generateUploadURL,
-  deleteMedia,
-  getMedia,
-  getMediaById,
-  updateMedia,
-  createMedia,
-} from './media.controller';
+import { generateUploadURL, deleteMedia, getMedia, getMediaById, updateMedia, createMedia } from './media.controller';
 import { validateBody, validateParams } from '../../middlewares/validation';
 import { editMediaSchema, generatePreSignedUrl, createMediaSchema } from './dto';
 import { validateId } from '../shared/validations';

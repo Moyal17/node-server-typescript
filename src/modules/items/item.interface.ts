@@ -1,6 +1,7 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose from 'mongoose';
 
-interface IItem extends Document {
+interface IItem {
+  _id?: mongoose.Types.ObjectId | string;
   title?: string;
   subtitle?: string;
   content?: string;

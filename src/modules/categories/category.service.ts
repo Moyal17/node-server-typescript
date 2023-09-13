@@ -4,7 +4,7 @@ import ICategory from './category.interface'; // Assuming you have a Mongoose mo
 export class CategoryService {
   async getCategories(): Promise<Partial<ICategory[]> | null> {
     try {
-      const categories = await Category.find({}).exec();
+      const categories = await Category.find({}).lean().exec();
       console.log('getCategories: ', categories);
       return categories;
     } catch (error) {
@@ -35,10 +35,7 @@ export class CategoryService {
   }
 
   // Update a Category
-  async updateCategory(
-    CategoryId: string,
-    updatedData: Partial<ICategory>,
-  ): Promise<Partial<ICategory> | null> {
+  async updateCategory(CategoryId: string, updatedData: Partial<ICategory>): Promise<Partial<ICategory> | null> {
     try {
       const updatedCategory = await Category.findByIdAndUpdate(CategoryId, updatedData, {
         new: true,

@@ -1,4 +1,4 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose from 'mongoose';
 import { categoryGroup } from './dto';
 
 interface ISeo {
@@ -6,7 +6,8 @@ interface ISeo {
   description?: string;
 }
 
-interface ICategory extends Document {
+interface ICategory {
+  _id?: mongoose.Types.ObjectId | string;
   group?: string | categoryGroup;
   public_id?: string; // Optional because it's not required in the schema
   uri: string;

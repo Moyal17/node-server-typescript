@@ -1,5 +1,7 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { SectionService } from './section.service';
+import { ExtendedRequest } from '../shared/types';
+
 const sectionService = new SectionService();
 export const getSections = async (req: Request, res: Response) => {
   try {
@@ -12,6 +14,21 @@ export const getSections = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'getSections', message: error.message });
   }
 };
+
+export const getSectionsByCourseId = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
+  try {
+    const courseId = req.course!._id;
+    const sections = await sectionService.getSections({ courseId });
+    if (!sections) {
+      return res.status(404).json({ message: 'sections not found' });
+    }
+    req.sections = sections;
+    next();
+  } catch (error) {
+    res.status(500).json({ error: 'getSections', message: error.message });
+  }
+};
+
 export const getSectionById = async (req: Request, res: Response) => {
   try {
     const sectionId = req.params.id;

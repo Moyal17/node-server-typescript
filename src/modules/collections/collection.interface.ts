@@ -1,6 +1,7 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose from 'mongoose';
 
-interface ICollection extends Document {
+interface ICollection {
+  _id?: mongoose.Types.ObjectId | string;
   title?: string;
   subtitle?: string;
   content?: string;

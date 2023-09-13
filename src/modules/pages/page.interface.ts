@@ -1,11 +1,12 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose from 'mongoose';
 
 interface ISeo {
   title?: string;
   description?: string;
 }
 
-interface IPage extends Document {
+interface IPage {
+  _id?: mongoose.Types.ObjectId | string;
   uri: string;
   title?: string;
   subtitle?: string;

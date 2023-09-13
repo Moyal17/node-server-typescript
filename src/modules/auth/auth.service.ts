@@ -20,7 +20,7 @@ export class AuthService {
 
   async loginUser(user: Partial<IUser>): Promise<string> {
     try {
-      return generateToken({ id: user._id });
+      return generateToken({ id: user._id as string });
     } catch (error) {
       return error;
     }

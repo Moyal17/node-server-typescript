@@ -1,27 +1,25 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose from 'mongoose';
 
-interface ILecture extends Document {
-  sectionId: mongoose.Types.ObjectId;
-  uri: string;
+interface ILecture {
+  _id?: mongoose.Types.ObjectId;
+  sectionId?: mongoose.Types.ObjectId | string;
+  uri?: string;
   title?: string;
   subtitle?: string;
   content?: string;
-  template?: string;
   order?: number;
+  template?: string;
   duration?: number;
-  type?: string;
+  type?: string; // enum: video / article
   category?: mongoose.Types.ObjectId[];
   thumbnail?: mongoose.Types.ObjectId;
   source?: mongoose.Types.ObjectId;
-  price?: number;
-  currency?: string;
-  rating?: number;
-  numberOfRatings?: number;
-  isBestSeller?: boolean;
   isDraft?: boolean;
   isRemoved?: boolean;
-  publishedAt?: Date;
-  updatedAt?: Date;
-  createdAt?: Date;
+  publishedAt?: Date | string;
+  updatedAt?: Date | string;
+  createdAt?: Date | string;
+  lectures?: Partial<ILecture>[];
 }
+
 export default ILecture;

@@ -1,16 +1,18 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose from 'mongoose';
+import { LectureObject } from '../lectures/dto';
 
-interface ISection extends Document {
-  courseId: mongoose.Types.ObjectId;
+interface ISection {
+  _id: mongoose.Types.ObjectId | string;
+  courseId: mongoose.Types.ObjectId | string;
   title?: string;
   subtitle?: string;
   content?: string;
   order?: number;
   duration?: number;
-  lectures?: mongoose.Types.ObjectId[];
   isDraft?: boolean;
   isRemovable?: boolean;
   isRemoved?: boolean;
   createdAt?: Date;
+  lectures?: Partial<LectureObject>[];
 }
 export default ISection;

@@ -1,11 +1,5 @@
 import express, { Router } from 'express';
-import {
-  createCollection,
-  deleteCollection,
-  getCollections,
-  getCollectionById,
-  updateCollection,
-} from './collection.controller';
+import { createCollection, deleteCollection, getCollections, getCollectionById, updateCollection } from './collection.controller';
 import { validateBody, validateParams } from '../../middlewares/validation';
 import { createCollectionSchema, editCollectionSchema } from './dto';
 import { setCacheHeaders } from '../../middlewares/cache';

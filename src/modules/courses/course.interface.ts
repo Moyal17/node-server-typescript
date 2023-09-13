@@ -1,6 +1,7 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose from 'mongoose';
 
-interface ICourse extends Document {
+interface ICourse {
+  _id: mongoose.Types.ObjectId | string;
   uri: string;
   title?: string;
   subtitle?: string;

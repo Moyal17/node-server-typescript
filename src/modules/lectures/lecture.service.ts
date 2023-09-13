@@ -1,22 +1,18 @@
-import Lecture from './lecture.model'; // Assuming you have a Mongoose model for Lecture
+import Lecture from './lecture.model';
 import ILecture from './lecture.interface';
 
 export class LectureService {
-  async getLectures(): Promise<Partial<ILecture[]> | null> {
+  async getLectures(query = {}): Promise<Partial<ILecture[]> | null> {
     try {
-      const lectures = await Lecture.find({}).exec();
-      console.log('getLectures: ', lectures);
-      return lectures;
+      return await Lecture.find(query).lean().exec();
     } catch (error) {
       return error;
     }
   }
-
   // Fetch a Lecture by their ID
   async getLectureById(lectureId: string): Promise<Partial<ILecture> | null> {
     try {
-      const lecture = await Lecture.findById(lectureId).lean().exec();
-      return lecture;
+      return await Lecture.findById(lectureId).lean().exec();
     } catch (error) {
       return error;
     }
@@ -33,8 +29,7 @@ export class LectureService {
   async createLecture(LectureData: ILecture): Promise<Partial<ILecture>> {
     try {
       const newLecture = new Lecture(LectureData);
-      const res = await newLecture.save();
-      return res;
+      return await newLecture.save();
     } catch (error) {
       throw new Error(`Error creating Lecture: ${error.message}`);
     }
@@ -50,11 +45,7 @@ export class LectureService {
   // Update a Lecture
   async updateLecture(LectureId: string, updatedData: Partial<ILecture>): Promise<Partial<ILecture> | null> {
     try {
-      const updatedLecture = await Lecture.findByIdAndUpdate(LectureId, updatedData, {
-        new: true,
-      }).exec();
-      console.log('updatedLecture: ', updatedLecture);
-      return updatedLecture;
+      return await Lecture.findByIdAndUpdate(LectureId, updatedData, { new: true }).exec();
     } catch (error) {
       throw new Error(`Error updating Lecture ${LectureId}: ${error.message}`);
     }
@@ -63,9 +54,7 @@ export class LectureService {
   // Delete a Lecture
   async deleteLecture(LectureId: string): Promise<Partial<ILecture> | null> {
     try {
-      const deletedLecture = await Lecture.findByIdAndRemove(LectureId).exec();
-      console.log('deletedLecture: ', deletedLecture);
-      return deletedLecture;
+      return await Lecture.findByIdAndRemove(LectureId).exec();
     } catch (error) {
       throw new Error(`Error deleting Lecture ${LectureId}: ${error.message}`);
     }

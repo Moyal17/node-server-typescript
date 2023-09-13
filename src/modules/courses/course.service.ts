@@ -4,9 +4,7 @@ import ICourse from './course.interface'; // Assuming you have a Mongoose model 
 export class CourseService {
   async getCourses(): Promise<Partial<ICourse[]> | null> {
     try {
-      const courses = await Course.find({}).exec();
-      console.log('getCourses: ', courses);
-      return courses;
+      return await Course.find({}).lean().exec();
     } catch (error) {
       return error;
     }
@@ -15,9 +13,15 @@ export class CourseService {
   // Fetch a Course by their ID
   async getCourseById(courseId: string): Promise<Partial<ICourse> | null> {
     try {
-      const course = await Course.findById(courseId).lean().exec();
-      console.log('getCourseByUri: ', course);
-      return course;
+      return await Course.findById(courseId).lean().exec();
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getCourseByUri(uri: string): Promise<Partial<ICourse> | null> {
+    try {
+      return await Course.findOne({ uri }).lean().exec();
     } catch (error) {
       return error;
     }

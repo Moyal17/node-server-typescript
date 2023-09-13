@@ -35,10 +35,7 @@ export class CollectionService {
   }
 
   // Update a Collection
-  async updateCollection(
-    CollectionId: string,
-    updatedData: Partial<ICollection>,
-  ): Promise<Partial<ICollection> | null> {
+  async updateCollection(CollectionId: string, updatedData: Partial<ICollection>): Promise<Partial<ICollection> | null> {
     try {
       const updatedCollection = await Collection.findByIdAndUpdate(CollectionId, updatedData, {
         new: true,
