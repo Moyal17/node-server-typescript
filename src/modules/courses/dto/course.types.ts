@@ -1,7 +1,8 @@
 import { categoryObject } from '../../categories/dto';
+import mongoose from 'mongoose';
 
-export type courseObject = {
-  _id: string;
+export type CourseObject = {
+  _id: mongoose.Types.ObjectId | string;
   uri: string;
   title?: string;
   subtitle?: string;
@@ -10,7 +11,7 @@ export type courseObject = {
   order?: number;
   duration?: number;
   category: string[] | categoryObject[];
-  sections?: string[];
+  sections?: string[] | mongoose.Types.ObjectId[];
   thumbnail?: string;
   source?: string;
   price?: number;

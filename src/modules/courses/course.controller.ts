@@ -90,7 +90,6 @@ export const handleFullCourseObject = async (req: ExtendedRequest, res: Response
         return acc;
       }, {});
     }
-
     if (req.sections && req.sections?.length > 0) {
       req.sections.forEach((section) => {
         section!.lectures = lecturesBySectionId[section!._id as string];
