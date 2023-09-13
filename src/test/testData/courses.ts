@@ -41,25 +41,6 @@ export const lecture: Lecture = {
   duration: 1200, // "20 minutes",
 };
 
-export const createFullCourseMockUp = () => {
-  const lecturesNum = 4;
-  const sectionsNum = 3;
-  const sectionsArray = [];
-  for (let i = 0; i < sectionsNum; i++) {
-    const sectionMock = { ...section };
-    sectionMock.title = `${sectionMock.title}_${i + 1}`;
-    for (let j = 0; j < lecturesNum; j++) {
-      const lectureMock = { ...lecture };
-      lectureMock.title = `${lectureMock.title}_${j + 1}`;
-    }
-    sectionsArray.push(sectionMock);
-  }
-  const fullCourse = { ...course };
-  // @ts-ignore
-  fullCourse.sections = sectionsArray;
-  return fullCourse;
-};
-
 export const createMultipleLecturesMockUp = (sectionId: string, lecturesNum: number = 3) => {
   const lectures: Lecture[] = [];
   for (let j = 0; j < lecturesNum; j++) {

@@ -1,29 +1,4 @@
-import { mediaObject } from './medias';
-import { mediaTypes, sourceTypes } from '../../modules/media/dto';
-
-const imageObject = (link: string, sourceId: string, format: string) => ({
-  order: 0,
-  media: {
-    ...mediaObject,
-    sourceOrigin: link,
-    source: link,
-    sourceId: sourceId,
-    format: format,
-  },
-});
-const videoObject = (link: string, sourceId: string, format: string, thumbnail: string) => ({
-  order: 0,
-  media: {
-    ...mediaObject,
-    type: mediaTypes.video,
-    sourceType: sourceTypes.youtube,
-    sourceOrigin: link,
-    source: link,
-    sourceId: sourceId,
-    thumbnail: thumbnail,
-    format: format,
-  },
-});
+import { imageObject, videoObject } from './shared.objects';
 
 const dummyBrands = [
   {
@@ -73,173 +48,117 @@ const dummyBrands = [
   },
 ];
 
-const featureItems = [
+const ourWorkItems = [
   {
-    title: 'Updated Security',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Neque enim id diam ornare volutpat in sagitis, aliquet. Arcu cursus',
-    template: 'FeatureItem',
-    icon: 'lock', // https://feathericons.com/
-    order: 0,
+    title: 'Building A New Class',
+    content:
+      'Decade of engineering under his belt, Jeremie is responsible for technical infrastructure and feature development. In Flow, wherever things just work is understanding developing complex systems',
   },
   {
-    title: 'Magnetic Turning',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Neque enim id diam ornare volutpat in sagitis, aliquet. Arcu cursus',
-    template: 'FeatureItem',
-    icon: 'wind',
-    order: 1,
+    title: 'Design For Anyone',
+    content:
+      'Decade of engineering under his belt, Jeremie is responsible for technical infrastructure and feature development. In Flow, wherever things just work is understanding developing complex systems',
   },
   {
-    title: 'Secured & up-to-date',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Neque enim id diam ornare volutpat in sagitis, aliquet. Arcu cursus',
-    template: 'FeatureItem',
-    icon: 'shield',
-    order: 2,
+    title: 'Creative Flair Design',
+    content:
+      'Decade of engineering under his belt, Jeremie is responsible for technical infrastructure and feature development. In Flow, wherever things just work is understanding developing complex systems',
   },
   {
-    title: 'Instant Link Sharing',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Neque enim id diam ornare volutpat in sagitis, aliquet. Arcu cursus',
-    template: 'FeatureItem',
-    icon: 'link',
-    order: 3,
-  },
-  {
-    title: 'Updated Security',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Neque enim id diam ornare volutpat in sagitis, aliquet. Arcu cursus',
-    template: 'FeatureItem',
-    icon: 'lock',
-    order: 4,
-  },
-  {
-    title: 'Magnetic Turning',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Neque enim id diam ornare volutpat in sagitis, aliquet. Arcu cursus',
-    template: 'FeatureItem',
-    icon: 'wind',
-    order: 5,
+    title: 'Building Products',
+    content:
+      'Decade of engineering under his belt, Jeremie is responsible for technical infrastructure and feature development. In Flow, wherever things just work is understanding developing complex systems',
   },
 ];
 
-const specialityItems = [
+const ourOfficeItems = [
   {
-    title: 'You Will Not Miss Your All Misunderstandings',
-    subtitle: 'PRIMARY SPECIALITY',
-    content:
-      'Protect your design vision and leave nothing up to interpretation with interaction recipes. Quickly share and access all your team members interactions by using libraries, ensuring consistency throughout the.',
-    template: 'SpecialityItem',
-    order: 0,
+    title: 'NewYork, USA',
+    subtitle: '219 Bald Hill Drive Oakland Gardens, NY 11364',
     media: {
       ...imageObject(
-        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/features-01.png',
-        'multi-page-site/features-01.png',
+        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/about/flags/us.png',
+        'multi-page-site/about/flags/us.png',
         'ímage/png',
       ),
     },
   },
   {
-    title: 'Say Hello To No-Code The Advance Creation',
-    subtitle: 'SECONDARY SPECIALITY',
-    content:
-      'From the simplest of interactions to those that use Excel-gradeing formulas, ProtoPie can handle them all. Make mind-blowing of New interactions everyday without ever having to write any new code.',
-    template: 'SpecialityItem',
-    order: 1,
+    title: 'Australia, Perth',
+    subtitle: 'Flat 23 80 Anthony Circlet Port Guiseppe, TAS 2691',
     media: {
       ...imageObject(
-        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/features-02.png',
-        'multi-page-site/features-02.png',
+        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/about/flags/au.png',
+        'multi-page-site/about/flags/au.png',
+        'ímage/png',
+      ),
+    },
+  },
+  {
+    title: 'Berlin, Germany',
+    subtitle: 'Jl Raya Dewi Sartika Ged Harapan Masa, Br Germeny',
+    media: {
+      ...imageObject(
+        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/about/flags/germany.png',
+        'multi-page-site/about/flags/germany.png',
+        'ímage/png',
+      ),
+    },
+  },
+  {
+    title: 'China, Wohan',
+    subtitle: '1hao Wen Ti Huo Dong Zhong Xin 1ceng Jian Xing',
+    media: {
+      ...imageObject(
+        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/about/flags/china.png',
+        'multi-page-site/about/flags/china.png',
         'ímage/png',
       ),
     },
   },
 ];
 
-const testimonialItems = [
+const ourMembersItems = [
   {
-    title: 'David Cameron',
-    subtitle: 'CEO, Nexuspay',
-    content:
-      'Lorem ipsum dolor amet, conseetur adipiscing elit. Ornare quam porta arcu congue felis volutpat. Vitae lectudbfs pellentesque vitae dolor',
-    template: 'TestimonialItem',
+    title: 'Valentin Staykov',
+    subtitle: 'Operations',
+    template: 'MembersItems',
     media: {
       ...imageObject(
-        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/user-img/01.jpg',
-        'multi-page-site/user-img/01.jpg',
+        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/about/team/01.jpg',
+        'multi-page-site/about/team/01.jpg',
         'ímage/jpg',
       ),
     },
   },
   {
-    title: 'David Cameron',
-    subtitle: 'CEO, Nexuspay',
-    content:
-      'Lorem ipsum dolor amet, conseetur adipiscing elit. Ornare quam porta arcu congue felis volutpat. Vitae lectudbfs pellentesque vitae dolor',
-    template: 'TestimonialItem',
+    title: 'Bukiakta Bansalo',
+    subtitle: 'Product',
+    template: 'MembersItems',
     media: {
       ...imageObject(
-        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/user-img/02.jpg',
-        'multi-page-site/user-img/02.jpg',
+        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/about/team/02.jpg',
+        'multi-page-site/about/team/02.jpg',
         'ímage/jpg',
       ),
     },
   },
   {
-    title: 'David Cameron',
-    subtitle: 'CEO, Nexuspay',
-    content:
-      'Lorem ipsum dolor amet, conseetur adipiscing elit. Ornare quam porta arcu congue felis volutpat. Vitae lectudbfs pellentesque vitae dolor',
-    template: 'TestimonialItem',
+    title: 'Ortrin Okaster',
+    subtitle: 'Engineering',
+    template: 'MembersItems',
     media: {
       ...imageObject(
-        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/user-img/03.jpg',
-        'multi-page-site/user-img/03.jpg',
-        'ímage/jpg',
-      ),
-    },
-  },
-  {
-    title: 'David Cameron',
-    subtitle: 'CEO, Nexuspay',
-    content:
-      'Lorem ipsum dolor amet, conseetur adipiscing elit. Ornare quam porta arcu congue felis volutpat. Vitae lectudbfs pellentesque vitae dolor',
-    template: 'TestimonialItem',
-    media: {
-      ...imageObject(
-        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/user-img/04.jpg',
-        'multi-page-site/user-img/04.jpg',
-        'ímage/jpg',
-      ),
-    },
-  },
-  {
-    title: 'David Cameron',
-    subtitle: 'CEO, Nexuspay',
-    content:
-      'Lorem ipsum dolor amet, conseetur adipiscing elit. Ornare quam porta arcu congue felis volutpat. Vitae lectudbfs pellentesque vitae dolor',
-    template: 'TestimonialItem',
-    media: {
-      ...imageObject(
-        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/user-img/05.jpg',
-        'multi-page-site/user-img/05.jpg',
-        'ímage/jpg',
-      ),
-    },
-  },
-  {
-    title: 'David Cameron',
-    subtitle: 'CEO, Nexuspay',
-    content:
-      'Lorem ipsum dolor amet, conseetur adipiscing elit. Ornare quam porta arcu congue felis volutpat. Vitae lectudbfs pellentesque vitae dolor',
-    template: 'TestimonialItem',
-    media: {
-      ...imageObject(
-        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/user-img/06.jpg',
-        'multi-page-site/user-img/06.jpg',
+        'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/about/team/03.jpg',
+        'multi-page-site/about/team/03.jpg',
         'ímage/jpg',
       ),
     },
   },
 ];
 
-const HomePage = {
-  uri: '/',
+const AboutPage = {
+  uri: 'about_us',
   title: 'Sensei Project is the best website Solution For You',
   seo: {
     title: 'Sensei Project is the best website Solution For You',
@@ -247,50 +166,56 @@ const HomePage = {
   },
   itemCollection: [
     {
-      key: 'banner',
-      title: 'Sensei Project is the best website<br/>Solution For You',
+      key: 'about_us',
+      title: 'Hello, We’re Sensei Project Here For Your Help',
+      subtitle: 'WHO WE ARE',
+      content:
+        'Your online Health & Fitness companion that offers free assistance on its Facebook Group and provides quality paid guided personal training packages by and through website. We are the first ever, online manifesto in Bangladesh to make place you will select when you think of getting fit',
       order: 0,
       template: 'Banner',
-      link: {
-        label: 'Get Premium Version',
-        href: '#',
-      },
       media: {
         ...imageObject(
-          'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/banner-app.png',
-          'multi-page-site/banner-app.png',
-          'image/png',
+          'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/about/01.jpg',
+          'multi-page-site/about/01.jpg',
+          'image/jpg',
         ),
       },
     },
     {
-      key: 'brands',
-      title: 'Brands',
+      key: 'works',
+      title: 'What We Do',
+      subtitle: 'OUR WORKS',
       order: 1,
-      template: 'Brands',
-      items: dummyBrands.map((brand, index) => ({
+      template: 'Works',
+      items: ourWorkItems.map((work, index) => ({
         order: index,
-        media: { ...imageObject(brand.link, brand.sourceId, brand.format) },
+        ...work,
       })),
     },
     {
-      key: 'features',
-      title: 'Elements To <br/> Get You Started',
-      subtitle: 'SPECIAL FEATURES',
+      key: 'mission',
+      title: 'Main Vision And Mission Of Our Company',
+      subtitle: 'OUR MISSION',
       content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi egestas <br/> Werat viverra id et aliquet. vulputate egestas sollicitudin.',
+        'We were freelance designers and developers, constantly finding ourselve deep vague feedback. leaving a notes from the sticky note piece.',
       order: 2,
-      template: 'Features',
-      items: featureItems.map((feature) => ({ ...feature })),
+      template: 'Mission',
+      media: {
+        ...imageObject(
+          'https://github-assets-site.s3.eu-central-1.amazonaws.com/multi-page-site/about/02.jpg',
+          'multi-page-site/about/02.jpg',
+          'image/jpg',
+        ),
+      },
     },
     {
-      key: 'intro',
-      title: 'Built Exclusively For You',
-      subtitle: 'SHORT INTRO VIDEO',
+      key: 'video',
+      title: 'You Take Care Of The Payments, We Take Care Of The Rest.',
+      subtitle: 'A SHORT VIDEO',
       content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi egestas <br/> Werat viverra id et aliquet. vulputate egestas sollicitudin.',
+        'Protect your design vision and leave nothing up to interpretation with interaction recipes. Quickly share and access all your team members interactions by using libraries, ensuring consistcy throughout the.',
       order: 3,
-      template: 'Intro',
+      template: 'Video',
       media: {
         ...videoObject(
           'dyZcRRWiuuw',
@@ -301,23 +226,35 @@ const HomePage = {
       },
     },
     {
+      key: 'clients',
+      title: 'Trusted By Thousands Companies',
+      subtitle: 'OUR CLIENTS',
+      order: 1,
+      template: 'Brands',
+      items: dummyBrands.map((brand, index) => ({
+        order: index,
+        media: { ...imageObject(brand.link, brand.sourceId, brand.format) },
+      })),
+    },
+    {
       key: 'speciality',
       title: 'our speciality',
       order: 4,
       template: 'Speciality',
-      items: specialityItems.map((speciality) => ({ ...speciality })),
+      items: ourMembersItems.map((member, index) => ({ ...member, order: index })),
     },
     {
-      key: 'testimonial',
-      title: 'OUR TESTIMONIALS',
-      subtitle:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi egestas <br/> Werat viverra id et aliquet. vulputate egestas sollicitudin.',
+      key: 'ourOffice',
+      title: 'Made With Love Of Around The </br> World With Many Offices',
+      subtitle: 'OUR OFFICES',
+      content:
+        'We were freelance designers and developers, constantly finding </br> ourselves deep in vague feedback. This made every client and team',
       order: 5,
-      template: 'Testimonial',
-      items: testimonialItems.map((testimonial, index) => ({ ...testimonial, order: index })),
+      template: 'OurOffice',
+      items: ourOfficeItems.map((ourOffice, index) => ({ ...ourOffice, order: index })),
     },
   ],
   isDraft: false,
 };
 
-export default HomePage;
+export default AboutPage;
