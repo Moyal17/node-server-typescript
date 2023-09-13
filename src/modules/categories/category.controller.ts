@@ -43,8 +43,8 @@ export const updateCategory = async (req: Request, res: Response) => {
     if (!category) {
       return res.status(404).json({ message: 'Category not found' });
     }
-    const { description, title, _id } = category;
-    res.json({ description, title, _id });
+    const { description, title, uri } = category;
+    res.json({ description, title, uri });
   } catch (error) {
     res.status(500).json({ error: 'updateCategory', message: error.message });
   }

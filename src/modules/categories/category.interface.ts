@@ -9,7 +9,6 @@ interface ISeo {
 interface ICategory {
   _id?: mongoose.Types.ObjectId | string;
   group?: string | categoryGroup;
-  public_id?: string; // Optional because it's not required in the schema
   uri: string;
   language?: string;
   title?: string;

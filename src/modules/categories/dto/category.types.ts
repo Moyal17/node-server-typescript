@@ -9,7 +9,6 @@ export enum categoryGroup {
 export type CategoryObject = {
   _id?: string;
   group?: string | categoryGroup;
-  public_id?: string;
   uri: string;
   language?: string;
   title?: string;
@@ -25,3 +24,7 @@ export type CategoryObject = {
   createdAt?: string;
   updatedAt?: string;
 };
+
+export const allFields =
+  'uri group title subtitle description language order media seo searchKeywords isFilter isShow isRemovable isRemoved updatedAt createdAt';
+export const basicFields = 'uri group title subtitle language order media seo';

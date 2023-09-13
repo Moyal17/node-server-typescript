@@ -1,10 +1,11 @@
 import Category from './category.model'; // Assuming you have a Mongoose model for Category
-import ICategory from './category.interface'; // Assuming you have a Mongoose model for Category
+import ICategory from './category.interface';
+import { basicFields } from './dto'; // Assuming you have a Mongoose model for Category
 
 export class CategoryService {
-  async getCategories(): Promise<Partial<ICategory[]> | null> {
+  async getCategories(query = {}, extractFields = basicFields): Promise<Partial<ICategory[]> | null> {
     try {
-      const categories = await Category.find({}).lean().exec();
+      const categories = await Category.find(query, extractFields).lean().exec();
       console.log('getCategories: ', categories);
       return categories;
     } catch (error) {
@@ -13,9 +14,9 @@ export class CategoryService {
   }
 
   // Fetch a Category by their ID
-  async getCategoryById(CategoryId: string): Promise<Partial<ICategory> | null> {
+  async getCategoryById(CategoryId: string, extractFields = basicFields): Promise<Partial<ICategory> | null> {
     try {
-      const category = await Category.findById(CategoryId).lean().exec();
+      const category = await Category.findById(CategoryId, extractFields).lean().exec();
       console.log('getCategoryById: ', category);
       return category;
     } catch (error) {
@@ -27,8 +28,7 @@ export class CategoryService {
   async createCategory(CategoryData: ICategory): Promise<Partial<ICategory>> {
     try {
       const newCategory = new Category(CategoryData);
-      const res = await newCategory.save();
-      return res;
+      return await newCategory.save();
     } catch (error) {
       throw new Error(`Error creating Category: ${error.message}`);
     }

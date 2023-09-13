@@ -1,19 +1,20 @@
 import Section from './section.model'; // Assuming you have a Mongoose model for Section
-import ISection from './section.interface'; // Assuming you have a Mongoose model for Section
+import ISection from './section.interface';
+import { basicFields } from './dto'; // Assuming you have a Mongoose model for Section
 
 export class SectionService {
-  async getSections(query = {}): Promise<Partial<ISection[]> | null> {
+  async getSections(query = {}, extractFields: string = basicFields): Promise<Partial<ISection[]> | null> {
     try {
-      return await Section.find(query).lean().exec();
+      return await Section.find(query, extractFields).lean().exec();
     } catch (error) {
       return error;
     }
   }
 
   // Fetch a Section by their ID
-  async getSectionById(sectionId: string): Promise<Partial<ISection> | null> {
+  async getSectionById(sectionId: string, extractFields: string = basicFields): Promise<Partial<ISection> | null> {
     try {
-      return await Section.findById(sectionId).lean().exec();
+      return await Section.findById(sectionId, extractFields).lean().exec();
     } catch (error) {
       return error;
     }

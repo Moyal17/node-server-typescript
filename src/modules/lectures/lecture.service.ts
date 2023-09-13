@@ -1,31 +1,24 @@
 import Lecture from './lecture.model';
 import ILecture from './lecture.interface';
+import { basicFields } from './dto';
 
 export class LectureService {
-  async getLectures(query = {}): Promise<Partial<ILecture[]> | null> {
+  async getLectures(query = {}, extractFields: string = basicFields): Promise<Partial<ILecture[]> | null> {
     try {
-      return await Lecture.find(query).lean().exec();
-    } catch (error) {
-      return error;
-    }
-  }
-  // Fetch a Lecture by their ID
-  async getLectureById(lectureId: string): Promise<Partial<ILecture> | null> {
-    try {
-      return await Lecture.findById(lectureId).lean().exec();
+      return await Lecture.find(query, extractFields).lean().exec();
     } catch (error) {
       return error;
     }
   }
 
-  async getLectureByUri(uri: string): Promise<Partial<ILecture> | null> {
+  async getLectureById(lectureId: string, extractFields: string = basicFields): Promise<Partial<ILecture> | null> {
     try {
-      return await Lecture.findOne({ uri }).lean().exec();
+      return await Lecture.findById(lectureId, extractFields).lean().exec();
     } catch (error) {
       return error;
     }
   }
-  // Create a new Lecture
+
   async createLecture(LectureData: ILecture): Promise<Partial<ILecture>> {
     try {
       const newLecture = new Lecture(LectureData);

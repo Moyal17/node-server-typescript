@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { CourseService } from './course.service';
 import { ExtendedRequest } from '../shared/types';
 import { LectureObject } from '../lectures/dto';
+import { basicFields } from '../courses/dto';
 
 const courseService = new CourseService();
 export const getCourses = async (req: Request, res: Response) => {
@@ -31,7 +32,7 @@ export const getCourseById = async (req: Request, res: Response) => {
 export const getCourseDetailsByUri = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
   try {
     const courseUri = req.params.uri;
-    const course = await courseService.getCourseByUri(courseUri);
+    const course = await courseService.getCourseByUri(courseUri, basicFields);
     if (!course) {
       return res.status(404).json({ message: 'Course not found' });
     }

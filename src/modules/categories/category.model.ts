@@ -3,7 +3,6 @@ import { categoryGroup } from './dto';
 import { languages } from '../shared/enums';
 
 const categorySchema = new Schema({
-  public_id: { type: String, unique: true }, // CAT-
   uri: { type: String, required: true, unique: true },
   title: String,
   description: String,

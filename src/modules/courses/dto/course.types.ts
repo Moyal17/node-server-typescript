@@ -25,3 +25,7 @@ export type CourseObject = {
   updatedAt?: string;
   createdAt?: string;
 };
+
+export const allFields =
+  'uri title subtitle content template order duration category sections thumbnail source price currency rating numberOfRatings isBestSeller isDraft isRemoved publishedAt updatedAt createdAt';
+export const basicFields = 'uri title subtitle template order duration category thumbnail source price rating isBestSeller publishedAt';

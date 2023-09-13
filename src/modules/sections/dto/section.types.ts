@@ -13,3 +13,6 @@ export type SectionObject = {
   isRemoved?: boolean;
   createdAt?: string;
 };
+
+export const allFields = 'courseId title subtitle content order duration isDraft isRemovable isRemoved publishedAt updatedAt createdAt';
+export const basicFields = 'courseId title subtitle order duration';

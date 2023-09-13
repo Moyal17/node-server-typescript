@@ -15,14 +15,14 @@ export type LectureObject = {
   category?: string[] | CategoryObject[];
   thumbnail?: string;
   source?: string;
-  price?: number;
-  currency?: string;
-  rating?: number;
-  numberOfRatings?: number;
-  isBestSeller?: boolean;
   isDraft?: boolean;
   isRemoved?: boolean;
   publishedAt?: string;
   updatedAt?: string;
   createdAt?: string;
 };
+
+export const allFields =
+  'uri sectionId title subtitle content template order duration type category thumbnail source isDraft isRemoved publishedAt updatedAt createdAt';
+
+export const basicFields = 'uri sectionId title subtitle content template order duration type category thumbnail source publishedAt';

@@ -1,5 +1,6 @@
 import Course from './course.model'; // Assuming you have a Mongoose model for Course
-import ICourse from './course.interface'; // Assuming you have a Mongoose model for Course
+import ICourse from './course.interface';
+import { basicFields } from './dto'; // Assuming you have a Mongoose model for Course
 
 export class CourseService {
   async getCourses(): Promise<Partial<ICourse[]> | null> {
@@ -11,17 +12,17 @@ export class CourseService {
   }
 
   // Fetch a Course by their ID
-  async getCourseById(courseId: string): Promise<Partial<ICourse> | null> {
+  async getCourseById(courseId: string, extractFields: string = basicFields): Promise<Partial<ICourse> | null> {
     try {
-      return await Course.findById(courseId).lean().exec();
+      return await Course.findById(courseId, extractFields).lean().exec();
     } catch (error) {
       return error;
     }
   }
 
-  async getCourseByUri(uri: string): Promise<Partial<ICourse> | null> {
+  async getCourseByUri(uri: string, extractFields: string = basicFields): Promise<Partial<ICourse> | null> {
     try {
-      return await Course.findOne({ uri }).lean().exec();
+      return await Course.findOne({ uri }, extractFields).lean().exec();
     } catch (error) {
       return error;
     }
