@@ -61,13 +61,14 @@ root/
 
 ### **Dependencies Breakdown**
 
-- **Core**: `express`, `typescript`, `ts-node`.
+- **Core**: `express`, `typescript`.
 - **Database**: `mongoose`, `redis`.
 - **Authentication**: `bcryptjs`, `jsonwebtoken`, `passport`, `passport-jwt`, `passport-local`.
 - **Utilities**: `body-parser`, `compression`, `cookie-parser`, `cors`, `dotenv`, `morgan`.
 - **Security**: `helmet`.
 - **Validation**: `joi`.
 - **Development**: `@typescript-eslint/eslint-plugin`, `eslint`, `prettier`.
+- **Test**: `jest`, `supertest`.
 
 ### How to Run
 
