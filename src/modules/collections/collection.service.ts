@@ -1,5 +1,5 @@
-import Collection from './collection.model'; // Assuming you have a Mongoose model for Collection
-import ICollection from './collection.interface'; // Assuming you have a Mongoose model for Collection
+import Collection from './collection.model';
+import ICollection from './collection.interface';
 
 export class CollectionService {
   async getCollections(): Promise<Partial<ICollection[]> | null> {
@@ -10,7 +10,6 @@ export class CollectionService {
     }
   }
 
-  // Fetch a Collection by their ID
   async getCollectionById(collectionId: string): Promise<Partial<ICollection> | null> {
     try {
       return await Collection.findById(collectionId).lean().exec();
@@ -28,8 +27,13 @@ export class CollectionService {
       throw new Error(`Error creating Collection: ${error.message}`);
     }
   }
-
-  // Update a Collection
+  async createManyCollections(collections: Partial<ICollection[]>): Promise<Partial<ICollection>[]> {
+    try {
+      return await Collection.insertMany(collections, { ordered: true });
+    } catch (error) {
+      throw new Error(`Error creating Media: ${error.message}`);
+    }
+  }
   async updateCollection(CollectionId: string, updatedData: Partial<ICollection>): Promise<Partial<ICollection> | null> {
     try {
       return await Collection.findByIdAndUpdate(CollectionId, updatedData, {
@@ -40,7 +44,6 @@ export class CollectionService {
     }
   }
 
-  // Delete a Collection
   async deleteCollection(CollectionId: string): Promise<Partial<ICollection> | null> {
     try {
       return await Collection.findByIdAndRemove(CollectionId).exec();

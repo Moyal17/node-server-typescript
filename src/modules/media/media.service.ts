@@ -36,8 +36,7 @@ export class MediaService {
 
   async createManyMediaObjs(MediaData: IMedia[]): Promise<Partial<IMedia>[]> {
     try {
-      const results = await Media.insertMany(MediaData, { ordered: true });
-      return results;
+      return await Media.insertMany(MediaData, { ordered: true });
     } catch (error) {
       throw new Error(`Error creating Media: ${error.message}`);
     }

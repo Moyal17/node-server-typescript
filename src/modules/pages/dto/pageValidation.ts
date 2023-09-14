@@ -28,3 +28,9 @@ export const removeCollectionValidation: Schema = Joi.object({
   pageUri: Joi.string().min(2).required(),
   collectionId: Joi.string().pattern(new RegExp('^[0-9a-fA-F]{24}$')).required(),
 }).unknown(true);
+
+export const fullMockPage: Schema = Joi.object({
+  ...pageSchema,
+  uri: Joi.string().min(2).required(),
+  itemCollection: Joi.array().items(Joi.object()).optional(),
+}).unknown(true);

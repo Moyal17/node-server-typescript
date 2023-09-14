@@ -1,5 +1,7 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { ItemService } from './item.service';
+import { ExtendedRequest } from '../shared/types';
+
 const itemService = new ItemService();
 export const getItems = async (req: Request, res: Response) => {
   try {
@@ -56,6 +58,21 @@ export const deleteItem = async (req: Request, res: Response) => {
     res.json(item);
   } catch (error) {
     res.status(500).json({ error: 'deleteItem', message: error.message });
+  }
+};
+
+export const bulkItemCreation = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
+  try {
+    if (req.items && req.items.length > 0) {
+      req.items.forEach((item) => {
+        console.log(item);
+      });
+      const items = await itemService.createManyItems(req.items);
+      res.json(items);
+    }
+    next();
+  } catch (error) {
+    res.status(500).json({ error: 'createItem', message: error.message });
   }
 };
 

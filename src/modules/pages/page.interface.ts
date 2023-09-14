@@ -1,9 +1,5 @@
 import mongoose from 'mongoose';
-
-interface ISeo {
-  title?: string;
-  description?: string;
-}
+import { ISeo } from '../shared/types';
 
 interface IPage {
   _id: mongoose.Types.ObjectId | string;

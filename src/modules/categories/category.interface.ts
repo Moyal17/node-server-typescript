@@ -1,10 +1,6 @@
 import mongoose from 'mongoose';
 import { categoryGroup } from './dto';
-
-interface ISeo {
-  title?: string;
-  description?: string;
-}
+import { ISeo } from '../shared/types';
 
 interface ICategory {
   _id?: mongoose.Types.ObjectId | string;
