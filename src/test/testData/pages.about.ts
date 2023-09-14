@@ -157,7 +157,7 @@ const ourMembersItems = [
   },
 ];
 
-const AboutPage = {
+const aboutPage = {
   uri: 'about_us',
   title: 'Sensei Project is the best website Solution For You',
   seo: {
@@ -257,4 +257,4 @@ const AboutPage = {
   isDraft: false,
 };
 
-export default AboutPage;
+export default aboutPage;

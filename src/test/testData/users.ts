@@ -1,6 +1,6 @@
 export const createUser: { name: string; email: string; password: string } = {
   name: 'John Doe',
-  email: 'john3@gmail.com',
+  email: 'john@gmail.com',
   password: 'johny12345',
 };
 

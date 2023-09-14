@@ -4,7 +4,7 @@ import { sourceTypes } from './media.types';
 export const generatePreSignedUrl: Schema = Joi.object({
   fileName: Joi.string().min(2).required(),
   folder: Joi.string().required(),
-  fileType: Joi.string().required(),
+  contentType: Joi.string().required(),
 }).unknown(false); // this will remove any unexpected keys
 
 const mediaObjectSchema = Joi.object({

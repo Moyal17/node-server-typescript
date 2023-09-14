@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router, Response } from 'express';
 import publicRoutes from './publicRoutes';
 import apiRoutes from './apiRoutes';
 const router: Router = Router();
@@ -9,7 +9,7 @@ router.use('/public', publicRoutes);
 // API routes - secure with authentication
 router.use('/api', apiRoutes);
 
-router.get('/', (req: Request, res: Response, next: NextFunction) => {
+router.get('/', (res: Response) => {
   res.send('Hello, World!');
 });
 

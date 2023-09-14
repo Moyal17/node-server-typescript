@@ -33,7 +33,7 @@ export const getMediaById = async (req: Request, res: Response) => {
 export const generateUploadURL = async (req: Request, res: Response) => {
   try {
     const url = await mediaService.generateUploadURL(req.body);
-    res.json(url);
+    res.json({ url });
   } catch (error) {
     res.status(500).json({ error: 'generateUploadURL', message: error.message });
   }

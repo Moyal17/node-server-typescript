@@ -14,7 +14,7 @@ const mediaRoutes = {
   },
   apiRoutes: () => {
     router.get('/:id', validateParams(validateId), getMediaById);
-    router.post('/aws/generateUploadURL', validateBody(generatePreSignedUrl), generateUploadURL); // pre-sign for aws upload
+    router.post('/aws/generate-upload-url', validateBody(generatePreSignedUrl), generateUploadURL); // pre-sign for aws upload
     router.post('/', validateBody(createMediaSchema), createMedia); // create media document foe each upload
     router.put('/:id', validateParams(validateId), validateBody(editMediaSchema), updateMedia);
     router.delete('/:id', validateParams(validateId), deleteMedia);

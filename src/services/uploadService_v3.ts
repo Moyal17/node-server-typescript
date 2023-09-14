@@ -4,13 +4,14 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { awsObject, preSignedBody, mediaTypes, sourceTypes } from '../modules/media/dto';
 import { generateId } from '../utils/';
 import { putObject } from './types';
+import CONFIG from '../config/config';
 
 // Configure AWS region and other global settings
 const s3client = new S3Client({
   region: 'eu-central-1',
   credentials: {
-    accessKeyId: '',
-    secretAccessKey: '',
+    accessKeyId: CONFIG.AWS_ACCESS_KEY,
+    secretAccessKey: CONFIG.AWS_SECRET_KEY,
   },
 });
 
@@ -27,7 +28,7 @@ const putObjectUrl = async (obj: putObject) => {
     Bucket: obj.bucket,
     Key: obj.key,
     ContentType: obj.contentType,
-    ACL: 'public-read',
+    // ACL: 'public-read',
     Metadata: {
       // here we're adding metadata. The key difference between metadata and tags is that tags can be changed - metadata cannot!
       fileName: obj.name, // add the user-input name as the value for the 'fileName' metadata key
@@ -57,17 +58,8 @@ export const configAWSObjectToMedia = (S3Obj: awsObject, userId: mongoose.Types.
   let publicId = null;
   const { source } = S3Obj;
   let thumbnail = source;
-  switch (S3Obj.type) {
-    case mediaTypes.video:
-      publicId = `VID-${generateId(15)}`;
-      thumbnail = `${thumbnail}.0000000.jpg`;
-      break;
-    case mediaTypes.image:
-      publicId = `IMG-${generateId(15)}`;
-      break;
-    default:
-      publicId = `MEDIA-${generateId(15)}`;
-  }
+  publicId = `MEDIA-${generateId(12)}`;
+  if (S3Obj.type === mediaTypes.video) thumbnail = `${thumbnail}.0000000.jpg`;
   const { name } = configFileName(S3Obj.name);
   return {
     user: userId,
@@ -87,7 +79,7 @@ export const configAWSObjectToMedia = (S3Obj: awsObject, userId: mongoose.Types.
 };
 
 export const generateUploadURL = async (body: preSignedBody): Promise<string> => {
-  const bucket = process.env.IS_TEST ? 'bucket-test' : 'bucket-name';
+  const bucket = process.env.IS_TEST ? 'test-bucket-node-1' : 'test-bucket-node-1';
   const currentTime = new Date().getTime();
   const { name, extension } = configFileName(body.fileName);
   const key = `${body.folder}/${currentTime}_${name}.${extension}`;
@@ -100,9 +92,7 @@ export const generateUploadURL = async (body: preSignedBody): Promise<string> =>
     name,
   };
   try {
-    const url = await putObjectUrl(data);
-    console.log('putObjectUrl: ', url);
-    return url;
+    return await putObjectUrl(data);
   } catch (error) {
     console.log('Error generating pre-signed URL', error);
     throw error;
