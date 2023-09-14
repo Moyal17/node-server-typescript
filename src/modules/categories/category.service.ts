@@ -6,7 +6,6 @@ export class CategoryService {
   async getCategories(query = {}, extractFields = basicFields): Promise<Partial<ICategory[]> | null> {
     try {
       const categories = await Category.find(query, extractFields).lean().exec();
-      console.log('getCategories: ', categories);
       return categories;
     } catch (error) {
       return error;
@@ -17,7 +16,6 @@ export class CategoryService {
   async getCategoryById(CategoryId: string, extractFields = basicFields): Promise<Partial<ICategory> | null> {
     try {
       const category = await Category.findById(CategoryId, extractFields).lean().exec();
-      console.log('getCategoryById: ', category);
       return category;
     } catch (error) {
       return error;
@@ -40,7 +38,6 @@ export class CategoryService {
       const updatedCategory = await Category.findByIdAndUpdate(CategoryId, updatedData, {
         new: true,
       }).exec();
-      console.log('updatedCategory: ', updatedCategory);
       return updatedCategory;
     } catch (error) {
       throw new Error(`Error updating Category ${CategoryId}: ${error.message}`);
@@ -51,7 +48,6 @@ export class CategoryService {
   async deleteCategory(CategoryId: string): Promise<Partial<ICategory> | null> {
     try {
       const deletedCategory = await Category.findByIdAndRemove(CategoryId).exec();
-      console.log('deletedCategory: ', deletedCategory);
       return deletedCategory;
     } catch (error) {
       throw new Error(`Error deleting Category ${CategoryId}: ${error.message}`);

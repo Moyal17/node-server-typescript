@@ -5,7 +5,7 @@ export class PageService {
   async getPages(): Promise<Partial<IPage[]> | null> {
     try {
       const pages = await Page.find({}).exec();
-      console.log('getPages: ', pages);
+
       return pages;
     } catch (error) {
       return error;
@@ -16,7 +16,7 @@ export class PageService {
   async getPageByUri(uri: string): Promise<Partial<IPage> | null> {
     try {
       const page = await Page.findOne({ uri }).lean().exec();
-      console.log('getPageByUri: ', page);
+
       return page;
     } catch (error) {
       return error;
@@ -40,7 +40,6 @@ export class PageService {
       const updatedPage = await Page.findByIdAndUpdate(PageId, updatedData, {
         new: true,
       }).exec();
-      console.log('updatedPage: ', updatedPage);
       return updatedPage;
     } catch (error) {
       throw new Error(`Error updating Page ${PageId}: ${error.message}`);
@@ -51,7 +50,7 @@ export class PageService {
   async deletePage(PageId: string): Promise<Partial<IPage> | null> {
     try {
       const deletedPage = await Page.findByIdAndRemove(PageId).exec();
-      console.log('deletedPage: ', deletedPage);
+
       return deletedPage;
     } catch (error) {
       throw new Error(`Error deleting Page ${PageId}: ${error.message}`);

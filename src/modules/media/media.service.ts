@@ -7,7 +7,6 @@ export class MediaService {
   async getMedia(): Promise<Partial<IMedia[]> | undefined> {
     try {
       const media = await Media.find({}).lean().exec();
-      console.log('getMedia: ', media);
       return media;
     } catch (error) {
       return error;
@@ -18,7 +17,6 @@ export class MediaService {
   async getMediaById(MediaId: string): Promise<Partial<IMedia> | null> {
     try {
       const media = await Media.findById(MediaId).lean().exec();
-      console.log('getMediaById: ', media);
       return media;
     } catch (error) {
       return error;
@@ -47,9 +45,7 @@ export class MediaService {
 
   async generateUploadURL(body: preSignedBody): Promise<string> {
     try {
-      const uploadURL: string = await generateUploadURL(body);
-      console.log('Generated pre-signed URL:', uploadURL);
-      return uploadURL;
+      return await generateUploadURL(body);
     } catch (error) {
       console.log('Error generating pre-signed URL', error);
       throw error;
@@ -59,11 +55,9 @@ export class MediaService {
   // Update a Media
   async updateMedia(MediaId: string, updatedData: Partial<IMedia>): Promise<Partial<IMedia> | null> {
     try {
-      const updatedMedia = await Media.findByIdAndUpdate(MediaId, updatedData, {
+      return await Media.findByIdAndUpdate(MediaId, updatedData, {
         new: true,
       }).exec();
-      console.log('updatedMedia: ', updatedMedia);
-      return updatedMedia;
     } catch (error) {
       throw new Error(`Error updating Media ${MediaId}: ${error.message}`);
     }
@@ -72,9 +66,7 @@ export class MediaService {
   // Delete a Media
   async deleteMedia(MediaId: string): Promise<Partial<IMedia> | null> {
     try {
-      const deletedMedia = await Media.findByIdAndRemove(MediaId).exec();
-      console.log('deletedMedia: ', deletedMedia);
-      return deletedMedia;
+      return await Media.findByIdAndRemove(MediaId).exec();
     } catch (error) {
       throw new Error(`Error deleting Media ${MediaId}: ${error.message}`);
     }

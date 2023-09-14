@@ -32,8 +32,7 @@ export class CourseService {
   async createCourse(CourseData: ICourse): Promise<Partial<ICourse>> {
     try {
       const newCourse = new Course(CourseData);
-      const res = await newCourse.save();
-      return res;
+      return await newCourse.save();
     } catch (error) {
       throw new Error(`Error creating Course: ${error.message}`);
     }
@@ -42,11 +41,9 @@ export class CourseService {
   // Update a Course
   async updateCourse(CourseId: string, updatedData: Partial<ICourse>): Promise<Partial<ICourse> | null> {
     try {
-      const updatedCourse = await Course.findByIdAndUpdate(CourseId, updatedData, {
+      return await Course.findByIdAndUpdate(CourseId, updatedData, {
         new: true,
       }).exec();
-      console.log('updatedCourse: ', updatedCourse);
-      return updatedCourse;
     } catch (error) {
       throw new Error(`Error updating Course ${CourseId}: ${error.message}`);
     }
@@ -55,9 +52,7 @@ export class CourseService {
   // Delete a Course
   async deleteCourse(CourseId: string): Promise<Partial<ICourse> | null> {
     try {
-      const deletedCourse = await Course.findByIdAndRemove(CourseId).exec();
-      console.log('deletedCourse: ', deletedCourse);
-      return deletedCourse;
+      return await Course.findByIdAndRemove(CourseId).exec();
     } catch (error) {
       throw new Error(`Error deleting Course ${CourseId}: ${error.message}`);
     }

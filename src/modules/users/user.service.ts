@@ -5,7 +5,7 @@ export class UserService {
   async getUsers(): Promise<Partial<IUser[]> | null> {
     try {
       const users = await User.find({}).exec();
-      console.log('getUsers: ', users);
+
       return users;
     } catch (error) {
       return error;
@@ -16,7 +16,7 @@ export class UserService {
   async getUserById(userId: string): Promise<Partial<IUser> | null> {
     try {
       const user = await User.findById(userId).exec();
-      console.log('getUserById: ', user);
+
       return user;
     } catch (error) {
       return error;
@@ -39,7 +39,7 @@ export class UserService {
       const updatedUser = await User.findByIdAndUpdate(userId, updatedData, {
         new: true,
       }).exec();
-      console.log('updatedUser: ', updatedUser);
+
       return updatedUser;
     } catch (error) {
       throw new Error(`Error updating user ${userId}: ${error.message}`);
@@ -50,7 +50,7 @@ export class UserService {
   async deleteUser(userId: string): Promise<Partial<IUser> | null> {
     try {
       const deletedUser = await User.findByIdAndRemove(userId).exec();
-      console.log('deletedUser: ', deletedUser);
+
       return deletedUser;
     } catch (error) {
       throw new Error(`Error deleting user ${userId}: ${error.message}`);

@@ -4,9 +4,7 @@ import ICollection from './collection.interface'; // Assuming you have a Mongoos
 export class CollectionService {
   async getCollections(): Promise<Partial<ICollection[]> | null> {
     try {
-      const collections = await Collection.find({}).exec();
-      console.log('getCollections: ', collections);
-      return collections;
+      return await Collection.find({}).exec();
     } catch (error) {
       return error;
     }
@@ -15,9 +13,7 @@ export class CollectionService {
   // Fetch a Collection by their ID
   async getCollectionById(collectionId: string): Promise<Partial<ICollection> | null> {
     try {
-      const collection = await Collection.findById(collectionId).lean().exec();
-      console.log('getCollectionByUri: ', collection);
-      return collection;
+      return await Collection.findById(collectionId).lean().exec();
     } catch (error) {
       return error;
     }
@@ -27,8 +23,7 @@ export class CollectionService {
   async createCollection(CollectionData: ICollection): Promise<Partial<ICollection>> {
     try {
       const newCollection = new Collection(CollectionData);
-      const res = await newCollection.save();
-      return res;
+      return await newCollection.save();
     } catch (error) {
       throw new Error(`Error creating Collection: ${error.message}`);
     }
@@ -37,11 +32,9 @@ export class CollectionService {
   // Update a Collection
   async updateCollection(CollectionId: string, updatedData: Partial<ICollection>): Promise<Partial<ICollection> | null> {
     try {
-      const updatedCollection = await Collection.findByIdAndUpdate(CollectionId, updatedData, {
+      return await Collection.findByIdAndUpdate(CollectionId, updatedData, {
         new: true,
       }).exec();
-      console.log('updatedCollection: ', updatedCollection);
-      return updatedCollection;
     } catch (error) {
       throw new Error(`Error updating Collection ${CollectionId}: ${error.message}`);
     }
@@ -50,9 +43,7 @@ export class CollectionService {
   // Delete a Collection
   async deleteCollection(CollectionId: string): Promise<Partial<ICollection> | null> {
     try {
-      const deletedCollection = await Collection.findByIdAndRemove(CollectionId).exec();
-      console.log('deletedCollection: ', deletedCollection);
-      return deletedCollection;
+      return await Collection.findByIdAndRemove(CollectionId).exec();
     } catch (error) {
       throw new Error(`Error deleting Collection ${CollectionId}: ${error.message}`);
     }

@@ -5,7 +5,7 @@ export class ItemService {
   async getItems(): Promise<Partial<IItem[]> | null> {
     try {
       const items = await Item.find({}).exec();
-      console.log('getItems: ', items);
+
       return items;
     } catch (error) {
       return error;
@@ -16,7 +16,6 @@ export class ItemService {
   async getItemByUri(uri: string): Promise<Partial<IItem> | null> {
     try {
       const item = await Item.findOne({ uri }).lean().exec();
-      console.log('getItemByUri: ', item);
       return item;
     } catch (error) {
       return error;
@@ -40,7 +39,6 @@ export class ItemService {
       const updatedItem = await Item.findByIdAndUpdate(ItemId, updatedData, {
         new: true,
       }).exec();
-      console.log('updatedItem: ', updatedItem);
       return updatedItem;
     } catch (error) {
       throw new Error(`Error updating Item ${ItemId}: ${error.message}`);
@@ -51,7 +49,6 @@ export class ItemService {
   async deleteItem(ItemId: string): Promise<Partial<IItem> | null> {
     try {
       const deletedItem = await Item.findByIdAndRemove(ItemId).exec();
-      console.log('deletedItem: ', deletedItem);
       return deletedItem;
     } catch (error) {
       throw new Error(`Error deleting Item ${ItemId}: ${error.message}`);

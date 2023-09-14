@@ -36,7 +36,7 @@ export class SectionService {
       const updatedSection = await Section.findByIdAndUpdate(SectionId, updatedData, {
         new: true,
       }).exec();
-      console.log('updatedSection: ', updatedSection);
+
       return updatedSection;
     } catch (error) {
       throw new Error(`Error updating Section ${SectionId}: ${error.message}`);
