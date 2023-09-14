@@ -14,14 +14,27 @@ export const getPages = async (req: Request, res: Response) => {
 };
 export const getPageByUri = async (req: Request, res: Response) => {
   try {
-    const pageId = req.params.id;
-    const page = await pageService.getPageByUri(pageId);
+    const uri = req.params.uri;
+    const page = await pageService.getPageByUri(uri);
     if (!page) {
       return res.status(404).json({ message: 'Page not found' });
     }
     res.json(page);
   } catch (error) {
     res.status(500).json({ error: 'getPageByUri', message: error.message });
+  }
+};
+
+export const getFullPageByUri = async (req: Request, res: Response) => {
+  try {
+    const uri = req.params.uri;
+    const page = await pageService.getFullPageByUri(uri);
+    if (!page) {
+      return res.status(404).json({ message: 'Page not found' });
+    }
+    res.json(page);
+  } catch (error) {
+    res.status(500).json({ error: 'getFullPageByUri', message: error.message });
   }
 };
 export const createPage = async (req: Request, res: Response) => {

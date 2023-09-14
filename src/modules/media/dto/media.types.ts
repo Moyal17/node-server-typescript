@@ -1,3 +1,5 @@
+import {Schema} from "mongoose";
+
 export type preSignedBody = {
   fileName: string;
   folder: string;
@@ -58,3 +60,7 @@ export enum mimeTypes {
   xls = 'application/vnd.ms-excel',
   xlsx = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 }
+
+export const allFields =
+  'user name description type sourceType sourceOrigin source sourceHls sourceId thumbnail format isRemoved updatedAt createdAt';
+export const basicFields = 'user name type sourceType thumbnail source sourceHls format';

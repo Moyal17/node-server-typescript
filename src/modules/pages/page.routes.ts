@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { createPage, deletePage, getPages, getPageByUri, updatePage } from './page.controller';
+import { createPage, deletePage, getPages, getPageByUri, updatePage, getFullPageByUri } from './page.controller';
 import { validateBody, validateParams } from '../../middlewares/validation';
 import { createPageSchema, editPageSchema } from './dto';
 import { setCacheHeaders } from '../../middlewares/cache';
@@ -10,6 +10,7 @@ const router: Router = express.Router();
 const pagesRoutes = {
   publicRoutes: () => {
     router.get('/', setCacheHeaders('public', 5), getPages);
+    router.get('/:uri', getFullPageByUri);
     return router;
   },
   apiRoutes: () => {
