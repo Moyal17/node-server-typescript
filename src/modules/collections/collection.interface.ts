@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 interface ICollection {
-  _id?: mongoose.Types.ObjectId | string;
+  _id: mongoose.Types.ObjectId | string;
   key?: string;
   title?: string;
   subtitle?: string;

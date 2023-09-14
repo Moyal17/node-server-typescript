@@ -4,6 +4,7 @@ import { validateBody, validateParams } from '../../middlewares/validation';
 import { createCollectionSchema, editCollectionSchema } from './dto';
 import { setCacheHeaders } from '../../middlewares/cache';
 import { validateId } from '../shared/validations';
+import { addCollectionToPage } from '../pages/page.controller';
 
 const router: Router = express.Router();
 
@@ -14,8 +15,8 @@ const collectionsRoutes = {
   },
   apiRoutes: () => {
     router.get('/:id', validateParams(validateId), getCollectionById);
-    router.post('/', validateBody(createCollectionSchema), createCollection);
-    router.put('/:id', validateParams(validateId), validateBody(editCollectionSchema), updateCollection);
+    router.post('/', validateBody(createCollectionSchema), createCollection, addCollectionToPage);
+    router.put('/:id', validateBody(editCollectionSchema), updateCollection);
     router.delete('/:id', validateParams(validateId), deleteCollection);
     return router;
   },

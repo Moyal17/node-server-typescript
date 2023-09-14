@@ -22,8 +22,8 @@ export class CollectionService {
   // Create a new Collection
   async createCollection(CollectionData: ICollection): Promise<Partial<ICollection>> {
     try {
-      const newCollection = new Collection(CollectionData);
-      return await newCollection.save();
+      const newCollection = await new Collection(CollectionData).save();
+      return newCollection.toObject();
     } catch (error) {
       throw new Error(`Error creating Collection: ${error.message}`);
     }

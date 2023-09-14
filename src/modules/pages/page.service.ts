@@ -1,6 +1,6 @@
 import Page from './page.model';
 import IPage from './page.interface';
-import { basicFields } from '../pages/dto';
+import { basicFields } from './dto';
 import { basicFields as collectionFields } from '../collections/dto';
 import { basicFields as mediaFields } from '../media/dto';
 import { basicFields as itemFields } from '../items/dto';
@@ -8,9 +8,7 @@ import { basicFields as itemFields } from '../items/dto';
 export class PageService {
   async getPages(): Promise<Partial<IPage[]> | null> {
     try {
-      const pages = await Page.find({}).exec();
-
-      return pages;
+      return await Page.find({}).exec();
     } catch (error) {
       return error;
     }
@@ -73,6 +71,27 @@ export class PageService {
       throw new Error(`Error updating Page ${PageId}: ${error.message}`);
     }
   }
+
+  async addCollectionToPage(pageUri: string, collectionId: string): Promise<Partial<IPage> | null> {
+    try {
+      return await Page.findOneAndUpdate(
+        { uri: pageUri },
+        { $push: { itemCollections: collectionId } },
+        { new: true }, // If you want the method to return the updated document
+      ).exec();
+    } catch (error) {
+      throw new Error(`Error updating Page collection ${pageUri}: ${error.message}`);
+    }
+  }
+
+  async removeCollectionFromPage(pageUri: string, collectionId: string) {
+    try {
+      return await Page.updateOne({ uri: pageUri }, { $pull: { itemCollections: collectionId } }).exec();
+    } catch (error) {
+      throw new Error(`Error updating Page collection ${pageUri}: ${error.message}`);
+    }
+  }
+
   async deletePage(PageId: string): Promise<Partial<IPage> | null> {
     try {
       return await Page.findByIdAndRemove(PageId).exec();

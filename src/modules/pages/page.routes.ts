@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
-import { createPage, deletePage, getPages, getPageByUri, updatePage, getFullPageByUri } from './page.controller';
+import { createPage, deletePage, getPages, getPageByUri, updatePage, getFullPageByUri, removeCollectionFromPage } from './page.controller';
 import { validateBody, validateParams } from '../../middlewares/validation';
-import { createPageSchema, editPageSchema } from './dto';
+import { createPageSchema, editPageSchema, removeCollectionValidation } from './dto';
 import { setCacheHeaders } from '../../middlewares/cache';
 import { validateId } from '../shared/validations';
 
@@ -18,6 +18,8 @@ const pagesRoutes = {
     router.post('/', validateBody(createPageSchema), createPage);
     router.put('/:id', validateParams(validateId), validateBody(editPageSchema), updatePage);
     router.delete('/:id', validateParams(validateId), deletePage);
+    router.patch('/collection/remove', validateBody(removeCollectionValidation), removeCollectionFromPage);
+
     return router;
   },
 };

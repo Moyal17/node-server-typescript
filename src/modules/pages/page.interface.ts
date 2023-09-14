@@ -6,7 +6,7 @@ interface ISeo {
 }
 
 interface IPage {
-  _id?: mongoose.Types.ObjectId | string;
+  _id: mongoose.Types.ObjectId | string;
   uri: string;
   title?: string;
   subtitle?: string;

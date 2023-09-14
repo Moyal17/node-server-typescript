@@ -1,5 +1,6 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { CollectionService } from './collection.service';
+import { ExtendedRequest } from '../shared/types';
 const collectionService = new CollectionService();
 export const getCollections = async (req: Request, res: Response) => {
   try {
@@ -24,14 +25,15 @@ export const getCollectionById = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'getCollectionByUri', message: error.message });
   }
 };
-export const createCollection = async (req: Request, res: Response) => {
+export const createCollection = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
   try {
     const collectionBody = req.body;
     const collection = await collectionService.createCollection(collectionBody);
     if (!collection) {
       return res.status(404).json({ message: 'Collection not found' });
     }
-    res.json(collection);
+    req.collection = collection;
+    next();
   } catch (error) {
     res.status(500).json({ error: 'createCollection', message: error.message });
   }
@@ -49,6 +51,7 @@ export const updateCollection = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'updateCollection', message: error.message });
   }
 };
+
 export const deleteCollection = async (req: Request, res: Response) => {
   try {
     const collectionId = req.params.id;

@@ -23,3 +23,8 @@ export const editPageSchema: Schema = Joi.object({
   _id: Joi.string().required(),
   ...pageSchema,
 }).unknown(false); // this will remove any unexpected keys
+
+export const removeCollectionValidation: Schema = Joi.object({
+  pageUri: Joi.string().min(2).required(),
+  collectionId: Joi.string().pattern(new RegExp('^[0-9a-fA-F]{24}$')).required(),
+}).unknown(true);
