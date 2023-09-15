@@ -22,9 +22,17 @@ export const collectionSchema = {
   isRemoved: Joi.boolean().optional(),
 };
 
-export const createCollectionSchema: Schema = Joi.object({ ...collectionSchema });
+export const createCollectionSchema: Schema = Joi.object({
+  collection: Joi.object(collectionSchema).required(),
+  pageId: Joi.string().required(),
+});
 
 export const editCollectionSchema: Schema = Joi.object({
   _id: Joi.string().required(),
   ...collectionSchema,
 }).unknown(false); // this will remove any unexpected keys
+
+export const bulkCollectionsSchema: Schema = Joi.object({
+  collections: Joi.array().items(Joi.object(collectionSchema)).required(),
+  pageId: Joi.string().required(),
+});

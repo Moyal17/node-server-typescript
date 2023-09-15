@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 const itemSchema = new Schema({
+  collectionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Page' },
   title: String,
   subtitle: String,
   content: String,

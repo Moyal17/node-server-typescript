@@ -61,14 +61,11 @@ export const deleteItem = async (req: Request, res: Response) => {
   }
 };
 
-export const bulkItemCreation = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
+export const bulkItemsCreation = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
   try {
-    if (req.items && req.items.length > 0) {
-      req.items.forEach((item) => {
-        console.log(item);
-      });
-      const items = await itemService.createManyItems(req.items);
-      res.json(items);
+    if (req.body && req.body.length > 0) {
+      const items = await itemService.createManyItems(req.body);
+      req.items = items;
     }
     next();
   } catch (error) {

@@ -19,9 +19,9 @@ export class CollectionService {
   }
 
   // Create a new Collection
-  async createCollection(CollectionData: ICollection): Promise<Partial<ICollection>> {
+  async createCollection(collectionData: ICollection): Promise<Partial<ICollection>> {
     try {
-      const newCollection = await new Collection(CollectionData).save();
+      const newCollection = await new Collection(collectionData).save();
       return newCollection.toObject();
     } catch (error) {
       throw new Error(`Error creating Collection: ${error.message}`);
@@ -34,21 +34,21 @@ export class CollectionService {
       throw new Error(`Error creating Media: ${error.message}`);
     }
   }
-  async updateCollection(CollectionId: string, updatedData: Partial<ICollection>): Promise<Partial<ICollection> | null> {
+  async updateCollection(collectionId: string, updatedData: Partial<ICollection>): Promise<Partial<ICollection> | null> {
     try {
-      return await Collection.findByIdAndUpdate(CollectionId, updatedData, {
+      return await Collection.findByIdAndUpdate(collectionId, updatedData, {
         new: true,
       }).exec();
     } catch (error) {
-      throw new Error(`Error updating Collection ${CollectionId}: ${error.message}`);
+      throw new Error(`Error updating Collection ${collectionId}: ${error.message}`);
     }
   }
 
-  async deleteCollection(CollectionId: string): Promise<Partial<ICollection> | null> {
+  async deleteCollection(collectionId: string): Promise<Partial<ICollection> | null> {
     try {
-      return await Collection.findByIdAndRemove(CollectionId).exec();
+      return await Collection.findByIdAndRemove(collectionId).exec();
     } catch (error) {
-      throw new Error(`Error deleting Collection ${CollectionId}: ${error.message}`);
+      throw new Error(`Error deleting Collection ${collectionId}: ${error.message}`);
     }
   }
 

@@ -1,10 +1,21 @@
 import express, { Router } from 'express';
-import { createPage, deletePage, getPages, getPageByUri, updatePage, getFullPageByUri, removeCollectionFromPage } from './page.controller';
-import { validateBody, validateParams } from '../../middlewares/validation';
 import { createPageSchema, editPageSchema, fullMockPage, removeCollectionValidation } from './dto';
-import { setCacheHeaders } from '../../middlewares/cache';
+import { validateBody, validateParams } from '../../middlewares/validation';
 import { validateId } from '../shared/validations';
-
+import { setCacheHeaders } from '../../middlewares/cache';
+import { bulkCollectionsSchema, createCollectionSchema } from '../collections/dto';
+import { createCollection, createManyCollection } from '../collections/collection.controller';
+import {
+  createPage,
+  deletePage,
+  getPages,
+  getPageByUri,
+  updatePage,
+  getFullPageByUri,
+  removeCollectionFromPage,
+  addCollectionToPage,
+  addBulkCollectionsToPage,
+} from './page.controller';
 const router: Router = express.Router();
 
 const pagesRoutes = {
@@ -18,10 +29,10 @@ const pagesRoutes = {
     router.post('/', validateBody(createPageSchema), createPage);
     router.put('/:id', validateParams(validateId), validateBody(editPageSchema), updatePage);
     router.delete('/:id', validateParams(validateId), deletePage);
-    router.patch('/collection/remove', validateBody(removeCollectionValidation), removeCollectionFromPage);
-
-    router.post('/create-full-mock-page', validateBody(fullMockPage), createPage);
-
+    router.patch('/collections/remove', validateBody(removeCollectionValidation), removeCollectionFromPage);
+    router.post('/collections/add', validateBody(createCollectionSchema), createCollection, addCollectionToPage);
+    router.post('/collections/bulk', validateBody(bulkCollectionsSchema), createManyCollection, addBulkCollectionsToPage);
+    router.post('/create-full-mock-page', validateBody(fullMockPage), createPage, createManyCollection, addBulkCollectionsToPage);
     return router;
   },
 };

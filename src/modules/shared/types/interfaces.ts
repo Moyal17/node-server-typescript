@@ -11,9 +11,9 @@ export interface ExtendedRequest extends Request {
   sections?: Partial<ISection[]> | null;
   lectures?: Partial<ILecture[]> | null;
   page?: Partial<IPage> | null;
-  collections?: Partial<ICollection[]> | null;
-  collection?: Partial<ICollection> | null;
-  items?: Partial<IItem[]> | null;
+  collections?: Partial<ICollection[]> | string[] | null;
+  collection?: Partial<ICollection> | string | null;
+  items?: Partial<IItem[]> | string[] | null;
 }
 
 export interface ISeo {

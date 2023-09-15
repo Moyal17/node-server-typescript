@@ -1,4 +1,5 @@
 import Joi, { Schema } from 'joi';
+import { collectionSchema } from '../../collections/dto';
 
 export const pageSchema = {
   title: Joi.string().min(2).required(),
@@ -20,7 +21,7 @@ export const createPageSchema: Schema = Joi.object({
 }).unknown(true);
 
 export const editPageSchema: Schema = Joi.object({
-  _id: Joi.string().required(),
+  _id: Joi.string().pattern(new RegExp('^[0-9a-fA-F]{24}$')).required(),
   ...pageSchema,
 }).unknown(false); // this will remove any unexpected keys
 
@@ -30,7 +31,6 @@ export const removeCollectionValidation: Schema = Joi.object({
 }).unknown(true);
 
 export const fullMockPage: Schema = Joi.object({
-  ...pageSchema,
-  uri: Joi.string().min(2).required(),
-  itemCollection: Joi.array().items(Joi.object()).optional(),
+  page: { ...pageSchema, uri: Joi.string().min(2).required() },
+  collections: Joi.array().items(Joi.object(collectionSchema)).optional(),
 }).unknown(true);

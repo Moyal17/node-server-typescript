@@ -40,7 +40,7 @@ export const getFullPageByUri = async (req: Request, res: Response) => {
 };
 export const createPage = async (req: Request, res: Response) => {
   try {
-    const pageBody = req.body;
+    const pageBody = req.body.page;
     const page = await pageService.createPage(pageBody);
     if (!page) {
       return res.status(404).json({ message: 'Page not found' });
@@ -66,12 +66,12 @@ export const updatePage = async (req: Request, res: Response) => {
 
 export const addCollectionToPage = async (req: ExtendedRequest, res: Response) => {
   try {
-    if (!req.body.pageUri || !req.collection || !req.collection._id) {
+    if (!req.body.pageId || !req.body.collectionId) {
       return res.status(400).json({ error: 'Bad Request', message: 'Required parameters are missing' });
     }
-    const collectionId = req.collection._id as string;
-    req.page = await pageService.addCollectionToPage(req.body.pageUri, collectionId);
-    res.json(req.page);
+    const collectionId = req.body.collectionId as string;
+    await pageService.addCollectionToPage(req.body.pageId, collectionId);
+    res.status(200);
   } catch (error) {
     res.status(500).json({ error: 'addCollectionToPage', message: error.message });
   }
@@ -93,6 +93,21 @@ export const deletePage = async (req: Request, res: Response) => {
     res.json(page);
   } catch (error) {
     res.status(500).json({ error: 'deletePage', message: error.message });
+  }
+};
+
+export const addBulkCollectionsToPage = async (req: ExtendedRequest, res: Response) => {
+  try {
+    if (!req.body.pageId || !req.body.collectionIds) {
+      return res.status(400).json({ error: 'Bad Request', message: 'Required parameters are missing' });
+    }
+    // Get collection ids
+    const collectionIds = req.body.collectionIds;
+    // Add the collection ids to the page details
+    await pageService.addManyCollectionToPage(req.body.pageId, collectionIds);
+    res.status(200);
+  } catch (error) {
+    res.status(500).json({ error: 'addCollectionToPage', message: error.message });
   }
 };
 

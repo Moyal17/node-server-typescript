@@ -84,6 +84,18 @@ export class PageService {
     }
   }
 
+  async addManyCollectionToPage(pageId: string, collectionIds: string[]): Promise<Partial<IPage> | null> {
+    try {
+      return await Page.findOneAndUpdate(
+        { uri: pageId },
+        { $push: { itemCollections: { $each: collectionIds } } },
+        { new: true }, // If you want the method to return the updated document
+      ).exec();
+    } catch (error) {
+      throw new Error(`Error updating Page collections ${pageId}: ${error.message}`);
+    }
+  }
+
   async removeCollectionFromPage(pageUri: string, collectionId: string) {
     try {
       return await Page.updateOne({ uri: pageUri }, { $pull: { itemCollections: collectionId } }).exec();

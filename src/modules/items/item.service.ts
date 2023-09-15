@@ -1,5 +1,7 @@
 import Item from './item.model';
 import IItem from './item.interface';
+import { bulkValidation } from '../../utils/validation.utils';
+import { createItemSchema } from './dto';
 
 export class ItemService {
   async getItems(): Promise<Partial<IItem[]> | null> {
@@ -9,8 +11,6 @@ export class ItemService {
       return error;
     }
   }
-
-  // Fetch a Item by their ID
   async getItemByUri(uri: string): Promise<Partial<IItem> | null> {
     try {
       return await Item.findOne({ uri }).lean().exec();
@@ -35,7 +35,6 @@ export class ItemService {
       throw new Error(`Error creating Media: ${error.message}`);
     }
   }
-  // Update a Item
   async updateItem(ItemId: string, updatedData: Partial<IItem>): Promise<Partial<IItem> | null> {
     try {
       return await Item.findByIdAndUpdate(ItemId, updatedData, {
@@ -46,12 +45,25 @@ export class ItemService {
     }
   }
 
-  // Delete a Item
   async deleteItem(ItemId: string): Promise<Partial<IItem> | null> {
     try {
       return await Item.findByIdAndRemove(ItemId).exec();
     } catch (error) {
       throw new Error(`Error deleting Item ${ItemId}: ${error.message}`);
+    }
+  }
+
+  async bulkItemCreation(items: Partial<IItem>[]): Promise<Partial<IItem>[] | null> {
+    try {
+      if (items && items.length > 0) {
+        const isValid = bulkValidation(items, createItemSchema);
+        if (isValid) {
+          return await this.createManyItems(items);
+        }
+      }
+      return null;
+    } catch (error) {
+      throw new Error(`Error bulk Item Creation: ${error.message}`);
     }
   }
 
