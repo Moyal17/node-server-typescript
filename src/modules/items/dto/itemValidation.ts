@@ -1,16 +1,17 @@
 import Joi, { Schema } from 'joi';
 
 export const itemSchema = {
-  title: Joi.string().min(2).required(),
+  title: Joi.string().min(2).optional(),
   subtitle: Joi.string().max(250).optional(),
   content: Joi.string().optional(),
+  icon: Joi.string().optional(),
   order: Joi.number().max(1000).optional(),
   template: Joi.string().optional(),
   link: {
     label: Joi.string().optional(),
     href: Joi.string().optional(),
   },
-  media: Joi.string().optional(),
+  media: Joi.alternatives().try(Joi.string(), Joi.any()).optional(),
   isRemoved: Joi.boolean().optional(),
 };
 

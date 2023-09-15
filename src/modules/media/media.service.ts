@@ -24,11 +24,10 @@ export class MediaService {
   }
 
   // Create a new Media
-  async createMedia(MediaData: IMedia): Promise<Partial<IMedia>> {
+  async createMedia(MediaData: Partial<IMedia>): Promise<Partial<IMedia>> {
     try {
-      const newMedia = new Media(MediaData);
-      const res = await newMedia.save();
-      return res;
+      const newMedia = await new Media(MediaData).save();
+      return newMedia.toObject();
     } catch (error) {
       throw new Error(`Error creating Media: ${error.message}`);
     }

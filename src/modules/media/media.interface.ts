@@ -11,6 +11,7 @@ interface ISourceHls {
 }
 
 interface IMedia {
+  _id: mongoose.Types.ObjectId | string;
   user?: mongoose.Types.ObjectId;
   name: string;
   description?: string;

@@ -1,10 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 import { CollectionService } from './collection.service';
 import { ItemService } from '../items/item.service';
+import { MediaService } from '../media/media.service';
 import { ExtendedRequest } from '../shared/types';
 import ICollection from './collection.interface';
 import IItem from '../items/item.interface';
+import IMedia from '../media/media.interface';
 
+const mediaService = new MediaService();
 const itemService = new ItemService();
 const collectionService = new CollectionService();
 export const getCollections = async (res: Response) => {
@@ -69,7 +72,7 @@ export const deleteCollection = async (req: Request, res: Response) => {
 
 export const createManyCollection = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
   try {
-    const collections: ICollection[] = req.collections || req.body.collections;
+    const collections: ICollection[] = req.collections || req.body.itemCollection;
     const savedCollections: ICollection[] = [];
     for (const collectionData of collections) {
       if (collectionData.items && collectionData.items.length > 0) {
@@ -80,7 +83,39 @@ export const createManyCollection = async (req: ExtendedRequest, res: Response, 
       const savedCollection: Partial<ICollection> = await collectionService.createCollection(collectionData);
       savedCollections.push(<ICollection>savedCollection);
     }
-    req.body.collectionIds = savedCollections.map((coll) => coll._id.toString());
+    if (req.body.page) req.body.page.itemCollection = savedCollections.map((coll) => coll._id.toString());
+    else req.body.collectionIds = savedCollections.map((coll) => coll._id.toString());
+    next();
+  } catch (error) {
+    res.status(500).json({ error: 'createCollection', message: error.message });
+  }
+};
+
+export const createMockDataCollection = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
+  try {
+    const collections: ICollection[] = req.collections || req.body.itemCollection;
+    const savedCollections: ICollection[] = [];
+    for (const collectionData of collections) {
+      if (collectionData.items && collectionData.items.length > 0) {
+        for (const item of collectionData.items as any) {
+          if (item.media && item.media.source) {
+            const savedMedia: Partial<IMedia> | null = await mediaService.createMedia(item.media as Partial<IMedia>);
+            item.media = savedMedia._id;
+          }
+        }
+        const savedItems: Partial<IItem>[] | null = await itemService.bulkItemCreation(collectionData.items as Partial<IItem>[]);
+        // @ts-ignore
+        collectionData.items = savedItems && savedItems.map((item) => item._id);
+      }
+      if (collectionData.media) {
+        const savedMedia: Partial<IMedia> | null = await mediaService.createMedia(collectionData.media as Partial<IMedia>);
+        collectionData.media = savedMedia._id;
+      }
+      const savedCollection: Partial<ICollection> = await collectionService.createCollection(collectionData);
+      savedCollections.push(<ICollection>savedCollection);
+    }
+    if (req.body.page) req.body.page.itemCollection = savedCollections.map((coll) => coll._id.toString());
+    else req.body.collectionIds = savedCollections.map((coll) => coll._id.toString());
     next();
   } catch (error) {
     res.status(500).json({ error: 'createCollection', message: error.message });

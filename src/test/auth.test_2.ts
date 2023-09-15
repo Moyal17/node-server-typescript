@@ -1,14 +1,14 @@
 import request from 'supertest';
 import { describe, expect } from '@jest/globals';
-import { userLogin } from './testData/users';
+import { createUser, userLogin } from './testData/users';
 import app from '../app';
 
 describe('Login and get users list with JWT Access', () => {
   let jwtToken: string;
   beforeAll(async () => {
     // create user
-    //const signUpResponse = await request(app).post('/public/auth/signup').send(createUser);
-    //expect(signUpResponse.status).toBe(200);
+    const signUpResponse = await request(app).post('/public/auth/signup').send(createUser);
+    expect(signUpResponse.status).toBe(200);
   });
 
   it('Login User and get JWT token', async () => {

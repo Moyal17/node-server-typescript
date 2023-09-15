@@ -4,7 +4,7 @@ import { validateBody, validateParams } from '../../middlewares/validation';
 import { validateId } from '../shared/validations';
 import { setCacheHeaders } from '../../middlewares/cache';
 import { bulkCollectionsSchema, createCollectionSchema } from '../collections/dto';
-import { createCollection, createManyCollection } from '../collections/collection.controller';
+import { createCollection, createManyCollection, createMockDataCollection } from '../collections/collection.controller';
 import {
   createPage,
   deletePage,
@@ -30,9 +30,9 @@ const pagesRoutes = {
     router.put('/:id', validateParams(validateId), validateBody(editPageSchema), updatePage);
     router.delete('/:id', validateParams(validateId), deletePage);
     router.patch('/collections/remove', validateBody(removeCollectionValidation), removeCollectionFromPage);
-    router.post('/collections/add', validateBody(createCollectionSchema), createCollection, addCollectionToPage);
+    router.patch('/collections/add', validateBody(createCollectionSchema), createCollection, addCollectionToPage);
     router.post('/collections/bulk', validateBody(bulkCollectionsSchema), createManyCollection, addBulkCollectionsToPage);
-    router.post('/create-full-mock-page', validateBody(fullMockPage), createPage, createManyCollection, addBulkCollectionsToPage);
+    router.post('/create-full-mock-page', validateBody(fullMockPage), createMockDataCollection, createPage);
     return router;
   },
 };

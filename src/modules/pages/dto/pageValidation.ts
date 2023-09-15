@@ -31,6 +31,6 @@ export const removeCollectionValidation: Schema = Joi.object({
 }).unknown(true);
 
 export const fullMockPage: Schema = Joi.object({
-  page: { ...pageSchema, uri: Joi.string().min(2).required() },
+  page: { ...pageSchema, uri: Joi.string().required() },
   collections: Joi.array().items(Joi.object(collectionSchema)).optional(),
 }).unknown(true);
