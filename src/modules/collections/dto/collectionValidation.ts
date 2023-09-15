@@ -23,7 +23,7 @@ export const collectionSchema = {
 };
 
 export const createCollectionSchema: Schema = Joi.object({
-  collection: Joi.object(collectionSchema).required(),
+  itemCollection: Joi.object(collectionSchema).required(),
   pageId: Joi.string().required(),
 });
 
@@ -33,6 +33,6 @@ export const editCollectionSchema: Schema = Joi.object({
 }).unknown(false); // this will remove any unexpected keys
 
 export const bulkCollectionsSchema: Schema = Joi.object({
-  collections: Joi.array().items(Joi.object(collectionSchema)).required(),
+  itemCollection: Joi.array().items(Joi.object(collectionSchema)).required(),
   pageId: Joi.string().required(),
 });

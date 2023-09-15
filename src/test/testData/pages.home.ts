@@ -214,7 +214,7 @@ const testimonialItems = [
 ];
 
 const HomePage = {
-  uri: '/',
+  uri: 'home',
   title: 'Sensei Project is the best website Solution For You',
   seo: {
     title: 'Sensei Project is the best website Solution For You',

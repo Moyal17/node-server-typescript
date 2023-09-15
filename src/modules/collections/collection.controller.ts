@@ -35,7 +35,7 @@ export const getCollectionById = async (req: Request, res: Response) => {
 };
 export const createCollection = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
   try {
-    const collectionBody = req.body.collection;
+    const collectionBody = req.body.itemCollection;
     const collection = await collectionService.createCollection(collectionBody);
     if (!collection) {
       return res.status(404).json({ message: 'Collection not found' });

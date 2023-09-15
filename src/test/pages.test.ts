@@ -21,4 +21,11 @@ describe('Login and get user JWT Access', () => {
     expect(response.status).toBe(200);
     // ... add other expectations as needed ...
   });
+
+  it('Get Page Details', async () => {
+    const response = await request(app).get(`/public/pages/${homePage.uri}`);
+    console.log('response home page:\n', response.body);
+    expect(response.status).toBe(200);
+    // ... add other expectations as needed ...
+  });
 });
