@@ -1,5 +1,5 @@
 export enum languages {
-  english = 'en',
-  hebrew = 'he',
-  spanish = 'es',
+  EN = 'en',
+  HE = 'he',
+  ES = 'es',
 }

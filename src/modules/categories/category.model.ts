@@ -8,7 +8,7 @@ const categorySchema = new Schema({
   description: String,
   subtitle: String,
   order: Number,
-  language: { type: String, enum: Object.values(languages), default: languages.english }, // he , en , es
+  language: { type: String, enum: Object.values(languages), default: languages.EN }, // he , en , es
   group: {
     type: Number,
     enum: Object.values(categoryGroup),
