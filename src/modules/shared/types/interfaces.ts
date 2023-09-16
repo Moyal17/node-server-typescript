@@ -2,7 +2,7 @@ import { Request } from 'express';
 import ICourse from '../../courses/course.interface';
 import ILecture from '../../lectures/lecture.interface';
 import ISection from '../../sections/section.interface';
-import IPage from '../../pages/page.interface';
+import { IPage } from '../../pages/page.interface';
 import ICollection from '../../collections/collection.interface';
 import IItem from '../../items/item.interface';
 

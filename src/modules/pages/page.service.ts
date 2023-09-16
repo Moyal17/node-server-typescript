@@ -1,5 +1,6 @@
 import Page from './page.model';
-import IPage from './page.interface';
+import { IPage, IndexablePage } from './page.interface';
+import ICollection from '../collections/collection.interface';
 import { basicFields } from './dto';
 import { basicFields as collectionFields } from '../collections/dto';
 import { basicFields as mediaFields } from '../media/dto';
@@ -20,9 +21,10 @@ export class PageService {
       return error;
     }
   }
+
   async getFullPageByUri(uri: string): Promise<Partial<IPage> | null> {
     try {
-      return await Page.findOne({ uri })
+      const pageData = (await Page.findOne({ uri })
         .populate([
           {
             path: 'itemCollection',
@@ -49,7 +51,14 @@ export class PageService {
           { path: 'media', model: 'Media', select: mediaFields },
         ])
         .lean()
-        .exec();
+        .exec()) as IndexablePage;
+      const { itemCollection } = pageData;
+      if (pageData && itemCollection && itemCollection.length > 0) {
+        itemCollection.forEach((collection: Partial<ICollection>) => {
+          pageData[collection.key as string] = collection;
+        });
+      }
+      return pageData;
     } catch (error) {
       return error;
     }

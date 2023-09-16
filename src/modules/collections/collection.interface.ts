@@ -13,7 +13,7 @@ interface ICollection {
   };
   order?: number;
   media?: mongoose.Types.ObjectId | string;
-  items?: mongoose.Types.ObjectId[] | string[];
+  items?: mongoose.Types.ObjectId[];
   isDraft?: boolean;
   isRemovable?: boolean;
   isRemoved?: boolean;
