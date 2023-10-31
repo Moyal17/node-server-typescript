@@ -1,10 +1,13 @@
 export type Lecture = {
   sectionId: string | null;
+  courseId: string;
   uri: string | null;
   title: string;
   subtitle: string;
+  content: string;
   type: string;
   duration: number;
+  media?: unknown;
 };
 
 export type Section = {

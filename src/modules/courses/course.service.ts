@@ -3,9 +3,9 @@ import ICourse from './course.interface';
 import { basicFields } from './dto'; // Assuming you have a Mongoose model for Course
 
 export class CourseService {
-  async getCourses(): Promise<Partial<ICourse[]> | null> {
+  async getCourses(query: object): Promise<Partial<ICourse[]> | null> {
     try {
-      return await Course.find({}).lean().exec();
+      return await Course.find(query).lean().exec();
     } catch (error) {
       return error;
     }
@@ -20,9 +20,11 @@ export class CourseService {
     }
   }
 
-  async getCourseByUri(uri: string, extractFields: string = basicFields): Promise<Partial<ICourse> | null> {
+  async getCourseByUri(query: object, extractFields: string = basicFields): Promise<Partial<ICourse> | null> {
     try {
-      return await Course.findOne({ uri }, extractFields).lean().exec();
+      return await Course.findOne({ ...query }, extractFields)
+        .lean()
+        .exec();
     } catch (error) {
       return error;
     }

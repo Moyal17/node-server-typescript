@@ -17,13 +17,17 @@ export const getSections = async (req: Request, res: Response) => {
 
 export const getSectionsByCourseId = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
   try {
-    const courseId = req.course!._id;
-    const sections = await sectionService.getSections({ courseId });
-    if (!sections) {
-      return res.status(404).json({ message: 'sections not found' });
+    if ((req.course && req.course._id) || (req.params && req.params.id)) {
+      const courseId = req.course ? req.course._id : req.params.id;
+      const sections = await sectionService.getSections({ courseId, isRemoved: false });
+      if (!sections) {
+        return res.status(404).json({ message: 'sections not found' });
+      }
+      req.sections = sections;
+      next();
+    } else {
+      return res.status(403).json({ message: 'Course ID Is Required' });
     }
-    req.sections = sections;
-    next();
   } catch (error) {
     res.status(500).json({ error: 'getSections', message: error.message });
   }

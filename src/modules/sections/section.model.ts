@@ -7,7 +7,6 @@ const sectionSchema = new Schema({
   content: String,
   order: Number,
   duration: Number,
-  lectures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Lecture' }],
   isDraft: { type: Boolean, default: true },
   isRemovable: { type: Boolean, default: true },
   isRemoved: { type: Boolean, default: false },

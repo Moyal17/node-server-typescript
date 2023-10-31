@@ -7,6 +7,7 @@ import {
   updateCourse,
   getCourseDetailsByUri,
   handleFullCourseObject,
+  checkForPublicCourses,
 } from './course.controller';
 import { getSectionsByCourseId } from '../sections/section.controller';
 import { getLecturesBySectionId } from '../lectures/lecture.controller';
@@ -19,7 +20,20 @@ const router: Router = express.Router();
 
 const coursesRoutes = {
   publicRoutes: () => {
-    router.get('/', setCacheHeaders('public', 5), getCourses);
+    router.get('/', setCacheHeaders('public', 5), checkForPublicCourses, getCourses);
+    router.get(
+      '/:uri',
+      validateParams(validateUri),
+      checkForPublicCourses,
+      getCourseDetailsByUri,
+      getSectionsByCourseId,
+      getLecturesBySectionId,
+      handleFullCourseObject,
+    );
+    router.get('/:id/schedule', validateParams(validateId), getSectionsByCourseId, getLecturesBySectionId, handleFullCourseObject);
+    return router;
+  },
+  apiRoutes: () => {
     router.get(
       '/:uri',
       validateParams(validateUri),
@@ -28,9 +42,6 @@ const coursesRoutes = {
       getLecturesBySectionId,
       handleFullCourseObject,
     );
-    return router;
-  },
-  apiRoutes: () => {
     router.get('/:id', validateParams(validateId), getCourseById);
     router.post('/', validateBody(createCourseSchema), createCourse);
     router.put('/:id', validateParams(validateId), validateBody(editCourseSchema), updateCourse);

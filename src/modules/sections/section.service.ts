@@ -33,11 +33,9 @@ export class SectionService {
   // Update a Section
   async updateSection(SectionId: string, updatedData: Partial<ISection>): Promise<Partial<ISection> | null> {
     try {
-      const updatedSection = await Section.findByIdAndUpdate(SectionId, updatedData, {
+      return await Section.findByIdAndUpdate(SectionId, updatedData, {
         new: true,
       }).exec();
-
-      return updatedSection;
     } catch (error) {
       throw new Error(`Error updating Section ${SectionId}: ${error.message}`);
     }
@@ -51,6 +49,5 @@ export class SectionService {
       throw new Error(`Error deleting Section ${SectionId}: ${error.message}`);
     }
   }
-
   // Other methods related to Sections (e.g., search, login, password reset, etc.)
 }

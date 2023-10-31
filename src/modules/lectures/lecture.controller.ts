@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { LectureService } from './lecture.service';
 import { ExtendedRequest } from '../shared/types';
+import { minimalFields } from './dto';
 
 const lectureService = new LectureService();
 export const getLectures = async (req: Request, res: Response) => {
@@ -27,12 +28,26 @@ export const getLectureById = async (req: Request, res: Response) => {
   }
 };
 
+export const getLectureDetails = async (req: Request, res: Response) => {
+  try {
+    const lectureUri = req.params.uri;
+    const lecture = await lectureService.getLectureDetails(lectureUri);
+    if (!lecture) {
+      return res.status(404).json({ message: 'Lecture not found' });
+    }
+    const { courseId, ...lectureDetails } = lecture;
+    res.json({ course: courseId, lecture: lectureDetails });
+  } catch (error) {
+    res.status(500).json({ error: 'getLectureById', message: error.message });
+  }
+};
+
 export const getLecturesBySectionId = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
   try {
     if (req.sections && req.sections.length > 0) {
       const sectionIds = req.sections.map((section) => section!._id);
-      const query = { sectionId: { $in: sectionIds } };
-      req.lectures = await lectureService.getLectures(query);
+      const query = { sectionId: { $in: sectionIds }, isRemoved: false };
+      req.lectures = await lectureService.getLectures(query, minimalFields);
     }
     next();
   } catch (error) {

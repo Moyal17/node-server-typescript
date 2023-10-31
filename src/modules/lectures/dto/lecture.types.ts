@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 export type LectureObject = {
   _id?: string | mongoose.Types.ObjectId;
   sectionId?: string | mongoose.Types.ObjectId;
+  courseId?: string | mongoose.Types.ObjectId;
   uri?: string;
   title?: string;
   subtitle?: string;
@@ -13,8 +14,7 @@ export type LectureObject = {
   duration?: number;
   type?: string;
   category?: string[] | CategoryObject[];
-  thumbnail?: string;
-  source?: string;
+  media?: string;
   isDraft?: boolean;
   isRemoved?: boolean;
   publishedAt?: string;
@@ -23,6 +23,7 @@ export type LectureObject = {
 };
 
 export const allFields =
-  'uri sectionId title subtitle content template order duration type category thumbnail source isDraft isRemoved publishedAt updatedAt createdAt';
+  'uri sectionId title subtitle content template order duration type category media isDraft isRemoved publishedAt updatedAt createdAt';
 
-export const basicFields = 'uri sectionId title subtitle content template order duration type category thumbnail source publishedAt';
+export const basicFields = 'uri sectionId courseId title subtitle content template order duration type category media publishedAt';
+export const minimalFields = 'uri title template order duration';

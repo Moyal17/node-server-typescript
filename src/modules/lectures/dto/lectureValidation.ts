@@ -10,6 +10,7 @@ export const createLectureSchema: Schema = Joi.object({
   order: Joi.number().optional(),
   duration: Joi.number().optional(),
   type: Joi.string().optional(),
+  // media: Joi.string().optional(),
   price: Joi.number().optional(),
   currency: Joi.string().optional(),
   rating: Joi.number().optional(),

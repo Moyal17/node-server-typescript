@@ -14,6 +14,7 @@ export interface ExtendedRequest extends Request {
   collections?: Partial<ICollection[]> | string[] | null;
   collection?: Partial<ICollection> | string | null;
   items?: Partial<IItem[]> | string[] | null;
+  isPublic?: boolean;
 }
 
 export interface ISeo {

@@ -2,12 +2,23 @@ import { NextFunction, Request, Response } from 'express';
 import { CourseService } from './course.service';
 import { ExtendedRequest } from '../shared/types';
 import { LectureObject } from '../lectures/dto';
-import { basicFields } from '../courses/dto';
+import { basicFields } from './dto';
 
 const courseService = new CourseService();
-export const getCourses = async (req: Request, res: Response) => {
+
+export const checkForPublicCourses = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
   try {
-    const courses = await courseService.getCourses();
+    req.isPublic = true;
+    next();
+  } catch (error) {
+    res.status(500).json({ error: 'getCourses', message: error.message });
+  }
+};
+
+export const getCourses = async (req: ExtendedRequest, res: Response) => {
+  try {
+    const query = req.isPublic ? { isPublic: true, isRemoved: false } : { isRemoved: false };
+    const courses = await courseService.getCourses(query);
     if (!courses) {
       return res.status(404).json({ message: 'courses not found' });
     }
@@ -32,7 +43,8 @@ export const getCourseById = async (req: Request, res: Response) => {
 export const getCourseDetailsByUri = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
   try {
     const courseUri = req.params.uri;
-    const course = await courseService.getCourseByUri(courseUri, basicFields);
+    const query = req.isPublic ? { uri: courseUri, isPublic: true, isRemoved: false } : { uri: courseUri, isRemoved: false };
+    const course = await courseService.getCourseByUri(query, basicFields);
     if (!course) {
       return res.status(404).json({ message: 'Course not found' });
     }
@@ -42,7 +54,6 @@ export const getCourseDetailsByUri = async (req: ExtendedRequest, res: Response,
     res.status(500).json({ error: 'getCourseByUri', message: error.message });
   }
 };
-
 export const createCourse = async (req: Request, res: Response) => {
   try {
     const courseBody = req.body;

@@ -18,6 +18,7 @@ interface ICourse {
   currency?: string;
   rating?: number;
   numberOfRatings?: number;
+  isPublic?: boolean;
   isBestSeller?: boolean;
   isDraft?: boolean;
   isRemoved?: boolean;

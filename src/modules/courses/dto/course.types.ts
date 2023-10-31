@@ -17,6 +17,8 @@ export type CourseObject = {
   price?: number;
   currency?: string;
   rating?: number;
+  audienceFit?: string[];
+  objectives?: string[];
   numberOfRatings?: number;
   isBestSeller?: boolean;
   isDraft?: boolean;
@@ -27,5 +29,6 @@ export type CourseObject = {
 };
 
 export const allFields =
-  'uri title subtitle content template order duration category sections thumbnail source price currency rating numberOfRatings isBestSeller isDraft isRemoved publishedAt updatedAt createdAt';
-export const basicFields = 'uri title subtitle template order duration category thumbnail source price rating isBestSeller publishedAt';
+  'uri title subtitle content template order duration category sections thumbnail source price currency rating numberOfRatings isPublic isBestSeller isDraft isRemoved publishedAt updatedAt createdAt';
+export const basicFields = 'uri title subtitle content template order duration category source price rating isPublic isBestSeller publishedAt';
+export const minimalFields = 'uri title subtitle isBestSeller publishedAt audienceFit objectives';

@@ -1,6 +1,9 @@
 import Lecture from './lecture.model';
 import ILecture from './lecture.interface';
 import { basicFields } from './dto';
+import { basicFields as collectionFields } from "../collections/dto";
+import { minimalFields as courseFields } from "../courses/dto";
+import { basicFields as mediaFields } from "../media/dto";
 
 export class LectureService {
   async getLectures(query = {}, extractFields: string = basicFields): Promise<Partial<ILecture[]> | null> {
@@ -14,6 +17,31 @@ export class LectureService {
   async getLectureById(lectureId: string, extractFields: string = basicFields): Promise<Partial<ILecture> | null> {
     try {
       return await Lecture.findById(lectureId, extractFields).lean().exec();
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getLectureDetails(uri: string, extractFields: string = basicFields): Promise<Partial<ILecture> | null> {
+    try {
+      return await Lecture.findOne({ uri }, extractFields)
+        .populate([
+          {
+            path: 'courseId',
+            model: 'Course',
+            select: courseFields,
+            populate: [
+              {
+                path: 'media',
+                strictPopulate: false,
+                select: mediaFields,
+              },
+            ],
+          },
+          { path: 'media', model: 'Media', select: mediaFields, strictPopulate: false },
+        ])
+        .lean()
+        .exec();
     } catch (error) {
       return error;
     }

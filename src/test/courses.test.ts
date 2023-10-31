@@ -42,13 +42,14 @@ describe('Login and get user JWT Access', () => {
     const lectureObj = { ...lecture };
     lectureObj.uri = `${lectureObj.title}_${generateId(5)}`;
     lectureObj.sectionId = sectionObjectId;
+    lectureObj.courseId = courseObjectId;
     const response = await request(app).post('/api/lectures/').set('Authorization', `Bearer ${jwtToken}`).send(lectureObj);
     expect(response.status).toBe(200);
     // ... add other expectations as needed ...
   });
 
   it('Create New 3 Lecture In Section', async () => {
-    const lectures = createMultipleLecturesMockUp(sectionObjectId, 3);
+    const lectures = createMultipleLecturesMockUp(sectionObjectId, courseObjectId, 3);
     const response = await request(app).post('/api/lectures/multiple').set('Authorization', `Bearer ${jwtToken}`).send({ lectures });
     expect(response.status).toBe(200);
     // ... add other expectations as needed ...

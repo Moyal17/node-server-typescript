@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 interface ILecture {
   _id?: mongoose.Types.ObjectId;
   sectionId?: mongoose.Types.ObjectId | string;
+  courseId?: mongoose.Types.ObjectId | string;
   uri?: string;
   title?: string;
   subtitle?: string;
@@ -12,7 +13,6 @@ interface ILecture {
   duration?: number;
   type?: string; // enum: video / article
   category?: mongoose.Types.ObjectId[];
-  thumbnail?: mongoose.Types.ObjectId;
   source?: mongoose.Types.ObjectId;
   isDraft?: boolean;
   isRemoved?: boolean;

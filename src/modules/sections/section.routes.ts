@@ -9,10 +9,10 @@ const router: Router = express.Router();
 
 const sectionsRoutes = {
   publicRoutes: () => {
-    router.get('/', setCacheHeaders('public', 5), getSections);
     return router;
   },
   apiRoutes: () => {
+    router.get('/', setCacheHeaders('public', 5), getSections);
     router.get('/:id', validateParams(validateId), getSectionById);
     router.post('/', validateBody(createSectionSchema), createSection);
     router.put('/:id', validateParams(validateId), validateBody(editSectionSchema), updateSection);

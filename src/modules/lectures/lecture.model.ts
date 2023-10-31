@@ -2,6 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 const lectureSchema = new Schema({
   sectionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Section', required: true },
+  courseId: { type: mongoose.Schema.Types.ObjectId, ref: 'Course', required: true },
   uri: { type: String, required: true, unique: true },
   title: String,
   subtitle: String,
@@ -9,10 +10,12 @@ const lectureSchema = new Schema({
   order: Number,
   template: String,
   duration: Number,
+  views: Number,
+  likes: Number,
   type: String, // enum: video / article
   category: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
-  thumbnail: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
-  source: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
+  media: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
+  // reviews: { type: mongoose.Schema.Types.ObjectId, ref: 'Message' },
   isDraft: { type: Boolean, default: true },
   isRemoved: { type: Boolean, default: false },
   publishedAt: { type: Date, default: Date.now },

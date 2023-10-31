@@ -18,6 +18,9 @@ const courseSchema = new Schema({
   rating: Number,
   numberOfRatings: Number,
   // instructor: {}
+  audienceFit: [String],
+  objectives: [String],
+  isPublic: { type: Boolean, default: false },
   isBestSeller: { type: Boolean, default: false },
   isDraft: { type: Boolean, default: true },
   isRemoved: { type: Boolean, default: false },
