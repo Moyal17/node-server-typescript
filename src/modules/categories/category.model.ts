@@ -10,7 +10,7 @@ const categorySchema = new Schema({
   order: Number,
   language: { type: String, enum: Object.values(languages), default: languages.EN }, // he , en , es
   group: {
-    type: Number,
+    type: String,
     enum: Object.values(categoryGroup),
     default: categoryGroup.attractionTypes,
     required: true,

@@ -4,7 +4,7 @@ import { ISeo } from '../shared/types';
 
 interface ICategory {
   _id?: mongoose.Types.ObjectId | string;
-  group?: string | categoryGroup;
+  group: string | categoryGroup;
   uri: string;
   language?: string;
   title?: string;
