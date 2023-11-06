@@ -10,6 +10,7 @@ import categories from '../modules/categories/category.routes';
 import courses from '../modules/courses/course.routes';
 import lectures from '../modules/lectures/lecture.routes';
 import sections from '../modules/sections/section.routes';
+import blog from '../modules/blog/blog.routes';
 
 const apiRouter: Router = express.Router();
 
@@ -24,6 +25,7 @@ const routes: { [key: string]: Router } = {
   courses: courses.apiRoutes(),
   lectures: lectures.apiRoutes(),
   sections: sections.apiRoutes(),
+  blog: blog.apiRoutes(),
 };
 
 Object.keys(routes).forEach((routeName) => {

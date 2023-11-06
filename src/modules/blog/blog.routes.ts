@@ -3,13 +3,22 @@ import { createArticleSchema, editArticleSchema } from './dto';
 import { validateBody, validateParams } from '../../middlewares/validation';
 import { validateId } from '../shared/validations';
 import { setCacheHeaders } from '../../middlewares/cache';
-import { createArticle, deleteArticle, getArticles, getArticleByUri, updateArticle, getFullArticleByUri } from './article.controller';
+import {
+  createArticle,
+  deleteArticle,
+  getArticles,
+  getArticleByUri,
+  updateArticle,
+  getFullArticleByUri,
+  getBlogCategories,
+} from './blog.controller';
 const router: Router = express.Router();
 
 const articlesRoutes = {
   publicRoutes: () => {
     router.get('/', setCacheHeaders('public', 5), getArticles);
     router.get('/:uri', getFullArticleByUri);
+    router.get('/categories', getBlogCategories);
     return router;
   },
   apiRoutes: () => {

@@ -6,6 +6,7 @@ import courses from '../modules/courses/course.routes';
 import lectures from '../modules/lectures/lecture.routes';
 import categories from '../modules/categories/category.routes';
 import pages from '../modules/pages/page.routes';
+import blog from '../modules/blog/blog.routes';
 
 const publicRouter: Router = express.Router();
 
@@ -17,6 +18,7 @@ const routes: { [key: string]: Router } = {
   lectures: lectures.publicRoutes(),
   categories: categories.publicRoutes(),
   pages: pages.publicRoutes(),
+  blog: blog.publicRoutes(),
 };
 
 Object.keys(routes).forEach((routeName) => {

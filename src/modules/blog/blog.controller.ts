@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
-import { ArticleService } from './article.service';
-const articleService = new ArticleService();
+import { BlogService } from './blog.service';
+import { CategoryService } from '../categories/category.service';
+const articleService = new BlogService();
+const categoryService = new CategoryService();
 export const getArticles = async (req: Request, res: Response) => {
   try {
     const articles = await articleService.getArticles();
@@ -12,6 +14,7 @@ export const getArticles = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'getArticles', message: error.message });
   }
 };
+
 export const getArticleByUri = async (req: Request, res: Response) => {
   try {
     const uri = req.params.uri;
@@ -37,6 +40,20 @@ export const getFullArticleByUri = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'getFullArticleByUri', message: error.message });
   }
 };
+
+export const getBlogCategories = async (req: Request, res: Response) => {
+  try {
+    const searchQuery = { group: 'blog', isRemoved: false };
+    const categories = await categoryService.getCategories(searchQuery);
+    if (!categories) {
+      return res.status(404).json({ message: 'Article not found' });
+    }
+    res.json({ blog: categories });
+  } catch (error) {
+    res.status(500).json({ error: 'getFullArticleByUri', message: error.message });
+  }
+};
+
 export const createArticle = async (req: Request, res: Response) => {
   try {
     const articleBody = req.body.article;

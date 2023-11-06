@@ -1,9 +1,9 @@
-import Article from './article.model';
-import IArticle from './article.interface';
+import Article from './blog.model';
+import IArticle from './blog.interface';
 import { basicFields } from './dto';
 import { basicFields as mediaFields } from '../media/dto';
 
-export class ArticleService {
+export class BlogService {
   async getArticles(): Promise<Partial<IArticle[]> | null> {
     try {
       return await Article.find({}).exec();
