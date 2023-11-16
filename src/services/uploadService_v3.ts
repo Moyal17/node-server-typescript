@@ -82,7 +82,7 @@ export const generateUploadURL = async (body: preSignedBody): Promise<string> =>
   const bucket = process.env.IS_TEST ? 'test-bucket-node-1' : 'test-bucket-node-1';
   const currentTime = new Date().getTime();
   const { name, extension } = configFileName(body.fileName);
-  const key = `${body.folder}/${currentTime}_${name}.${extension}`;
+  const key = `${body.folder || 'uploads'}/${currentTime}_${name}.${extension}`;
   // @ts-ignore
   const data: putObject = {
     bucket,

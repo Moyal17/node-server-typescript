@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
 export type preSignedBody = {
   fileName: string;
@@ -61,6 +61,36 @@ export enum mimeTypes {
   xlsx = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 }
 
+type sourceHlsObject = {
+  master?: string;
+  h360?: string;
+  h480?: string;
+  h540?: string;
+  h720?: string;
+  h1080?: string;
+};
+
+export type MediaObject = {
+  _id?: mongoose.Types.ObjectId | string;
+  name?: string;
+  description?: string;
+  isPublic?: boolean;
+  type?: string;
+  sourceType?: string;
+  sourceOrigin?: string; // original url
+  source?: string; // secure_url .mp4
+  sourceHls?: sourceHlsObject; // Hls source
+  sourceId?: string; // model key / id
+  thumbnail?: string;
+  thumbnailSquare?: string;
+  format?: string; // cloudinary format 'jpg'
+  size?: number;
+  isRemoved?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
 export const allFields =
   'user name description type sourceType sourceOrigin source sourceHls sourceId thumbnail format isRemoved updatedAt createdAt';
 export const basicFields = 'user name type sourceType thumbnail source sourceHls format';
+export const minimalFields = 'type sourceType thumbnail source sourceHls format';
