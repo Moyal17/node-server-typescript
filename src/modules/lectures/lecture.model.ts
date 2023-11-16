@@ -15,6 +15,7 @@ const lectureSchema = new Schema({
   type: String, // enum: video / article
   category: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
   media: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
+  attachments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Media' }],
   // reviews: { type: mongoose.Schema.Types.ObjectId, ref: 'Message' },
   isDraft: { type: Boolean, default: true },
   isRemoved: { type: Boolean, default: false },

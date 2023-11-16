@@ -35,20 +35,23 @@ export class PageService {
                 path: 'items',
                 model: 'Item',
                 select: itemFields,
+                strictPopulate: false,
                 populate: [
                   {
                     path: 'media',
+                    strictPopulate: false,
                     select: mediaFields,
                   },
                 ],
               },
               {
                 path: 'media',
+                strictPopulate: false,
                 select: mediaFields,
               },
             ],
           },
-          { path: 'media', model: 'Media', select: mediaFields },
+          { path: 'media', model: 'Media', select: mediaFields, strictPopulate: false, },
         ])
         .lean()
         .exec()) as IndexablePage;

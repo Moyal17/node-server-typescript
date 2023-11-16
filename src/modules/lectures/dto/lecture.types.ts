@@ -1,4 +1,5 @@
 import { CategoryObject } from '../../categories/dto';
+import { MediaObject } from '../../media/dto';
 import mongoose from 'mongoose';
 
 export type LectureObject = {
@@ -14,7 +15,8 @@ export type LectureObject = {
   duration?: number;
   type?: string;
   category?: string[] | CategoryObject[];
-  media?: string;
+  media?: string | MediaObject;
+  attachments?: string[] | MediaObject[];
   isDraft?: boolean;
   isRemoved?: boolean;
   publishedAt?: string;

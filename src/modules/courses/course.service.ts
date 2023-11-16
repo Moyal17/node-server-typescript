@@ -1,6 +1,7 @@
 import Course from './course.model'; // Assuming you have a Mongoose model for Course
 import ICourse from './course.interface';
-import { basicFields } from './dto'; // Assuming you have a Mongoose model for Course
+import { basicFields } from './dto';
+import { basicFields as mediaFields, minimalFields as mediaMinFields } from '../media/dto';
 
 export class CourseService {
   async getCourses(query: object): Promise<Partial<ICourse[]> | null> {
@@ -23,6 +24,10 @@ export class CourseService {
   async getCourseByUri(query: object, extractFields: string = basicFields): Promise<Partial<ICourse> | null> {
     try {
       return await Course.findOne({ ...query }, extractFields)
+        .populate([
+          { path: 'media', model: 'Media', select: mediaFields, strictPopulate: false },
+          { path: 'instructor.avatar', model: 'Media', select: mediaMinFields, strictPopulate: false },
+        ])
         .lean()
         .exec();
     } catch (error) {

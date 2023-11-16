@@ -1,4 +1,5 @@
 import { CategoryObject } from '../../categories/dto';
+import { MediaObject } from '../../media/dto';
 import mongoose from 'mongoose';
 
 export type CourseObject = {
@@ -12,14 +13,18 @@ export type CourseObject = {
   duration?: number;
   category: string[] | CategoryObject[];
   sections?: string[] | mongoose.Types.ObjectId[];
-  thumbnail?: string;
-  source?: string;
+  media?: string | MediaObject;
   price?: number;
   currency?: string;
   rating?: number;
   audienceFit?: string[];
   objectives?: string[];
   numberOfRatings?: number;
+  instructor?: {
+    avatar?: string | MediaObject;
+    name?: string;
+    location?: string;
+  };
   isBestSeller?: boolean;
   isDraft?: boolean;
   isRemoved?: boolean;
@@ -29,6 +34,7 @@ export type CourseObject = {
 };
 
 export const allFields =
-  'uri title subtitle content template order duration category sections thumbnail source price currency rating numberOfRatings isPublic isBestSeller isDraft isRemoved publishedAt updatedAt createdAt';
-export const basicFields = 'uri title subtitle content template order duration category source price rating isPublic isBestSeller publishedAt';
+  'uri title subtitle content template order duration category sections media price currency rating numberOfRatings audienceFit objectives isPublic isBestSeller isDraft isRemoved publishedAt updatedAt createdAt';
+export const basicFields =
+  'uri title subtitle content template order duration category media price audienceFit objectives rating isPublic isBestSeller publishedAt';
 export const minimalFields = 'uri title subtitle isBestSeller publishedAt audienceFit objectives';

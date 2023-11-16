@@ -1,9 +1,8 @@
 import Lecture from './lecture.model';
 import ILecture from './lecture.interface';
 import { basicFields } from './dto';
-import { basicFields as collectionFields } from "../collections/dto";
-import { minimalFields as courseFields } from "../courses/dto";
-import { basicFields as mediaFields } from "../media/dto";
+import { minimalFields as courseFields } from '../courses/dto';
+import { basicFields as mediaFields } from '../media/dto';
 
 export class LectureService {
   async getLectures(query = {}, extractFields: string = basicFields): Promise<Partial<ILecture[]> | null> {
@@ -34,7 +33,7 @@ export class LectureService {
               {
                 path: 'media',
                 strictPopulate: false,
-                select: mediaFields,
+                select: 'thumbnail',
               },
             ],
           },

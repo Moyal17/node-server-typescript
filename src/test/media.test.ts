@@ -17,13 +17,12 @@ describe('Test S3 file upload', () => {
     // First, get the pre-signed URL
     const mediaObj = {
       fileName: 'test-image.jpeg',
-      folder: 'test',
       contentType: 'image/jpeg',
     };
 
     const {
       body: { url },
-    } = await request(app).post('/api/media/aws/generate-upload-url').set('Authorization', `Bearer ${jwtToken}`).send(mediaObj);
+    } = await request(app).post('/api/media/aws/pre-sign').set('Authorization', `Bearer ${jwtToken}`).send(mediaObj);
     expect(url).toBeTruthy();
 
     try {

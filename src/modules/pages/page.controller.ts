@@ -25,7 +25,6 @@ export const getPageByUri = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'getPageByUri', message: error.message });
   }
 };
-
 export const getFullPageByUri = async (req: Request, res: Response) => {
   try {
     const uri = req.params.uri;
@@ -63,7 +62,6 @@ export const updatePage = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'updatePage', message: error.message });
   }
 };
-
 export const addCollectionToPage = async (req: ExtendedRequest, res: Response) => {
   try {
     if (!req.body.pageId || !req.body.collectionId) {
@@ -76,7 +74,6 @@ export const addCollectionToPage = async (req: ExtendedRequest, res: Response) =
     res.status(500).json({ error: 'addCollectionToPage', message: error.message });
   }
 };
-
 export const removeCollectionFromPage = async (req: Request, res: Response) => {
   try {
     await pageService.removeCollectionFromPage(req.body.pageUri, req.body.collectionId);
@@ -85,7 +82,6 @@ export const removeCollectionFromPage = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'addCollectionToPage', message: error.message });
   }
 };
-
 export const deletePage = async (req: Request, res: Response) => {
   try {
     const pageId = req.params.id;
@@ -95,7 +91,6 @@ export const deletePage = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'deletePage', message: error.message });
   }
 };
-
 export const addBulkCollectionsToPage = async (req: ExtendedRequest, res: Response) => {
   try {
     if (!req.body.pageId || !req.body.collectionIds) {
