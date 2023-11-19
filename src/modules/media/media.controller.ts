@@ -1,8 +1,10 @@
-import { Request, Response } from 'express';
-import { MediaService } from './media.service';
-import { configAWSObjectToMedia } from '../../services/uploadService_v3';
-import IMedia from './media.interface';
-import { awsObject } from './dto';
+import { Request, Response } from "express";
+import { MediaService } from "./media.service";
+import { configAWSObjectToMedia, configFileName } from "../../services/uploadService_v3";
+import IMedia from "./media.interface";
+import { FileDetails, mediaTypes, sourceTypes } from "./dto";
+import mongoose from "mongoose";
+
 const mediaService = new MediaService();
 
 export const getMedia = async (req: Request, res: Response) => {
@@ -43,12 +45,25 @@ export const createMedia = async (req: Request, res: Response) => {
   try {
     const mediaBody = req.body;
     const mediaObjs = [] as IMedia[];
-    mediaBody.completedUploads.forEach((imageObj: awsObject) => {
-      // @ts-ignore
-      const mediaObj = configAWSObjectToMedia(imageObj, req.user!._id) as IMedia;
-      mediaObjs.push(mediaObj);
+    mediaBody.completedUploads.forEach((file: FileDetails) => {
+      const { name } = configFileName(file.name);
+      const mediaObj = {
+        name,
+        mediaType: file.type && file.type.startsWith('video/') ? mediaTypes.video : mediaTypes.image,
+        sourceType: sourceTypes.amazonS3,
+        source: file.uploadURL,
+        sourceOrigin: file.uploadURL,
+        thumbnail: file.uploadURL,
+        type: file.type,
+        size: file.size,
+        height: file.height, // in pixels
+        width: file.width, // in pixels
+        duration: file.duration, // in seconds
+      };
+      mediaObjs.push(mediaObj as IMedia);
     });
     const media = await mediaService.createManyMediaObjs(mediaObjs);
+
     if (!media) {
       return res.status(404).json({ message: 'Media not found' });
     }

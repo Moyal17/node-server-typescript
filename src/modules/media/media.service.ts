@@ -1,7 +1,7 @@
 import Media from './media.model';
 import IMedia from './media.interface';
 import { generateUploadURL } from '../../services/uploadService_v3';
-import { preSignedBody } from './dto';
+import { PreSignedBody } from './dto';
 
 export class MediaService {
   async getMedia(): Promise<Partial<IMedia[]> | undefined> {
@@ -27,7 +27,8 @@ export class MediaService {
   async createMedia(MediaData: Partial<IMedia>): Promise<Partial<IMedia>> {
     try {
       const newMedia = await new Media(MediaData).save();
-      return newMedia.toObject();
+      const { _id, name, source, thumbnail, type, size, mediaType } = newMedia.toObject();
+      return { _id, name, source, thumbnail, type, size, mediaType };
     } catch (error) {
       throw new Error(`Error creating Media: ${error.message}`);
     }
@@ -35,13 +36,17 @@ export class MediaService {
 
   async createManyMediaObjs(MediaData: IMedia[]): Promise<Partial<IMedia>[]> {
     try {
-      return await Media.insertMany(MediaData, { ordered: true });
+      const results = await Media.insertMany(MediaData, { ordered: true });
+      return results.map((obj) => {
+        const { _id, name, source, thumbnail, type, size, mediaType, width, height, duration } = obj;
+        return { _id, name, source, thumbnail, type, size, mediaType, width, height, duration };
+      });
     } catch (error) {
       throw new Error(`Error creating Media: ${error.message}`);
     }
   }
 
-  async generateUploadURL(body: preSignedBody): Promise<string> {
+  async generateUploadURL(body: PreSignedBody): Promise<string> {
     try {
       return await generateUploadURL(body);
     } catch (error) {

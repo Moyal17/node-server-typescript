@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { S3Client, GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { awsObject, preSignedBody, mediaTypes, sourceTypes } from '../modules/media/dto';
+import { awsObject, PreSignedBody, mediaTypes, sourceTypes } from '../modules/media/dto';
 import { generateId } from '../utils/';
 import { putObject } from './types';
 import CONFIG from '../config/config';
@@ -14,7 +14,6 @@ const s3client = new S3Client({
     secretAccessKey: CONFIG.AWS_SECRET_KEY,
   },
 });
-
 export const getObjectUrl = async (bucket: string, key: string) => {
   const command = new GetObjectCommand({
     Bucket: bucket,
@@ -22,7 +21,6 @@ export const getObjectUrl = async (bucket: string, key: string) => {
   });
   return getSignedUrl(s3client, command, { expiresIn: 20 });
 };
-
 const putObjectUrl = async (obj: putObject) => {
   const command = new PutObjectCommand({
     Bucket: obj.bucket,
@@ -40,7 +38,7 @@ const putObjectUrl = async (obj: putObject) => {
   });
   return getSignedUrl(s3client, command, { expiresIn: 600 });
 };
-const configFileName = (fileName: string) => {
+export const configFileName = (fileName: string) => {
   const matches = /^(.+)\.([^.]+)$/.exec(fileName); // image-example.jpg
   let name = 'asset',
     extension = null;
@@ -77,8 +75,7 @@ export const configAWSObjectToMedia = (S3Obj: awsObject, userId: mongoose.Types.
     searchKeywords: S3Obj.searchKeywords || name.toLowerCase(),
   };
 };
-
-export const generateUploadURL = async (body: preSignedBody): Promise<string> => {
+export const generateUploadURL = async (body: PreSignedBody): Promise<string> => {
   const bucket = process.env.IS_TEST ? 'test-bucket-node-1' : 'test-bucket-node-1';
   const currentTime = new Date().getTime();
   const { name, extension } = configFileName(body.fileName);

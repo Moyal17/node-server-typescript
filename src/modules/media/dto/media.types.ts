@@ -1,9 +1,19 @@
 import mongoose from 'mongoose';
 
-export type preSignedBody = {
+export type PreSignedBody = {
   fileName: string;
   folder: string;
   contentType: string;
+};
+
+export type FileDetails = {
+  name: string;
+  type: string | undefined;
+  uploadURL?: string | undefined;
+  size: number;
+  duration?: number;
+  width?: number;
+  height?: number;
 };
 
 export type awsObject = {
@@ -76,6 +86,7 @@ export type MediaObject = {
   description?: string;
   isPublic?: boolean;
   type?: string;
+  mediaType?: string;
   sourceType?: string;
   sourceOrigin?: string; // original url
   source?: string; // secure_url .mp4
@@ -83,7 +94,6 @@ export type MediaObject = {
   sourceId?: string; // model key / id
   thumbnail?: string;
   thumbnailSquare?: string;
-  format?: string; // cloudinary format 'jpg'
   size?: number;
   isRemoved?: boolean;
   createdAt?: string;
@@ -91,6 +101,6 @@ export type MediaObject = {
 };
 
 export const allFields =
-  'user name description type sourceType sourceOrigin source sourceHls sourceId thumbnail format isRemoved updatedAt createdAt';
-export const basicFields = 'user name type sourceType thumbnail source sourceHls format';
-export const minimalFields = 'type sourceType thumbnail source sourceHls format';
+  'user name description mediaType type sourceType sourceOrigin source sourceHls sourceId thumbnail isRemoved updatedAt createdAt';
+export const basicFields = 'name source thumbnail type size mediaType width height duration sourceHls';
+export const minimalFields = 'thumbnail source sourceHls type size duration';

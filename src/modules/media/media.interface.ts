@@ -16,7 +16,7 @@ interface IMedia {
   name: string;
   description?: string;
   isPublic?: boolean;
-  type?: mediaTypes;
+  mediaType?: mediaTypes;
   sourceType?: sourceTypes;
   sourceOrigin?: string;
   source?: string;
@@ -24,7 +24,11 @@ interface IMedia {
   sourceId?: string;
   thumbnail?: string;
   thumbnailSquare?: string;
-  format?: string;
+  type?: string;
+  size?: number;
+  height?: number;
+  width?: number;
+  duration?: number;
   isRemoved?: boolean;
   createdAt?: Date;
   updatedAt?: Date;

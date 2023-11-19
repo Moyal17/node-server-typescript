@@ -15,7 +15,7 @@ const mediaSchema = new Schema({
   name: { type: String, required: true },
   description: String,
   isPublic: { type: Boolean, default: true },
-  type: { type: String, enum: Object.values(mediaTypes), default: mediaTypes.image },
+  mediaType: { type: String, enum: Object.values(mediaTypes), default: mediaTypes.image },
   sourceType: { type: String, enum: Object.values(sourceTypes), default: sourceTypes.amazonS3 },
   sourceOrigin: String, // original url
   source: String, // secure_url .mp4
@@ -23,8 +23,11 @@ const mediaSchema = new Schema({
   sourceId: String, // model key / id
   thumbnail: String,
   thumbnailSquare: String,
-  format: String, // cloudinary format 'jpg'
-  size: Number,
+  type: String, // cloudinary format 'jpg'
+  size: Number, // in kilobytes
+  height: Number, // in pixels
+  width: Number, // in pixels
+  duration: Number, // in seconds
   isRemoved: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
