@@ -3,9 +3,27 @@ import { CourseService } from './course.service';
 import { ExtendedRequest } from '../shared/types';
 import { LectureObject } from '../lectures/dto';
 import { basicFields } from './dto';
+import { generateId } from '../../utils';
 
 const courseService = new CourseService();
 
+const configCourseObject = (courseBody: any) => {
+  try {
+    if (courseBody.category) {
+      delete courseBody.category;
+    }
+    if (courseBody.instructorName || courseBody.instructorAvatar || courseBody.instructorLocation) {
+      courseBody.instructor = {
+        name: courseBody.instructorName,
+        avatar: courseBody.instructorAvatar,
+        location: courseBody.instructorLocation,
+      };
+    }
+    return courseBody;
+  } catch (e) {
+    console.error('configCourseObject: ', e);
+  }
+};
 export const checkForPublicCourses = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
   try {
     req.isPublic = true;
@@ -56,7 +74,8 @@ export const getCourseDetailsByUri = async (req: ExtendedRequest, res: Response,
 };
 export const createCourse = async (req: Request, res: Response) => {
   try {
-    const courseBody = req.body;
+    const courseBody = configCourseObject({ ...req.body });
+    courseBody.uri = `${courseBody.uri}-${generateId(6)}`;
     const course = await courseService.createCourse(courseBody);
     if (!course) {
       return res.status(404).json({ message: 'Course not found' });
@@ -69,12 +88,13 @@ export const createCourse = async (req: Request, res: Response) => {
 export const updateCourse = async (req: Request, res: Response) => {
   try {
     const courseId = req.params.id;
-    const course = await courseService.updateCourse(courseId, req.body);
+    const courseBody = configCourseObject({ ...req.body });
+    delete courseBody._id;
+    const course = await courseService.updateCourse(courseId, courseBody);
     if (!course) {
       return res.status(404).json({ message: 'Course not found' });
     }
-    const { subtitle, title, _id } = course;
-    res.json({ subtitle, title, _id });
+    res.json();
   } catch (error) {
     res.status(500).json({ error: 'updateCourse', message: error.message });
   }

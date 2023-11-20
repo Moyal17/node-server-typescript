@@ -10,10 +10,9 @@ interface ICourse {
   order?: number;
   duration?: number;
   category: mongoose.Types.ObjectId[];
-  itemCollection?: mongoose.Types.ObjectId[];
   sections?: mongoose.Types.ObjectId[];
-  thumbnail?: mongoose.Types.ObjectId;
-  source?: mongoose.Types.ObjectId;
+  media?: mongoose.Types.ObjectId;
+  attachments?: mongoose.Types.ObjectId[];
   price?: number;
   currency?: string;
   rating?: number;

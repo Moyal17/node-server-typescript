@@ -14,7 +14,6 @@ export const getArticles = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'getArticles', message: error.message });
   }
 };
-
 export const getArticleByUri = async (req: Request, res: Response) => {
   try {
     const uri = req.params.uri;
@@ -27,7 +26,6 @@ export const getArticleByUri = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'getArticleByUri', message: error.message });
   }
 };
-
 export const getFullArticleByUri = async (req: Request, res: Response) => {
   try {
     const uri = req.params.uri;
@@ -40,7 +38,6 @@ export const getFullArticleByUri = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'getFullArticleByUri', message: error.message });
   }
 };
-
 export const getBlogCategories = async (req: Request, res: Response) => {
   try {
     const searchQuery = { group: 'blog', isRemoved: false };
@@ -53,7 +50,6 @@ export const getBlogCategories = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'getFullArticleByUri', message: error.message });
   }
 };
-
 export const createArticle = async (req: Request, res: Response) => {
   try {
     const articleBody = req.body.article;

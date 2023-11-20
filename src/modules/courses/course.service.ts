@@ -26,6 +26,7 @@ export class CourseService {
       return await Course.findOne({ ...query }, extractFields)
         .populate([
           { path: 'media', model: 'Media', select: mediaFields, strictPopulate: false },
+          { path: 'attachments', model: 'Media', select: mediaFields, strictPopulate: false },
           { path: 'instructor.avatar', model: 'Media', select: mediaMinFields, strictPopulate: false },
         ])
         .lean()

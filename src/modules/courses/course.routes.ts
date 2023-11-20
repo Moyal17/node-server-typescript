@@ -31,6 +31,9 @@ const coursesRoutes = {
       handleFullCourseObject,
     );
     router.get('/:id/schedule', validateParams(validateId), getSectionsByCourseId, getLecturesBySectionId, handleFullCourseObject);
+
+    router.post('/', validateBody(createCourseSchema), createCourse);
+    router.put('/:id', validateParams(validateId), validateBody(editCourseSchema), updateCourse);
     return router;
   },
   apiRoutes: () => {
@@ -43,8 +46,6 @@ const coursesRoutes = {
       handleFullCourseObject,
     );
     router.get('/:id', validateParams(validateId), getCourseById);
-    router.post('/', validateBody(createCourseSchema), createCourse);
-    router.put('/:id', validateParams(validateId), validateBody(editCourseSchema), updateCourse);
     router.delete('/:id', validateParams(validateId), deleteCourse);
     return router;
   },

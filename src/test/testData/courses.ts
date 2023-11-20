@@ -82,7 +82,7 @@ export const createMultipleLecturesMockUp = (sectionId: string, courseId: string
     const lectureMock = { ...lecture };
     lectureMock.sectionId = sectionId;
     lectureMock.courseId = courseId;
-    lectureMock.uri = `${lectureMock.uri}_${generateId(6)}`;
+    lectureMock.uri = `${lectureMock.uri}-${generateId(6)}`;
     lectureMock.title = `${lectureMock.title}_${j + 1}`;
     lectures.push(lectureMock);
   }

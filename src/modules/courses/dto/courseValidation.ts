@@ -2,25 +2,26 @@ import Joi, { Schema } from 'joi';
 
 export const courseSchema = {
   title: Joi.string().min(2).required(),
-  subtitle: Joi.string().optional(),
-  content: Joi.string().optional(),
-  template: Joi.string().optional(),
-  order: Joi.number().min(1).optional(),
-  duration: Joi.number().min(1).optional(),
+  subtitle: Joi.string().allow(null).optional(),
+  content: Joi.string().allow(null).optional(),
+  template: Joi.string().allow(null).optional(),
+  order: Joi.number().min(1).allow(null).optional(),
+  duration: Joi.number().min(1).allow(null).optional(),
   category: Joi.array().items(Joi.string()).optional(),
-  thumbnail: Joi.string().optional(),
-  source: Joi.string().optional(),
-  price: Joi.number().min(1).optional(),
-  currency: Joi.string().optional(),
-  rating: Joi.number().min(1).optional(),
-  numberOfRatings: Joi.number().min(1).optional(),
-  isBestSeller: Joi.boolean().optional(),
+  media: Joi.string().allow(null).optional(),
+  attachments: Joi.array().items(Joi.string()).allow(null).optional(),
+  publishedAt: Joi.string().allow(null).optional(),
+  instructorName: Joi.string().allow(null).optional(),
+  instructorLocation: Joi.string().allow(null).optional(),
+  instructorAvatar: Joi.string().allow(null).optional(),
+  audienceFit: Joi.array().items(Joi.string()).allow(null).optional(),
+  objectives: Joi.array().items(Joi.string()).allow(null).optional(),
 };
 
 export const createCourseSchema: Schema = Joi.object({
   uri: Joi.string().min(2).required(),
   ...courseSchema,
-}).unknown(true);
+}).unknown(false);
 export const editCourseSchema: Schema = Joi.object({
   _id: Joi.string().required(),
   ...courseSchema,
