@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-const lectureSchema = new Schema({
+const lessonSchema = new Schema({
   sectionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Section', required: true },
   courseId: { type: mongoose.Schema.Types.ObjectId, ref: 'Course', required: true },
   uri: { type: String, required: true, unique: true },
@@ -24,5 +24,5 @@ const lectureSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-const Lecture = mongoose.model('Lecture', lectureSchema);
-export default Lecture;
+const Lesson = mongoose.model('Lesson', lessonSchema);
+export default Lesson;

@@ -28,9 +28,9 @@ const course = {
       sectionId: '1',
       title: 'Introduction',
       duration: 3600, // 60 minutes in seconds
-      lectures: [
+      lessons: [
         {
-          lectureId: '1.1',
+          lessonId: '1.1',
           title: 'What is Python?',
           type: 'video',
           duration: 900, // "15 minutes",
@@ -38,13 +38,13 @@ const course = {
           source: 'https://example.com/path/to/video1.mp4',
         },
         {
-          lectureId: '1.2',
+          lessonId: '1.2',
           title: "Python's Popularity",
           type: 'article',
           duration: 1200, // "20 minutes",
           thumbnail: 'https://example.com/path/to/article1.jpg',
         },
-        // ... other lectures
+        // ... other lessons
       ],
     },
     // ... other sections

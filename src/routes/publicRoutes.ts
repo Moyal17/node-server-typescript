@@ -3,7 +3,7 @@ import auth from '../modules/auth/auth.routes';
 import users from '../modules/users/user.routes';
 import media from '../modules/media/media.routes';
 import courses from '../modules/courses/course.routes';
-import lectures from '../modules/lectures/lecture.routes';
+import lessons from '../modules/lessons/lesson.routes';
 import categories from '../modules/categories/category.routes';
 import pages from '../modules/pages/page.routes';
 import blog from '../modules/blog/blog.routes';
@@ -15,7 +15,7 @@ const routes: { [key: string]: Router } = {
   users: users.publicRoutes(),
   media: media.publicRoutes(),
   courses: courses.publicRoutes(),
-  lectures: lectures.publicRoutes(),
+  lessons: lessons.publicRoutes(),
   categories: categories.publicRoutes(),
   pages: pages.publicRoutes(),
   blog: blog.publicRoutes(),

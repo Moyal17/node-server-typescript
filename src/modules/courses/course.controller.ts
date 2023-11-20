@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { CourseService } from './course.service';
 import { ExtendedRequest } from '../shared/types';
-import { LectureObject } from '../lectures/dto';
+import { LessonObject } from '../lessons/dto';
 import { basicFields } from './dto';
 import { generateId } from '../../utils';
 
@@ -111,20 +111,20 @@ export const deleteCourse = async (req: Request, res: Response) => {
 
 export const handleFullCourseObject = async (req: ExtendedRequest, res: Response) => {
   try {
-    let lecturesBySectionId: { [key: string]: Partial<LectureObject>[] } = {};
-    // handle lectures into each section
-    if (req.lectures && req.lectures?.length > 0) {
-      lecturesBySectionId = req.lectures.reduce((acc: { [key: string]: Partial<LectureObject>[] }, lecture: any) => {
-        if (lecture && lecture.sectionId) {
-          acc[lecture.sectionId as string] = acc[lecture.sectionId as string] || [];
-          acc[lecture.sectionId as string].push(lecture);
+    let lessonsBySectionId: { [key: string]: Partial<LessonObject>[] } = {};
+    // handle lessons into each section
+    if (req.lessons && req.lessons?.length > 0) {
+      lessonsBySectionId = req.lessons.reduce((acc: { [key: string]: Partial<LessonObject>[] }, lesson: any) => {
+        if (lesson && lesson.sectionId) {
+          acc[lesson.sectionId as string] = acc[lesson.sectionId as string] || [];
+          acc[lesson.sectionId as string].push(lesson);
         }
         return acc;
       }, {});
     }
     if (req.sections && req.sections?.length > 0) {
       req.sections.forEach((section) => {
-        section!.lectures = lecturesBySectionId[section!._id as string];
+        section!.lessons = lessonsBySectionId[section!._id as string];
       });
     }
     res.json({ ...req.course, sections: req.sections });

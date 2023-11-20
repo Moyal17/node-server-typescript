@@ -10,7 +10,7 @@ import {
   checkForPublicCourses,
 } from './course.controller';
 import { getSectionsByCourseId } from '../sections/section.controller';
-import { getLecturesBySectionId } from '../lectures/lecture.controller';
+import { getLessonsBySectionId } from '../lessons/lesson.controller';
 import { validateBody, validateParams } from '../../middlewares/validation';
 import { createCourseSchema, editCourseSchema } from './dto';
 import { setCacheHeaders } from '../../middlewares/cache';
@@ -27,10 +27,10 @@ const coursesRoutes = {
       checkForPublicCourses,
       getCourseDetailsByUri,
       getSectionsByCourseId,
-      getLecturesBySectionId,
+      getLessonsBySectionId,
       handleFullCourseObject,
     );
-    router.get('/:id/schedule', validateParams(validateId), getSectionsByCourseId, getLecturesBySectionId, handleFullCourseObject);
+    router.get('/:id/schedule', validateParams(validateId), getSectionsByCourseId, getLessonsBySectionId, handleFullCourseObject);
 
     router.post('/', validateBody(createCourseSchema), createCourse);
     router.put('/:id', validateParams(validateId), validateBody(editCourseSchema), updateCourse);
@@ -42,7 +42,7 @@ const coursesRoutes = {
       validateParams(validateUri),
       getCourseDetailsByUri,
       getSectionsByCourseId,
-      getLecturesBySectionId,
+      getLessonsBySectionId,
       handleFullCourseObject,
     );
     router.get('/:id', validateParams(validateId), getCourseById);

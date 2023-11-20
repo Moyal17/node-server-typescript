@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { describe, expect } from '@jest/globals';
-import { course, createMultipleLecturesMockUp, lecture, section } from './testData/courses';
+import { course, createMultipleLessonsMockUp, lesson, section } from './testData/courses';
 import { userLogin } from './testData/users';
 import app from '../app';
 import { generateId } from '../utils';
@@ -37,20 +37,20 @@ describe('Login and get user JWT Access', () => {
     // ... add other expectations as needed ...
   });
 
-  it('Create New Lecture In Section', async () => {
+  it('Create New Lesson In Section', async () => {
     // Access protected route with JWT token
-    const lectureObj = { ...lecture };
-    lectureObj.uri = `${lectureObj.title}_${generateId(5)}`;
-    lectureObj.sectionId = sectionObjectId;
-    lectureObj.courseId = courseObjectId;
-    const response = await request(app).post('/api/lectures/').set('Authorization', `Bearer ${jwtToken}`).send(lectureObj);
+    const lessonObj = { ...lesson };
+    lessonObj.uri = `${lessonObj.title}_${generateId(5)}`;
+    lessonObj.sectionId = sectionObjectId;
+    lessonObj.courseId = courseObjectId;
+    const response = await request(app).post('/api/lessons/').set('Authorization', `Bearer ${jwtToken}`).send(lessonObj);
     expect(response.status).toBe(200);
     // ... add other expectations as needed ...
   });
 
-  it('Create New 3 Lecture In Section', async () => {
-    const lectures = createMultipleLecturesMockUp(sectionObjectId, courseObjectId, 3);
-    const response = await request(app).post('/api/lectures/multiple').set('Authorization', `Bearer ${jwtToken}`).send({ lectures });
+  it('Create New 3 Lesson In Section', async () => {
+    const lessons = createMultipleLessonsMockUp(sectionObjectId, courseObjectId, 3);
+    const response = await request(app).post('/api/lessons/multiple').set('Authorization', `Bearer ${jwtToken}`).send({ lessons });
     expect(response.status).toBe(200);
     // ... add other expectations as needed ...
   });

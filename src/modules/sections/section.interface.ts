@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { LectureObject } from '../lectures/dto';
+import { LessonObject } from '../lessons/dto';
 
 interface ISection {
   _id: mongoose.Types.ObjectId | string;
@@ -13,6 +13,6 @@ interface ISection {
   isRemovable?: boolean;
   isRemoved?: boolean;
   createdAt?: Date;
-  lectures?: Partial<LectureObject>[];
+  lessons?: Partial<LessonObject>[];
 }
 export default ISection;

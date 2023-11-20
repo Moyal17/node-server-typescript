@@ -8,7 +8,7 @@ import collections from '../modules/collections/collection.routes';
 import items from '../modules/items/item.routes';
 import categories from '../modules/categories/category.routes';
 import courses from '../modules/courses/course.routes';
-import lectures from '../modules/lectures/lecture.routes';
+import lessons from '../modules/lessons/lesson.routes';
 import sections from '../modules/sections/section.routes';
 import blog from '../modules/blog/blog.routes';
 
@@ -23,7 +23,7 @@ const routes: { [key: string]: Router } = {
   collections: collections.apiRoutes(),
   categories: categories.apiRoutes(),
   courses: courses.apiRoutes(),
-  lectures: lectures.apiRoutes(),
+  lessons: lessons.apiRoutes(),
   sections: sections.apiRoutes(),
   blog: blog.apiRoutes(),
 };

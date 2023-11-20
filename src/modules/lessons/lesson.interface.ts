@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-interface ILecture {
+interface ILesson {
   _id?: mongoose.Types.ObjectId;
   sectionId?: mongoose.Types.ObjectId | string;
   courseId?: mongoose.Types.ObjectId | string;
@@ -19,7 +19,7 @@ interface ILecture {
   publishedAt?: Date | string;
   updatedAt?: Date | string;
   createdAt?: Date | string;
-  lectures?: Partial<ILecture>[];
+  lessons?: Partial<ILesson>[];
 }
 
-export default ILecture;
+export default ILesson;

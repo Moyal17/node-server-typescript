@@ -1,6 +1,6 @@
 import Joi, { Schema } from 'joi';
 
-export const createLectureSchema: Schema = Joi.object({
+export const createLessonSchema: Schema = Joi.object({
   sectionId: Joi.string().required(),
   uri: Joi.string().min(2).required(),
   title: Joi.string().min(2).required(),
@@ -23,10 +23,10 @@ export const createLectureSchema: Schema = Joi.object({
   createdAt: Joi.string().optional(),
 }).unknown(true);
 
-export const editLectureSchema: Schema = Joi.object({
+export const editLessonSchema: Schema = Joi.object({
   uri: Joi.string().min(2).required(),
 }).unknown(false); // this will remove any unexpected keys
 
-export const createLecturesSchema: Schema = Joi.object({
-  lectures: Joi.array().items(createLectureSchema).required(),
+export const createLessonsSchema: Schema = Joi.object({
+  lessons: Joi.array().items(createLessonSchema).required(),
 });

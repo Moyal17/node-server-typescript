@@ -1,4 +1,4 @@
-import { Lecture, Section } from './types';
+import { Lesson, Section } from './types';
 import { generateId } from '../../utils';
 import { Chance } from 'chance';
 import { sub } from 'date-fns';
@@ -39,10 +39,10 @@ export const section: Section = {
   order: 1,
 };
 
-export const lecture: Lecture = {
+export const lesson: Lesson = {
   sectionId: null,
   courseId: '',
-  uri: 'lecture-uri-example',
+  uri: 'lesson-uri-example',
   title: chance.sentence({ words: 3 }),
   subtitle: 'A complete guide to Python programming for beginners and professionals.',
   content: chance.paragraph({ sentences: 6 }),
@@ -57,7 +57,7 @@ export const lecture: Lecture = {
   },*/
 };
 
-export const lecture2: Lecture = {
+export const lesson2: Lesson = {
   sectionId: null,
   courseId: '',
   uri: null,
@@ -76,15 +76,15 @@ export const lecture2: Lecture = {
   },*/
 };
 
-export const createMultipleLecturesMockUp = (sectionId: string, courseId: string, lecturesNum: number = 3) => {
-  const lectures: Lecture[] = [];
-  for (let j = 0; j < lecturesNum; j++) {
-    const lectureMock = { ...lecture };
-    lectureMock.sectionId = sectionId;
-    lectureMock.courseId = courseId;
-    lectureMock.uri = `${lectureMock.uri}-${generateId(6)}`;
-    lectureMock.title = `${lectureMock.title}_${j + 1}`;
-    lectures.push(lectureMock);
+export const createMultipleLessonsMockUp = (sectionId: string, courseId: string, lessonsNum: number = 3) => {
+  const lessons: Lesson[] = [];
+  for (let j = 0; j < lessonsNum; j++) {
+    const lessonMock = { ...lesson };
+    lessonMock.sectionId = sectionId;
+    lessonMock.courseId = courseId;
+    lessonMock.uri = `${lessonMock.uri}-${generateId(6)}`;
+    lessonMock.title = `${lessonMock.title}_${j + 1}`;
+    lessons.push(lessonMock);
   }
-  return lectures;
+  return lessons;
 };

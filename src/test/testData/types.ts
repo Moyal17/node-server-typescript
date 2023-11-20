@@ -1,4 +1,4 @@
-export type Lecture = {
+export type Lesson = {
   sectionId: string | null;
   courseId: string;
   uri: string | null;

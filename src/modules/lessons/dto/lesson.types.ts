@@ -2,7 +2,7 @@ import { CategoryObject } from '../../categories/dto';
 import { MediaObject } from '../../media/dto';
 import mongoose from 'mongoose';
 
-export type LectureObject = {
+export type LessonObject = {
   _id?: string | mongoose.Types.ObjectId;
   sectionId?: string | mongoose.Types.ObjectId;
   courseId?: string | mongoose.Types.ObjectId;
