@@ -2,7 +2,7 @@ import Lesson from './lesson.model';
 import ILesson from './lesson.interface';
 import { basicFields } from './dto';
 import { minimalFields as courseFields } from '../courses/dto';
-import { basicFields as mediaFields } from '../media/dto';
+import { basicFields as mediaFields, minimalFields as mediaMinFields } from "../media/dto";
 
 export class LessonService {
   async getLessons(query = {}, extractFields: string = basicFields): Promise<Partial<ILesson[]> | null> {
@@ -15,7 +15,13 @@ export class LessonService {
 
   async getLessonById(lessonId: string, extractFields: string = basicFields): Promise<Partial<ILesson> | null> {
     try {
-      return await Lesson.findById(lessonId, extractFields).lean().exec();
+      return await Lesson.findById(lessonId, extractFields)
+        .populate([
+          { path: 'media', model: 'Media', select: mediaFields, strictPopulate: false },
+          { path: 'attachments', model: 'Media', select: mediaFields, strictPopulate: false },
+        ])
+        .lean()
+        .exec();
     } catch (error) {
       return error;
     }
@@ -35,9 +41,11 @@ export class LessonService {
                 strictPopulate: false,
                 select: 'thumbnail',
               },
+              { path: 'instructor.avatar', model: 'Media', select: mediaMinFields, strictPopulate: false },
             ],
           },
           { path: 'media', model: 'Media', select: mediaFields, strictPopulate: false },
+          { path: 'attachments', model: 'Media', select: mediaFields, strictPopulate: false },
         ])
         .lean()
         .exec();

@@ -23,6 +23,7 @@ export const createCourseSchema: Schema = Joi.object({
   ...courseSchema,
 }).unknown(false);
 export const editCourseSchema: Schema = Joi.object({
-  _id: Joi.string().required(),
+  _id: Joi.string().pattern(new RegExp('^[0-9a-fA-F]{24}$')).required(),
+  // This regex is for MongoDB ObjectIDs, adjust if you're using another type of ID
   ...courseSchema,
 }).unknown(false);

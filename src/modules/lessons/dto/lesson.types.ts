@@ -2,6 +2,11 @@ import { CategoryObject } from '../../categories/dto';
 import { MediaObject } from '../../media/dto';
 import mongoose from 'mongoose';
 
+export enum LessonTypeEnum {
+  video = 'video',
+  document = 'document',
+}
+
 export type LessonObject = {
   _id?: string | mongoose.Types.ObjectId;
   sectionId?: string | mongoose.Types.ObjectId;

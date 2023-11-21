@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import { LessonTypeEnum } from './dto';
 
 const lessonSchema = new Schema({
   sectionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Section', required: true },
@@ -12,7 +13,7 @@ const lessonSchema = new Schema({
   duration: Number,
   views: Number,
   likes: Number,
-  type: String, // enum: video / article
+  type: { type: String, enum: Object.values(LessonTypeEnum), default: LessonTypeEnum.video },
   category: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
   media: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
   attachments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Media' }],

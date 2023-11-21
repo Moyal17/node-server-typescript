@@ -19,6 +19,10 @@ const lessonsRoutes = {
   publicRoutes: () => {
     router.get('/', setCacheHeaders('public', 5), getLessons);
     router.get('/:uri', setCacheHeaders('public', 5), getLessonDetails);
+
+    router.get('details/:id', validateParams(validateUri), getLessonById);
+    router.post('/', validateBody(createLessonSchema), createLesson);
+    router.put('/:id', validateParams(validateId), validateBody(editLessonSchema), updateLesson);
     return router;
   },
   apiRoutes: () => {
