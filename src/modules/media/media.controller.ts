@@ -1,9 +1,8 @@
-import { Request, Response } from "express";
-import { MediaService } from "./media.service";
-import { configAWSObjectToMedia, configFileName } from "../../services/uploadService_v3";
-import IMedia from "./media.interface";
-import { FileDetails, mediaTypes, sourceTypes } from "./dto";
-import mongoose from "mongoose";
+import { Request, Response } from 'express';
+import { MediaService } from './media.service';
+import { configFileName } from '../../services/uploadService_v3';
+import IMedia from './media.interface';
+import { FileDetails, MediaTypeEnum, sourceTypes } from './dto';
 
 const mediaService = new MediaService();
 
@@ -49,7 +48,7 @@ export const createMedia = async (req: Request, res: Response) => {
       const { name } = configFileName(file.name);
       const mediaObj = {
         name,
-        mediaType: file.type && file.type.startsWith('video/') ? mediaTypes.video : mediaTypes.image,
+        mediaType: file.type && file.type.startsWith('video/') ? MediaTypeEnum.video : MediaTypeEnum.image,
         sourceType: sourceTypes.amazonS3,
         source: file.uploadURL,
         sourceOrigin: file.uploadURL,

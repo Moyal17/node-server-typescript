@@ -1,5 +1,5 @@
 import { mediaObject } from './medias';
-import { mediaTypes, sourceTypes } from '../../modules/media/dto';
+import { MediaTypeEnum, sourceTypes } from '../../modules/media/dto';
 
 export const imageObject = (link: string, sourceId: string, format: string) => ({
   ...mediaObject,
@@ -11,7 +11,7 @@ export const imageObject = (link: string, sourceId: string, format: string) => (
 });
 export const videoObject = (link: string, sourceId: string, format: string, thumbnail: string) => ({
   ...mediaObject,
-  type: mediaTypes.video,
+  type: MediaTypeEnum.video,
   sourceType: sourceTypes.youtube,
   sourceOrigin: link,
   source: link,

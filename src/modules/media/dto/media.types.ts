@@ -31,7 +31,7 @@ export type awsObject = {
   searchKeywords?: string[];
 };
 
-export enum mediaTypes {
+export enum MediaTypeEnum {
   image = 'image',
   video = 'video',
   form = 'form',

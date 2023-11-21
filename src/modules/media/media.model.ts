@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { mediaTypes, sourceTypes } from './dto';
+import { MediaTypeEnum, sourceTypes } from './dto';
 
 const sourceHls = {
   master: String,
@@ -15,7 +15,7 @@ const mediaSchema = new Schema({
   name: { type: String, required: true },
   description: String,
   isPublic: { type: Boolean, default: true },
-  mediaType: { type: String, enum: Object.values(mediaTypes), default: mediaTypes.image },
+  mediaType: { type: String, enum: Object.values(MediaTypeEnum), default: MediaTypeEnum.image },
   sourceType: { type: String, enum: Object.values(sourceTypes), default: sourceTypes.amazonS3 },
   sourceOrigin: String, // original url
   source: String, // secure_url .mp4

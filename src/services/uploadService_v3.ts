@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { S3Client, GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { awsObject, PreSignedBody, mediaTypes, sourceTypes } from '../modules/media/dto';
+import { awsObject, PreSignedBody, MediaTypeEnum, sourceTypes } from '../modules/media/dto';
 import { generateId } from '../utils/';
 import { putObject } from './types';
 import CONFIG from '../config/config';
@@ -57,7 +57,7 @@ export const configAWSObjectToMedia = (S3Obj: awsObject, userId: mongoose.Types.
   const { source } = S3Obj;
   let thumbnail = source;
   publicId = `MEDIA-${generateId(12)}`;
-  if (S3Obj.type === mediaTypes.video) thumbnail = `${thumbnail}.0000000.jpg`;
+  if (S3Obj.type === MediaTypeEnum.video) thumbnail = `${thumbnail}.0000000.jpg`;
   const { name } = configFileName(S3Obj.name);
   return {
     user: userId,

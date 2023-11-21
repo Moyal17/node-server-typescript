@@ -1,10 +1,10 @@
-import { mediaTypes, sourceTypes } from '../../modules/media/dto';
+import { MediaTypeEnum, sourceTypes } from '../../modules/media/dto';
 
 export const mediaObject = {
   name: '',
   description: '',
   isPublic: true,
-  type: mediaTypes.image,
+  type: MediaTypeEnum.image,
   sourceType: sourceTypes.amazonS3,
   sourceOrigin: '',
   source: '',

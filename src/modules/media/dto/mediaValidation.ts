@@ -1,5 +1,5 @@
 import Joi, { Schema } from 'joi';
-import { mediaTypes, sourceTypes } from './media.types';
+import { MediaTypeEnum, sourceTypes } from './media.types';
 
 export const generatePreSignedUrl: Schema = Joi.object({
   fileName: Joi.string().min(2).required(),
@@ -9,7 +9,7 @@ export const generatePreSignedUrl: Schema = Joi.object({
 
 const mediaObjectSchema = Joi.object({
   name: Joi.string().optional(),
-  mediaType: Joi.string().valid(mediaTypes).optional(),
+  mediaType: Joi.string().valid(MediaTypeEnum).optional(),
   sourceType: Joi.string().valid(sourceTypes).optional(),
   thumbnail: Joi.string().optional(),
   source: Joi.string().optional(),
