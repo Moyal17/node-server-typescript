@@ -52,7 +52,8 @@ export const createSection = async (req: Request, res: Response) => {
     if (!section) {
       return res.status(404).json({ message: 'Section not found' });
     }
-    res.json(section);
+    const { subtitle, title, order, duration, courseId, _id } = section;
+    res.json({ subtitle, title, order, duration, courseId, _id });
   } catch (error) {
     res.status(500).json({ error: 'createSection', message: error.message });
   }
@@ -64,8 +65,8 @@ export const updateSection = async (req: Request, res: Response) => {
     if (!section) {
       return res.status(404).json({ message: 'Section not found' });
     }
-    const { subtitle, title, _id } = section;
-    res.json({ subtitle, title, _id });
+    const { subtitle, title, order, duration, _id } = section;
+    res.json({ subtitle, title, order, duration, _id });
   } catch (error) {
     res.status(500).json({ error: 'updateSection', message: error.message });
   }

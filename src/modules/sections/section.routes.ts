@@ -9,6 +9,8 @@ const router: Router = express.Router();
 
 const sectionsRoutes = {
   publicRoutes: () => {
+    router.post('/', validateBody(createSectionSchema), createSection);
+    router.put('/:id', validateParams(validateId), validateBody(editSectionSchema), updateSection);
     return router;
   },
   apiRoutes: () => {
