@@ -2,7 +2,8 @@ import Lesson from './lesson.model';
 import ILesson from './lesson.interface';
 import { basicFields } from './dto';
 import { minimalFields as courseFields } from '../courses/dto';
-import { basicFields as mediaFields, minimalFields as mediaMinFields } from "../media/dto";
+import { basicFields as mediaFields, minimalFields as mediaMinFields } from '../media/dto';
+import { unArchiveLesson } from './lesson.controller';
 
 export class LessonService {
   async getLessons(query = {}, extractFields: string = basicFields): Promise<Partial<ILesson[]> | null> {
@@ -80,6 +81,22 @@ export class LessonService {
   }
 
   // Delete a Lesson
+  async archiveLesson(LessonId: string): Promise<Partial<ILesson> | null> {
+    try {
+      return await Lesson.findByIdAndUpdate(LessonId, { isRemoved: true }).exec();
+    } catch (error) {
+      throw new Error(`Error deleting Lesson ${LessonId}: ${error.message}`);
+    }
+  }
+
+  async unArchiveLesson(LessonId: string): Promise<Partial<ILesson> | null> {
+    try {
+      return await Lesson.findByIdAndUpdate(LessonId, { isRemoved: false }).exec();
+    } catch (error) {
+      throw new Error(`Error deleting Lesson ${LessonId}: ${error.message}`);
+    }
+  }
+
   async deleteLesson(LessonId: string): Promise<Partial<ILesson> | null> {
     try {
       return await Lesson.findByIdAndRemove(LessonId).exec();

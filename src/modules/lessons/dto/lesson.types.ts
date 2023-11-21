@@ -33,4 +33,4 @@ export const allFields =
   'uri sectionId title subtitle content template order duration type category media isDraft isRemoved publishedAt updatedAt createdAt';
 
 export const basicFields = 'uri sectionId courseId title subtitle content template order duration type category media publishedAt';
-export const minimalFields = 'uri title order duration';
+export const minimalFields = 'uri title order duration sectionId';

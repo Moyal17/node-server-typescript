@@ -93,6 +93,27 @@ export const updateLesson = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'updateLesson', message: error.message });
   }
 };
+
+export const archiveLesson = async (req: Request, res: Response) => {
+  try {
+    const lessonId = req.params.id;
+    await lessonService.archiveLesson(lessonId);
+    res.json();
+  } catch (error) {
+    res.status(500).json({ error: 'deleteLesson', message: error.message });
+  }
+};
+
+export const unArchiveLesson = async (req: Request, res: Response) => {
+  try {
+    const lessonId = req.params.id;
+    await lessonService.unArchiveLesson(lessonId);
+    res.json();
+  } catch (error) {
+    res.status(500).json({ error: 'deleteLesson', message: error.message });
+  }
+};
+
 export const deleteLesson = async (req: Request, res: Response) => {
   try {
     const lessonId = req.params.id;
