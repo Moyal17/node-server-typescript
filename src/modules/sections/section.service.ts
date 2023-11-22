@@ -1,6 +1,6 @@
-import Section from './section.model'; // Assuming you have a Mongoose model for Section
+import Section from './section.model';
 import ISection from './section.interface';
-import { basicFields } from './dto'; // Assuming you have a Mongoose model for Section
+import { basicFields } from './dto';
 
 export class SectionService {
   async getSections(query = {}, extractFields: string = basicFields): Promise<Partial<ISection[]> | null> {
@@ -38,6 +38,22 @@ export class SectionService {
       }).exec();
     } catch (error) {
       throw new Error(`Error updating Section ${SectionId}: ${error.message}`);
+    }
+  }
+
+  async archiveSection(SectionId: string): Promise<Partial<ISection> | null> {
+    try {
+      return await Section.findByIdAndUpdate(SectionId, { isRemoved: true }).exec();
+    } catch (error) {
+      throw new Error(`Error deleting Section ${SectionId}: ${error.message}`);
+    }
+  }
+
+  async unArchiveSection(SectionId: string): Promise<Partial<ISection> | null> {
+    try {
+      return await Section.findByIdAndUpdate(SectionId, { isRemoved: false }).exec();
+    } catch (error) {
+      throw new Error(`Error deleting Section ${SectionId}: ${error.message}`);
     }
   }
 

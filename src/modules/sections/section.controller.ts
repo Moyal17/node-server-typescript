@@ -71,6 +71,27 @@ export const updateSection = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'updateSection', message: error.message });
   }
 };
+
+export const archiveSection = async (req: Request, res: Response) => {
+  try {
+    const sectionId = req.params.id;
+    await sectionService.archiveSection(sectionId);
+    res.json();
+  } catch (error) {
+    res.status(500).json({ error: 'deleteSection', message: error.message });
+  }
+};
+
+export const unArchiveSection = async (req: Request, res: Response) => {
+  try {
+    const sectionId = req.params.id;
+    await sectionService.unArchiveSection(sectionId);
+    res.json();
+  } catch (error) {
+    res.status(500).json({ error: 'deleteSection', message: error.message });
+  }
+};
+
 export const deleteSection = async (req: Request, res: Response) => {
   try {
     const sectionId = req.params.id;

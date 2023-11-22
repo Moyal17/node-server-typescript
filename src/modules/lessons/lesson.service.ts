@@ -3,7 +3,6 @@ import ILesson from './lesson.interface';
 import { basicFields } from './dto';
 import { minimalFields as courseFields } from '../courses/dto';
 import { basicFields as mediaFields, minimalFields as mediaMinFields } from '../media/dto';
-import { unArchiveLesson } from './lesson.controller';
 
 export class LessonService {
   async getLessons(query = {}, extractFields: string = basicFields): Promise<Partial<ILesson[]> | null> {
