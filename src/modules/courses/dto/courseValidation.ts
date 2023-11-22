@@ -27,3 +27,8 @@ export const editCourseSchema: Schema = Joi.object({
   // This regex is for MongoDB ObjectIDs, adjust if you're using another type of ID
   ...courseSchema,
 }).unknown(false);
+
+export const queryPaginationSchema: Schema = Joi.object({
+  cursor: Joi.string().optional(),
+  limit: Joi.number().integer().min(1).max(100).optional(),
+}).unknown(false);

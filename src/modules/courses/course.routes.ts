@@ -8,11 +8,12 @@ import {
   getCourseDetailsByUri,
   handleFullCourseObject,
   checkForPublicCourses,
+  getAdminCourses,
 } from './course.controller';
 import { getSectionsByCourseId } from '../sections/section.controller';
 import { getLessonsBySectionId } from '../lessons/lesson.controller';
-import { validateBody, validateParams } from '../../middlewares/validation';
-import { createCourseSchema, editCourseSchema } from './dto';
+import { validateBody, validateParams, validateQuery } from '../../middlewares/validation';
+import { createCourseSchema, editCourseSchema, queryPaginationSchema } from './dto';
 import { setCacheHeaders } from '../../middlewares/cache';
 import { validateId, validateUri } from '../shared/validations';
 
@@ -30,8 +31,9 @@ const coursesRoutes = {
       getLessonsBySectionId,
       handleFullCourseObject,
     );
-    router.get('/:id/schedule', validateParams(validateId), getSectionsByCourseId, getLessonsBySectionId, handleFullCourseObject);
 
+    router.get('/list', validateQuery(queryPaginationSchema), getAdminCourses);
+    router.get('/:id/schedule', validateParams(validateId), getSectionsByCourseId, getLessonsBySectionId, handleFullCourseObject);
     router.post('/', validateBody(createCourseSchema), createCourse);
     router.put('/:id', validateParams(validateId), validateBody(editCourseSchema), updateCourse);
     return router;

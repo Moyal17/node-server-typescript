@@ -55,6 +55,8 @@ export type CourseReqBody = {
 
 export const allFields =
   'uri title subtitle content template order duration category sections media price currency rating numberOfRatings audienceFit objectives instructor isPublic isBestSeller isDraft isRemoved publishedAt updatedAt createdAt';
+
+export const adminBasicFields = 'uri title order duration category instructor isPublic publishedAt';
 export const basicFields =
   'uri title subtitle content order duration category media attachments price audienceFit objectives instructor isPublic publishedAt';
 export const minimalFields = 'uri title subtitle isBestSeller publishedAt audienceFit objectives';

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { CourseService } from './course.service';
 import { ExtendedRequest } from '../shared/types';
 import { LessonObject } from '../lessons/dto';
-import { basicFields } from './dto';
+import { adminBasicFields, basicFields } from './dto';
 import { generateId } from '../../utils';
 
 const courseService = new CourseService();
@@ -45,6 +45,28 @@ export const getCourses = async (req: ExtendedRequest, res: Response) => {
     res.status(500).json({ error: 'getCourses', message: error.message });
   }
 };
+
+export const getAdminCourses = async (req: ExtendedRequest, res: Response) => {
+  try {
+    const { cursor, limit } = req.query;
+    let query: any = {};
+    if (cursor && typeof cursor === 'string') {
+      query['_id'] = { $gt: cursor };
+    }
+    const limitStr = typeof limit === 'string' ? limit : '';
+    const limitResults = Number.isInteger(parseInt(limitStr)) && parseInt(limitStr) > 0 ? parseInt(limitStr) : 30;
+
+    query = req.isPublic ? { isPublic: true, isRemoved: false } : { isRemoved: false };
+    const courses = await courseService.getAdminCourses(query, adminBasicFields, limitResults);
+    if (!courses) {
+      return res.status(404).json({ message: 'courses not found' });
+    }
+    res.json(courses);
+  } catch (error) {
+    res.status(500).json({ error: 'getCourses', message: error.message });
+  }
+};
+
 export const getCourseById = async (req: Request, res: Response) => {
   try {
     const courseId = req.params.id;
