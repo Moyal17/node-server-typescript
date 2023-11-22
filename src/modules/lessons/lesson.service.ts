@@ -13,6 +13,14 @@ export class LessonService {
     }
   }
 
+  async getLessonsCount(courseId: string): Promise<number | null> {
+    try {
+      return await Lesson.countDocuments({ courseId }).lean().exec();
+    } catch (error) {
+      throw new Error(`Error check course Id ${courseId}: ${error.message}`);
+    }
+  }
+
   async getLessonById(lessonId: string, extractFields: string = basicFields): Promise<Partial<ILesson> | null> {
     try {
       return await Lesson.findById(lessonId, extractFields)

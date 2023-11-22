@@ -15,6 +15,19 @@ export const getLessons = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'getLessons', message: error.message });
   }
 };
+
+export const getLessonsCount = async (req: Request, res: Response) => {
+  try {
+    const lessons = await lessonService.getLessonsCount(req.params.courseId);
+    if (!lessons) {
+      return res.status(404).json({ message: 'lessons not found' });
+    }
+    res.json(lessons);
+  } catch (error) {
+    res.status(500).json({ error: 'getLessons', message: error.message });
+  }
+};
+
 export const getLessonById = async (req: Request, res: Response) => {
   try {
     const lessonId = req.params.id;
