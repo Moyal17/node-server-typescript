@@ -22,6 +22,7 @@ const router: Router = express.Router();
 const coursesRoutes = {
   publicRoutes: () => {
     router.get('/', setCacheHeaders('public', 5), checkForPublicCourses, getCourses);
+    router.get('/list', setCacheHeaders('public', 10), validateQuery(queryPaginationSchema), getAdminCourses);
     router.get(
       '/:uri',
       validateParams(validateUri),
@@ -31,14 +32,13 @@ const coursesRoutes = {
       getLessonsBySectionId,
       handleFullCourseObject,
     );
-
-    router.get('/list', validateQuery(queryPaginationSchema), getAdminCourses);
     router.get('/:id/schedule', validateParams(validateId), getSectionsByCourseId, getLessonsBySectionId, handleFullCourseObject);
     router.post('/', validateBody(createCourseSchema), createCourse);
     router.put('/:id', validateParams(validateId), validateBody(editCourseSchema), updateCourse);
     return router;
   },
   apiRoutes: () => {
+    router.get('/list', setCacheHeaders('public', 10), validateQuery(queryPaginationSchema), getAdminCourses);
     router.get(
       '/:uri',
       validateParams(validateUri),
@@ -47,6 +47,9 @@ const coursesRoutes = {
       getLessonsBySectionId,
       handleFullCourseObject,
     );
+    router.get('/:id/schedule', validateParams(validateId), getSectionsByCourseId, getLessonsBySectionId, handleFullCourseObject);
+    router.post('/', validateBody(createCourseSchema), createCourse);
+    router.put('/:id', validateParams(validateId), validateBody(editCourseSchema), updateCourse);
     router.get('/:id', validateParams(validateId), getCourseById);
     router.delete('/:id', validateParams(validateId), deleteCourse);
     return router;

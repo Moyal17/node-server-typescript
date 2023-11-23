@@ -38,7 +38,7 @@ export const getCourses = async (req: ExtendedRequest, res: Response) => {
     const query = req.isPublic ? { isPublic: true, isRemoved: false } : { isRemoved: false };
     const courses = await courseService.getCourses(query);
     if (!courses) {
-      return res.status(404).json({ message: 'courses not found' });
+      return res.status(404).json({ message: 'not found' });
     }
     res.json(courses);
   } catch (error) {
@@ -49,14 +49,13 @@ export const getCourses = async (req: ExtendedRequest, res: Response) => {
 export const getAdminCourses = async (req: ExtendedRequest, res: Response) => {
   try {
     const { cursor, limit } = req.query;
-    let query: any = {};
+    const query: any = { isRemoved: false };
     if (cursor && typeof cursor === 'string') {
       query['_id'] = { $gt: cursor };
     }
     const limitStr = typeof limit === 'string' ? limit : '';
     const limitResults = Number.isInteger(parseInt(limitStr)) && parseInt(limitStr) > 0 ? parseInt(limitStr) : 30;
 
-    query = req.isPublic ? { isPublic: true, isRemoved: false } : { isRemoved: false };
     const courses = await courseService.getAdminCourses(query, adminBasicFields, limitResults);
     if (!courses) {
       return res.status(404).json({ message: 'courses not found' });

@@ -1,4 +1,5 @@
 import Joi, { Schema } from 'joi';
+import { LessonTypeEnum } from './lesson.types';
 const isRegex = new RegExp('^[0-9a-fA-F]{24}$');
 export const lessonSchema = {
   sectionId: Joi.string().pattern(isRegex).required(),
@@ -9,7 +10,7 @@ export const lessonSchema = {
   template: Joi.string().allow(null).optional(),
   order: Joi.number().min(1).optional(),
   duration: Joi.number().min(1).allow(null).optional(),
-  type: Joi.string().optional(),
+  type: Joi.string().valid(...Object.values(LessonTypeEnum)),
   media: Joi.string().allow(null).optional(),
   attachments: Joi.array().items(Joi.string()).allow(null).optional(),
   rating: Joi.number().optional(),
