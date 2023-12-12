@@ -35,4 +35,5 @@ export type CategoryObject = {
 
 export const allFields =
   'uri group title subtitle description language order media seo searchKeywords isFilter isShow isRemovable isRemoved updatedAt createdAt';
-export const basicFields = 'uri group title subtitle language order media seo';
+export const basicFields = 'uri group title subtitle description language order media seo';
+export const minimalFields = 'uri title order';

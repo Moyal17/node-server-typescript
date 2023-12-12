@@ -5,8 +5,7 @@ import { basicFields } from './dto';
 export class CategoryService {
   async getCategories(query = {}, extractFields = basicFields): Promise<Partial<ICategory[]> | null> {
     try {
-      const categories = await Category.find(query, extractFields).lean().exec();
-      return categories;
+      return await Category.find(query, extractFields).lean().exec();
     } catch (error) {
       return error;
     }
@@ -15,8 +14,7 @@ export class CategoryService {
   // Fetch a Category by their ID
   async getCategoryById(CategoryId: string, extractFields = basicFields): Promise<Partial<ICategory> | null> {
     try {
-      const category = await Category.findById(CategoryId, extractFields).lean().exec();
-      return category;
+      return await Category.findById(CategoryId, extractFields).lean().exec();
     } catch (error) {
       return error;
     }
@@ -40,13 +38,20 @@ export class CategoryService {
     }
   }
 
+  async createMultiCategories(Categories: ICategory[]): Promise<Partial<ICategory>[]> {
+    try {
+      return await Category.insertMany(Categories, { ordered: true });
+    } catch (error) {
+      throw new Error(`Error creating Categories: ${error.message}`);
+    }
+  }
+
   // Update a Category
   async updateCategory(CategoryId: string, updatedData: Partial<ICategory>): Promise<Partial<ICategory> | null> {
     try {
-      const updatedCategory = await Category.findByIdAndUpdate(CategoryId, updatedData, {
+      return await Category.findByIdAndUpdate(CategoryId, updatedData, {
         new: true,
       }).exec();
-      return updatedCategory;
     } catch (error) {
       throw new Error(`Error updating Category ${CategoryId}: ${error.message}`);
     }
@@ -55,8 +60,7 @@ export class CategoryService {
   // Delete a Category
   async deleteCategory(CategoryId: string): Promise<Partial<ICategory> | null> {
     try {
-      const deletedCategory = await Category.findByIdAndRemove(CategoryId).exec();
-      return deletedCategory;
+      return await Category.findByIdAndRemove(CategoryId).exec();
     } catch (error) {
       throw new Error(`Error deleting Category ${CategoryId}: ${error.message}`);
     }

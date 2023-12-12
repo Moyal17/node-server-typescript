@@ -12,7 +12,7 @@ const categorySchema = new Schema({
   group: {
     type: String,
     enum: Object.values(categoryGroup),
-    default: categoryGroup.attractionTypes,
+    default: categoryGroup.blog,
     required: true,
   },
   media: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },

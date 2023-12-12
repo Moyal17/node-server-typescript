@@ -1,8 +1,8 @@
 import Joi, { Schema } from 'joi';
 
 export const categorySchema = {
-  group: Joi.array().items(Joi.string()).optional(),
-  language: Joi.string().min(2).max(2).required(),
+  group: Joi.string().optional(),
+  language: Joi.string().min(2).max(2).optional(),
   title: Joi.string().min(2).required(),
   description: Joi.string().optional(),
   subtitle: Joi.string().max(500).optional(),
@@ -20,9 +20,15 @@ export const categorySchema = {
 export const createCategorySchema: Schema = Joi.object({
   uri: Joi.string().min(2).required(),
   ...categorySchema,
-}).unknown(true);
+}).unknown(false);
 
 export const editCategorySchema: Schema = Joi.object({
   _id: Joi.string().optional(),
   ...categorySchema,
 }).unknown(false); // this will remove any unexpected keys
+
+export const createCategoriesSchema: Schema = Joi.object({
+  categories: Joi.array()
+    .items(Joi.object({ ...categorySchema }))
+    .required(),
+});

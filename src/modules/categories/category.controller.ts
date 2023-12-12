@@ -101,6 +101,20 @@ export const createCategory = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'createCategory', message: error.message });
   }
 };
+
+export const createMultiCategories = async (req: Request, res: Response) => {
+  try {
+    const categories = req.body.categories;
+    const categoriesObjs = await categoryService.createMultiCategories(categories);
+    if (!categoriesObjs) {
+      return res.status(404).json({ message: 'Categories not found' });
+    }
+    res.json(categoriesObjs);
+  } catch (error) {
+    res.status(500).json({ error: 'createMultiCategories', message: error.message });
+  }
+};
+
 export const updateCategory = async (req: Request, res: Response) => {
   try {
     const categoryId = req.params.id;
