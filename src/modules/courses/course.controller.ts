@@ -7,6 +7,13 @@ import { generateId } from '../../utils';
 
 const courseService = new CourseService();
 
+const getPaginationParams = (query: any) => {
+  const cursor = query.cursor && typeof query.cursor === 'string' ? query.cursor : '';
+  const limitStr = typeof query.limit === 'string' ? query.limit : '';
+  const limit = Number.isInteger(parseInt(limitStr)) && parseInt(limitStr) > 0 ? parseInt(limitStr) : 30;
+  return { cursor, limit };
+};
+
 const configCourseObject = (courseBody: any) => {
   try {
     if (courseBody.category) {
@@ -35,8 +42,12 @@ export const checkForPublicCourses = async (req: ExtendedRequest, res: Response,
 
 export const getCourses = async (req: ExtendedRequest, res: Response) => {
   try {
-    const query = req.isPublic ? { isPublic: true, isRemoved: false } : { isRemoved: false };
-    const courses = await courseService.getCourses(query);
+    const { cursor, limit } = getPaginationParams(req.query);
+    const query: any = req.isPublic ? { isPublic: true, isRemoved: false } : { isRemoved: false };
+    if (cursor) {
+      query['_id'] = { $gt: cursor };
+    }
+    const courses = await courseService.getCourses(query, basicFields, limit);
     if (!courses) {
       return res.status(404).json({ message: 'not found' });
     }
@@ -48,15 +59,12 @@ export const getCourses = async (req: ExtendedRequest, res: Response) => {
 
 export const getAdminCourses = async (req: ExtendedRequest, res: Response) => {
   try {
-    const { cursor, limit } = req.query;
+    const { cursor, limit } = getPaginationParams(req.query);
     const query: any = { isRemoved: false };
-    if (cursor && typeof cursor === 'string') {
+    if (cursor) {
       query['_id'] = { $gt: cursor };
     }
-    const limitStr = typeof limit === 'string' ? limit : '';
-    const limitResults = Number.isInteger(parseInt(limitStr)) && parseInt(limitStr) > 0 ? parseInt(limitStr) : 30;
-
-    const courses = await courseService.getAdminCourses(query, adminBasicFields, limitResults);
+    const courses = await courseService.getAdminCourses(query, adminBasicFields, limit);
     if (!courses) {
       return res.status(404).json({ message: 'courses not found' });
     }

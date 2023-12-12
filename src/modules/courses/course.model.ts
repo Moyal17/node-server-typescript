@@ -25,6 +25,7 @@ const courseSchema = new Schema({
   audienceFit: [String],
   objectives: [String],
   isPublic: { type: Boolean, default: true },
+  isFeatured: { type: Boolean, default: false },
   isBestSeller: { type: Boolean, default: false },
   isDraft: { type: Boolean, default: true },
   isRemoved: { type: Boolean, default: false },

@@ -2,12 +2,15 @@ import Course from './course.model'; // Assuming you have a Mongoose model for C
 import ICourse from './course.interface';
 import { basicFields } from './dto';
 import { basicFields as mediaFields, minimalFields as mediaMinFields } from '../media/dto';
-import { getAdminCourses } from './course.controller';
 
 export class CourseService {
-  async getCourses(query: object): Promise<Partial<ICourse[]> | null> {
+  async getCourses(query: object, extractFields: string = basicFields, limit: number = 30): Promise<Partial<ICourse[]> | null> {
     try {
-      return await Course.find(query).lean().exec();
+      return await Course.find(query, extractFields)
+        .limit(limit)
+        .populate([{ path: 'media', model: 'Media', select: mediaMinFields, strictPopulate: false }])
+        .lean()
+        .exec();
     } catch (error) {
       return error;
     }
