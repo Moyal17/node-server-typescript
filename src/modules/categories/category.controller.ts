@@ -48,7 +48,7 @@ export const getCategories = async (req: Request, res: Response) => {
 
 export const getCategoriesByGroup = async (req: Request, res: Response) => {
   try {
-    const searchQuery = configQuerySearch(req.body);
+    const searchQuery = configQuerySearch(req.query as unknown as QueryType);
     const results = await categoryService.getCategories(searchQuery);
     if (results) {
       const validCategories: ICategory[] = results.filter((category): category is ICategory => category !== undefined);

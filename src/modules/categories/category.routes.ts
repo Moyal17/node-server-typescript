@@ -6,9 +6,10 @@ import {
   updateCategory,
   createMultiCategories,
   getCategoryByUri,
+  getCategoriesByGroup,
 } from './category.controller';
-import { validateBody, validateParams } from '../../middlewares/validation';
-import { createCategoriesSchema, createCategorySchema, editCategorySchema } from './dto';
+import { validateBody, validateParams, validateQuery } from '../../middlewares/validation';
+import { createCategoriesSchema, createCategorySchema, editCategorySchema, validateGroupName } from './dto';
 import { setCacheHeaders } from '../../middlewares/cache';
 import { validateId, validateUri } from '../shared/validations';
 
@@ -17,6 +18,8 @@ const router: Router = express.Router();
 const categoriesRoutes = {
   publicRoutes: () => {
     router.get('/', setCacheHeaders('public', 5), getCategories);
+    router.get('/groups', validateQuery(validateGroupName), getCategoriesByGroup);
+    router.get('/:uri', validateParams(validateUri), getCategoryByUri);
     return router;
   },
   apiRoutes: () => {

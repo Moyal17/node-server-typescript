@@ -1,4 +1,5 @@
 import Joi, { Schema } from 'joi';
+import { categoryGroup } from './category.types';
 
 export const categorySchema = {
   group: Joi.string().optional(),
@@ -30,5 +31,11 @@ export const editCategorySchema: Schema = Joi.object({
 export const createCategoriesSchema: Schema = Joi.object({
   categories: Joi.array()
     .items(Joi.object({ ...categorySchema }))
+    .required(),
+});
+
+export const validateGroupName = Joi.object({
+  group: Joi.array()
+    .items(Joi.string().valid(...Object.values(categoryGroup)))
     .required(),
 });
