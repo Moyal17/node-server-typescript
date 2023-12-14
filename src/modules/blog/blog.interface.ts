@@ -6,13 +6,18 @@ interface IArticle {
   subtitle?: string;
   content?: string;
   language?: string;
-  author?: string;
+  author?: {
+    avatar?: mongoose.Types.ObjectId | string;
+    name?: string;
+    profession?: string;
+  };
   order?: number;
   media?: mongoose.Types.ObjectId | string;
   category?: mongoose.Types.ObjectId[] | string[];
   searchKeywords?: string[];
   isDraft?: boolean;
   isRemoved?: boolean;
+  publishedAt?: Date;
   createdAt?: Date;
   updatedAt?: Date;
 }

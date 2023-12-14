@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { Schema } from 'joi';
+import { ExtendedRequest } from '../modules/shared/types';
 
 export const validateBody = (schema: Schema) => {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -36,4 +37,13 @@ export const validateQuery = (schema: Schema) => {
     }
     next();
   };
+};
+
+export const checkForPublicAssets = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
+  try {
+    req.isPublic = true;
+    next();
+  } catch (error) {
+    res.status(500).json({ error: 'checkForPublicAssets', message: error.message });
+  }
 };

@@ -7,12 +7,11 @@ import {
   updateCourse,
   getCourseDetailsByUri,
   handleFullCourseObject,
-  checkForPublicCourses,
   getAdminCourses,
 } from './course.controller';
 import { getSectionsByCourseId } from '../sections/section.controller';
 import { getLessonsBySectionId } from '../lessons/lesson.controller';
-import { validateBody, validateParams, validateQuery } from '../../middlewares/validation';
+import { checkForPublicAssets, validateBody, validateParams, validateQuery } from '../../middlewares/validation';
 import { createCourseSchema, editCourseSchema, queryPaginationSchema } from './dto';
 import { setCacheHeaders } from '../../middlewares/cache';
 import { validateId, validateUri } from '../shared/validations';
@@ -21,12 +20,12 @@ const router: Router = express.Router();
 
 const coursesRoutes = {
   publicRoutes: () => {
-    router.get('/', setCacheHeaders('public', 5), checkForPublicCourses, getCourses);
+    router.get('/', setCacheHeaders('public', 5), checkForPublicAssets, getCourses);
     router.get('/list', setCacheHeaders('public', 10), validateQuery(queryPaginationSchema), getAdminCourses);
     router.get(
       '/:uri',
       validateParams(validateUri),
-      checkForPublicCourses,
+      checkForPublicAssets,
       getCourseDetailsByUri,
       getSectionsByCourseId,
       getLessonsBySectionId,

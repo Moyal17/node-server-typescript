@@ -1,18 +1,23 @@
 import mongoose, { Schema } from 'mongoose';
-import { languages } from '../shared/enums';
+import { LanguageEnum } from '../shared/enums';
 
 const articleSchema = new Schema({
   uri: { type: String, required: true, unique: true },
   title: String,
   subtitle: String,
   content: String,
-  author: String,
-  language: { type: String, enum: Object.values(languages), default: languages.EN },
+  language: { type: String, enum: Object.values(LanguageEnum), default: LanguageEnum.EN },
   category: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
   media: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
+  author: {
+    avatar: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
+    name: String,
+    profession: String,
+  },
   searchKeywords: [{ type: String }],
   isDraft: { type: Boolean, default: false },
   isRemoved: { type: Boolean, default: false },
+  publishedAt: { type: Date, default: Date.now },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

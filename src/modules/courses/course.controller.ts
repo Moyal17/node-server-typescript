@@ -4,21 +4,12 @@ import { ExtendedRequest } from '../shared/types';
 import { LessonObject } from '../lessons/dto';
 import { adminBasicFields, basicFields } from './dto';
 import { generateId } from '../../utils';
+import { getPaginationParams } from '../shared/utils';
 
 const courseService = new CourseService();
 
-const getPaginationParams = (query: any) => {
-  const cursor = query.cursor && typeof query.cursor === 'string' ? query.cursor : '';
-  const limitStr = typeof query.limit === 'string' ? query.limit : '';
-  const limit = Number.isInteger(parseInt(limitStr)) && parseInt(limitStr) > 0 ? parseInt(limitStr) : 30;
-  return { cursor, limit };
-};
-
 const configCourseObject = (courseBody: any) => {
   try {
-    if (courseBody.category) {
-      delete courseBody.category;
-    }
     if (courseBody.instructorName || courseBody.instructorAvatar || courseBody.instructorLocation) {
       courseBody.instructor = {
         name: courseBody.instructorName,
@@ -30,16 +21,7 @@ const configCourseObject = (courseBody: any) => {
   } catch (e) {
     console.error('configCourseObject: ', e);
   }
-};
-export const checkForPublicCourses = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
-  try {
-    req.isPublic = true;
-    next();
-  } catch (error) {
-    res.status(500).json({ error: 'getCourses', message: error.message });
-  }
-};
-
+}
 export const getCourses = async (req: ExtendedRequest, res: Response) => {
   try {
     const { cursor, limit } = getPaginationParams(req.query);

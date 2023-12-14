@@ -1,19 +1,35 @@
-import Article from './blog.model';
+import Article from './article.model';
 import IArticle from './blog.interface';
-import { basicFields } from './dto';
-import { basicFields as mediaFields } from '../media/dto';
+import { basicFields as articleFields } from './dto';
+import { basicFields as mediaFields, minimalFields as mediaMinFields } from '../media/dto';
 
 export class BlogService {
-  async getArticles(): Promise<Partial<IArticle[]> | null> {
+  async getArticles(query: object, extractFields: string = articleFields, limit: number = 30): Promise<Partial<IArticle[]> | null> {
     try {
-      return await Article.find({}).exec();
+      return await Article.find(query, extractFields)
+        .limit(limit)
+        .populate([{ path: 'author.avatar', model: 'Media', select: mediaMinFields, strictPopulate: false }])
+        .lean()
+        .exec();
     } catch (error) {
       return error;
     }
   }
-  async getArticleByUri(uri: string): Promise<Partial<IArticle> | null> {
+
+  async getAdminArticles(query: object, extractFields: string = articleFields, limit: number = 30): Promise<Partial<IArticle[]> | null> {
     try {
-      return await Article.findOne({ uri }, basicFields).lean().exec();
+      return await Article.find(query, extractFields)
+        .limit(limit)
+        .populate([{ path: 'author.avatar', model: 'Media', select: mediaMinFields, strictPopulate: false }])
+        .lean()
+        .exec();
+    } catch (error) {
+      return error;
+    }
+  }
+  async getArticleByUri(uri: string, extractFields: string = articleFields): Promise<Partial<IArticle> | null> {
+    try {
+      return await Article.findOne({ uri }, extractFields).lean().exec();
     } catch (error) {
       return error;
     }
