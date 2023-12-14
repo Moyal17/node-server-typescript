@@ -1,12 +1,12 @@
 import mongoose, { Schema } from 'mongoose';
-import { languages } from '../shared/enums';
+import { LanguageEnum } from '../shared/enums';
 
 const pageSchema = new Schema({
   uri: { type: String, required: true, unique: true },
   title: String,
   subtitle: String,
   content: String,
-  language: { type: String, enum: Object.values(languages), default: languages.EN },
+  language: { type: String, enum: Object.values(LanguageEnum), default: LanguageEnum.EN },
   order: Number,
   media: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
   seo: {

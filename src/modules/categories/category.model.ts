@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import { categoryGroup } from './dto';
-import { languages } from '../shared/enums';
+import { LanguageEnum } from '../shared/enums';
 
 const categorySchema = new Schema({
   uri: { type: String, required: true, unique: true },
@@ -8,7 +8,7 @@ const categorySchema = new Schema({
   description: String,
   subtitle: String,
   order: Number,
-  language: { type: String, enum: Object.values(languages), default: languages.EN }, // he , en , es
+  language: { type: String, enum: Object.values(LanguageEnum), default: LanguageEnum.EN }, // he , en , es
   group: {
     type: String,
     enum: Object.values(categoryGroup),
