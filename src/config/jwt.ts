@@ -14,6 +14,14 @@ export const generateToken = (payload: JwtPayload): string => {
   return jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
 };
 
+export const generateCookieToken = (payload: JwtPayload): string => {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '15m' });
+};
+
+export const generateCookieRefreshToken = (payload: JwtPayload): string => {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '20d' });
+};
+
 /**
  * Verifies and decodes a JWT.
  * @param token The JWT to decode.
