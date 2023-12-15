@@ -3,3 +3,8 @@ export enum LanguageEnum {
   HE = 'he',
   ES = 'es',
 }
+
+export enum GenderEnum {
+  MALE = 'male',
+  FEMALE = 'female',
+}

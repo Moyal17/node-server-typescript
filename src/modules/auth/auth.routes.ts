@@ -13,7 +13,7 @@ const auth = {
     return router;
   },
   apiRoutes: () => {
-    router.get('/protected', passport.authenticate('jwt', { session: false }), (req, res) => {
+    router.get('/protected', (req, res) => {
       res.send('You have accessed a protected endpoint!');
     });
     return router;
