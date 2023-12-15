@@ -5,6 +5,7 @@ import { generateId } from '../../utils';
 import { getPaginationParams } from '../shared/utils';
 import { ExtendedRequest } from '../shared/types';
 import { basicFields } from './dto';
+import { categoryGroupEnum } from "../categories/dto";
 const articleService = new BlogService();
 const categoryService = new CategoryService();
 
@@ -83,7 +84,7 @@ export const getFullArticleByUri = async (req: Request, res: Response) => {
 };
 export const getBlogCategories = async (req: Request, res: Response) => {
   try {
-    const searchQuery = { group: 'blog', isRemoved: false };
+    const searchQuery = { group: categoryGroupEnum.BLOG, isRemoved: false };
     const categories = await categoryService.getCategories(searchQuery);
     if (!categories) {
       return res.status(404).json({ message: 'Article not found' });

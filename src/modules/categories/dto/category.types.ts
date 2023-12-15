@@ -1,10 +1,9 @@
 import { ISeo } from '../../shared/types';
 
-export enum categoryGroup {
-  attractionTypes = 'attractionTypes', // restaurants, parks, museums , nightLife,
-  seasons = 'seasons', // spring, summer, autumn, winter,
-  blog = 'blog',
-  courses = 'courses',
+export enum categoryGroupEnum {
+  LEADS = 'leads',
+  BLOG = 'blog',
+  COURSES = 'courses',
 }
 
 export type QueryType = {
@@ -16,7 +15,7 @@ export type QueryType = {
 
 export type CategoryObject = {
   _id?: string;
-  group: string | categoryGroup;
+  group: string | categoryGroupEnum;
   uri: string;
   language?: string;
   title?: string;

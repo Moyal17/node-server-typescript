@@ -1,5 +1,5 @@
 import { LessonTypeEnum } from '../../modules/lessons/dto';
-import { categoryGroup } from "../../modules/categories/dto";
+import { categoryGroupEnum } from "../../modules/categories/dto";
 
 export type Lesson = {
   sectionId: string | null;
@@ -26,7 +26,7 @@ export type Category = {
   title: string;
   subtitle: string;
   description: string;
-  group: string | categoryGroup;
+  group: string | categoryGroupEnum;
   seo: {
     title: string;
     description: string;

@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { categoryGroup } from './dto';
+import { categoryGroupEnum } from './dto';
 import { LanguageEnum } from '../shared/enums';
 
 const categorySchema = new Schema({
@@ -11,8 +11,8 @@ const categorySchema = new Schema({
   language: { type: String, enum: Object.values(LanguageEnum), default: LanguageEnum.EN }, // he , en , es
   group: {
     type: String,
-    enum: Object.values(categoryGroup),
-    default: categoryGroup.blog,
+    enum: Object.values(categoryGroupEnum),
+    default: categoryGroupEnum.BLOG,
     required: true,
   },
   media: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
