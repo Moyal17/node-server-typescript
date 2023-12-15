@@ -1,61 +1,62 @@
-import User from './lead.model'; // Assuming you have a Mongoose model for User
-import IUser from './lead.interface'; // Assuming you have a Mongoose model for User
+import Lead from './lead.model'; // Assuming you have a Mongoose model for Lead
+import ILead from './lead.interface';
+import { basicFields as leadFields } from './dto';
 
 export class LeadService {
-  async getUsers(): Promise<Partial<IUser[]> | null> {
+  async getLeads(query: object, extractFields: string = leadFields, limit: number = 30): Promise<Partial<ILead[]> | null> {
     try {
-      const users = await User.find({}).exec();
-
-      return users;
+      return await Lead.find(query, extractFields).limit(limit).lean().exec();
     } catch (error) {
       return error;
     }
   }
 
-  // Fetch a user by their ID
-  async getUserById(userId: string): Promise<Partial<IUser> | null> {
+  async getAdminLeads(query: object, extractFields: string = leadFields, limit: number = 30): Promise<Partial<ILead[]> | null> {
     try {
-      const user = await User.findById(userId).exec();
-
-      return user;
+      return await Lead.find(query, extractFields).limit(limit).lean().exec();
     } catch (error) {
       return error;
     }
   }
 
-  // Create a new user
-  async createUser(userData: IUser): Promise<Partial<IUser>> {
+  // Fetch a lead by their ID
+  async getLeadById(leadId: string): Promise<Partial<ILead> | null> {
     try {
-      const newUser = new User(userData);
-      return await newUser.save();
+      return await Lead.findById(leadId).exec();
     } catch (error) {
-      throw new Error(`Error creating user: ${error.message}`);
+      return error;
     }
   }
 
-  // Update a user
-  async updateUser(userId: string, updatedData: Partial<IUser>): Promise<Partial<IUser> | null> {
+  // Create a new lead
+  async createLead(leadData: ILead): Promise<Partial<ILead>> {
     try {
-      const updatedUser = await User.findByIdAndUpdate(userId, updatedData, {
+      const newLead = new Lead(leadData);
+      return await newLead.save();
+    } catch (error) {
+      throw new Error(`Error creating lead: ${error.message}`);
+    }
+  }
+
+  // Update a lead
+  async updateLead(leadId: string, updatedData: Partial<ILead>): Promise<Partial<ILead> | null> {
+    try {
+      return await Lead.findByIdAndUpdate(leadId, updatedData, {
         new: true,
       }).exec();
-
-      return updatedUser;
     } catch (error) {
-      throw new Error(`Error updating user ${userId}: ${error.message}`);
+      throw new Error(`Error updating lead ${leadId}: ${error.message}`);
     }
   }
 
-  // Delete a user
-  async deleteUser(userId: string): Promise<Partial<IUser> | null> {
+  // Delete a lead
+  async deleteLead(leadId: string): Promise<Partial<ILead> | null> {
     try {
-      const deletedUser = await User.findByIdAndRemove(userId).exec();
-
-      return deletedUser;
+      return await Lead.findByIdAndRemove(leadId).exec();
     } catch (error) {
-      throw new Error(`Error deleting user ${userId}: ${error.message}`);
+      throw new Error(`Error deleting lead ${leadId}: ${error.message}`);
     }
   }
 
-  // Other methods related to users (e.g., search, login, password reset, etc.)
+  // Other methods related to leads (e.g., search, login, password reset, etc.)
 }

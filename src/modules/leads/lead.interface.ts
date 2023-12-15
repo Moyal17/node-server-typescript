@@ -1,12 +1,22 @@
 import mongoose from 'mongoose';
+import { LeadSourceEnum, LeadStatusEnum } from './dto';
+import { GenderEnum } from '../shared/enums';
 
-interface IUser {
+interface ILead {
   _id?: mongoose.Types.ObjectId | string;
-  name: string;
-  hash: string;
-  email: string;
-  fullName?: string;
-  // ... other fields with their types
+  firstName?: string;
+  lastName?: string;
+  gender?: string | GenderEnum;
+  email?: string;
+  phone?: string;
+  contactPreference?: string;
+  source?: string | LeadSourceEnum;
+  status?: string | LeadStatusEnum;
+  category?: mongoose.Types.ObjectId | string;
+  interest?: string; // e.g., specific product or service they are interested in
+  notes?: string; // any additional notes about the lead
+  isRemoved?: boolean;
+  createdAt?: Date;
 }
 
-export default IUser;
+export default ILead;

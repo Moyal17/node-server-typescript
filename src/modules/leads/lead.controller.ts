@@ -1,62 +1,107 @@
 import { Request, Response } from 'express';
 import { LeadService } from './lead.service';
-const userService = new LeadService();
-export const getUsers = async (req: Request, res: Response) => {
+import { CategoryService } from '../categories/category.service';
+import { generateId } from '../../utils';
+import { getPaginationParams } from '../shared/utils';
+import { ExtendedRequest } from '../shared/types';
+import { basicFields } from './dto';
+import { categoryGroupEnum } from '../categories/dto';
+const leadService = new LeadService();
+const categoryService = new CategoryService();
+
+const configLeadObject = (leadBody: any) => {
   try {
-    const users = await userService.getUsers();
-    if (!users) {
-      return res.status(404).json({ message: 'users not found' });
+    if (leadBody.authorName || leadBody.authorAvatar || leadBody.authorProfession) {
+      leadBody.author = {
+        name: leadBody.authorName,
+        avatar: leadBody.authorAvatar,
+        profession: leadBody.authorProfession,
+      };
     }
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ error: 'getUsers', message: error.message });
-  }
-};
-export const getUserById = async (req: Request, res: Response) => {
-  try {
-    const userId = req.params.id;
-    const user = await userService.getUserById(userId);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ error: 'getUserById', message: error.message });
-  }
-};
-export const createUser = async (req: Request, res: Response) => {
-  try {
-    const userBody = req.body;
-    const user = await userService.createUser(userBody);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ error: 'createUser', message: error.message });
-  }
-};
-export const updateUser = async (req: Request, res: Response) => {
-  try {
-    const userId = req.params.id;
-    const user = await userService.updateUser(userId, req.body);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    const { email, name, _id } = user;
-    res.json({ email, name, _id });
-  } catch (error) {
-    res.status(500).json({ error: 'updateUser', message: error.message });
-  }
-};
-export const deleteUser = async (req: Request, res: Response) => {
-  try {
-    const userId = req.params.id;
-    const user = await userService.deleteUser(userId);
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ error: 'deleteUser', message: error.message });
+    return leadBody;
+  } catch (e) {
+    console.error('configCourseObject: ', e);
   }
 };
 
-// ... more routes for creating, updating, deleting users
+export const getLeads = async (req: ExtendedRequest, res: Response) => {
+  try {
+    const { cursor, limit } = getPaginationParams(req.query);
+    const query: any = req.isPublic ? { isPublic: true, isRemoved: false } : { isRemoved: false };
+    if (cursor) {
+      query['_id'] = { $gt: cursor };
+    }
+    const leads = await leadService.getLeads(query, basicFields, limit);
+    if (!leads) {
+      return res.status(404).json({ message: 'leads not found' });
+    }
+    res.json(leads);
+  } catch (error) {
+    res.status(500).json({ error: 'getLeads', message: error.message });
+  }
+};
+
+export const getLeadById = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const lead = await leadService.getLeadById(id);
+    if (!lead) {
+      return res.status(404).json({ message: 'Lead not found' });
+    }
+    res.json(lead);
+  } catch (error) {
+    res.status(500).json({ error: 'getLeadByUri', message: error.message });
+  }
+};
+
+export const getLeadCategories = async (req: Request, res: Response) => {
+  try {
+    const searchQuery = { group: categoryGroupEnum.LEADS, isRemoved: false };
+    const categories = await categoryService.getCategories(searchQuery);
+    if (!categories) {
+      return res.status(404).json({ message: 'Lead not found' });
+    }
+    res.json({ blog: categories });
+  } catch (error) {
+    res.status(500).json({ error: 'getFullLeadByUri', message: error.message });
+  }
+};
+
+export const createLead = async (req: Request, res: Response) => {
+  try {
+    const leadBody = configLeadObject({ ...req.body });
+    leadBody.uri = `${leadBody.uri}-${generateId(6)}`;
+    const lead = await leadService.createLead(leadBody);
+    if (!lead) {
+      return res.status(404).json({ message: 'Lead not found' });
+    }
+    res.json(lead);
+  } catch (error) {
+    res.status(500).json({ error: 'createLead', message: error.message });
+  }
+};
+export const updateLead = async (req: Request, res: Response) => {
+  try {
+    const leadId = req.params.id;
+    const leadBody = configLeadObject({ ...req.body });
+    delete leadBody._id;
+    const lead = await leadService.updateLead(leadId, req.body);
+    if (!lead) {
+      return res.status(404).json({ message: 'Lead not found' });
+    }
+    res.json();
+  } catch (error) {
+    res.status(500).json({ error: 'updateLead', message: error.message });
+  }
+};
+export const deleteLead = async (req: Request, res: Response) => {
+  try {
+    const leadId = req.params.id;
+    const lead = await leadService.deleteLead(leadId);
+    res.json(lead);
+  } catch (error) {
+    res.status(500).json({ error: 'deleteLead', message: error.message });
+  }
+};
+
+// ... more routes for creating, updating, deleting leads
