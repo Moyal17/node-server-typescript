@@ -9,7 +9,7 @@ let articleUri: string;
 describe('Login and get user JWT Access', () => {
   beforeAll(async () => {
     const loginResponse = await request(app).post('/public/auth/login').send(userLogin);
-    jwtToken = loginResponse.body;
+    jwtToken = loginResponse.body.accessToken;
     expect(loginResponse.status).toBe(200);
   });
 
@@ -27,10 +27,10 @@ describe('Login and get user JWT Access', () => {
     const response = await request(app).post('/api/blog/multiple').set('Authorization', `Bearer ${jwtToken}`).send({ articles });
     expect(response.status).toBe(200);
   });
-  // (courseUri ? it : it.skip)
-  it('Get Category Details', async () => {
+
+  it('Get Articles Details', async () => {
     const response = await request(app).get(`/public/blog/${articleUri}`);
-    console.log('response Category:\n', response.body);
+    console.log('response Articles:\n', response.body);
     expect(response.status).toBe(200);
   });
 });

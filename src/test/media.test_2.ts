@@ -9,7 +9,7 @@ let jwtToken: string;
 describe('Test S3 file upload', () => {
   beforeAll(async () => {
     const loginResponse = await request(app).post('/public/auth/login').send(userLogin);
-    jwtToken = loginResponse.body;
+    jwtToken = loginResponse.body.accessToken;
     expect(loginResponse.status).toBe(200);
   });
 

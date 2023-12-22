@@ -10,7 +10,7 @@ let categoryUri: string;
 describe('Login and get user JWT Access', () => {
   beforeAll(async () => {
     const loginResponse = await request(app).post('/public/auth/login').send(userLogin);
-    jwtToken = loginResponse.body;
+    jwtToken = loginResponse.body.accessToken;
     expect(loginResponse.status).toBe(200);
   });
 

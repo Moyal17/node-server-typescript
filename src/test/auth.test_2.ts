@@ -13,7 +13,7 @@ describe('Login and get users list with JWT Access', () => {
 
   it('Login User and get JWT token', async () => {
     const loginResponse = await request(app).post('/public/auth/login').send(userLogin);
-    jwtToken = loginResponse.body;
+    jwtToken = loginResponse.body.accessToken;
   });
 
   it('Should get data from protected route using JWT', async () => {

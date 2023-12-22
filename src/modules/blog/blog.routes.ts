@@ -29,7 +29,6 @@ const articlesRoutes = {
     router.get('/:uri', validateParams(validateUri), getArticleByUri);
     router.post('/', validateBody(createArticleSchema), createArticle);
     router.post('/multiple', validateBody(createArticlesSchema), createMultiArticle);
-
     router.put('/:id', validateParams(validateId), validateBody(editArticleSchema), updateArticle);
     router.delete('/:id', validateParams(validateId), deleteArticle);
     return router;

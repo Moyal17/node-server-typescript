@@ -8,7 +8,6 @@ export const articleSchema = {
   authorProfession: Joi.string().allow(null).optional(),
   authorAvatar: Joi.string().allow(null).optional(),
   language: Joi.string().max(2).optional(),
-  order: Joi.number().max(1000).optional(),
   media: Joi.string().optional(),
   category: Joi.array().items(Joi.string()).optional(),
   isDraft: Joi.boolean().optional(),
