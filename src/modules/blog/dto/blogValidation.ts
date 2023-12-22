@@ -18,6 +18,12 @@ export const createArticleSchema: Schema = Joi.object({
   ...articleSchema,
 }).unknown(true);
 
+export const createArticlesSchema: Schema = Joi.object({
+  articles: Joi.array()
+    .items(Joi.object({ ...articleSchema }))
+    .required(),
+});
+
 export const editArticleSchema: Schema = Joi.object({
   _id: Joi.string().pattern(new RegExp('^[0-9a-fA-F]{24}$')).required(),
   ...articleSchema,

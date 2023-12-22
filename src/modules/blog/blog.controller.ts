@@ -82,6 +82,7 @@ export const getFullArticleByUri = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'getFullArticleByUri', message: error.message });
   }
 };
+
 export const getBlogCategories = async (req: Request, res: Response) => {
   try {
     const searchQuery = { group: categoryGroupEnum.BLOG, isRemoved: false };
@@ -107,6 +108,20 @@ export const createArticle = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'createArticle', message: error.message });
   }
 };
+
+export const createMultiArticle = async (req: Request, res: Response) => {
+  try {
+    const articles = req.body.articles;
+    const result = await articleService.createMultiArticle(articles);
+    if (!result) {
+      return res.status(404).json({ message: 'Article not found' });
+    }
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: 'createMultiArticle', message: error.message });
+  }
+};
+
 export const updateArticle = async (req: Request, res: Response) => {
   try {
     const articleId = req.params.id;

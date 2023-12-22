@@ -29,40 +29,38 @@ export class CategoryService {
   }
 
   // Create a new Category
-  async createCategory(CategoryData: ICategory): Promise<Partial<ICategory>> {
+  async createCategory(categoryData: ICategory): Promise<Partial<ICategory>> {
     try {
-      const newCategory = new Category(CategoryData);
+      const newCategory = new Category(categoryData);
       return await newCategory.save();
     } catch (error) {
-      throw new Error(`Error creating Category: ${error.message}`);
+      throw new Error(`Error creating category: ${error.message}`);
     }
   }
 
-  async createMultiCategories(Categories: ICategory[]): Promise<Partial<ICategory>[]> {
+  async createMultiCategories(categories: ICategory[]): Promise<Partial<ICategory>[]> {
     try {
-      return await Category.insertMany(Categories, { ordered: true });
+      return await Category.insertMany(categories, { ordered: true });
     } catch (error) {
-      throw new Error(`Error creating Categories: ${error.message}`);
+      throw new Error(`Error creating categories: ${error.message}`);
     }
   }
-
-  // Update a Category
-  async updateCategory(CategoryId: string, updatedData: Partial<ICategory>): Promise<Partial<ICategory> | null> {
+  async updateCategory(categoryId: string, updatedData: Partial<ICategory>): Promise<Partial<ICategory> | null> {
     try {
-      return await Category.findByIdAndUpdate(CategoryId, updatedData, {
+      return await Category.findByIdAndUpdate(categoryId, updatedData, {
         new: true,
       }).exec();
     } catch (error) {
-      throw new Error(`Error updating Category ${CategoryId}: ${error.message}`);
+      throw new Error(`Error updating category ${categoryId}: ${error.message}`);
     }
   }
 
   // Delete a Category
-  async deleteCategory(CategoryId: string): Promise<Partial<ICategory> | null> {
+  async deleteCategory(categoryId: string): Promise<Partial<ICategory> | null> {
     try {
-      return await Category.findByIdAndRemove(CategoryId).exec();
+      return await Category.findByIdAndRemove(categoryId).exec();
     } catch (error) {
-      throw new Error(`Error deleting Category ${CategoryId}: ${error.message}`);
+      throw new Error(`Error deleting category ${categoryId}: ${error.message}`);
     }
   }
 
@@ -70,7 +68,7 @@ export class CategoryService {
     try {
       return await Category.countDocuments({ uri }).lean().exec();
     } catch (error) {
-      throw new Error(`Error check Category Uri ${uri}: ${error.message}`);
+      throw new Error(`Error check category Uri ${uri}: ${error.message}`);
     }
   }
   // Other methods related to Categories (e.g., search, login, password reset, etc.)

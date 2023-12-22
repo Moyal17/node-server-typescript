@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { createArticleSchema, editArticleSchema } from './dto';
+import { createArticleSchema, createArticlesSchema, editArticleSchema } from './dto';
 import { checkForPublicAssets, validateBody, validateParams, validateQuery } from '../../middlewares/validation';
 import { validateId, validateUri } from '../shared/validations';
 import { setCacheHeaders } from '../../middlewares/cache';
@@ -12,6 +12,7 @@ import {
   getFullArticleByUri,
   getBlogCategories,
   getAdminArticles,
+  createMultiArticle,
 } from './blog.controller';
 import { queryPaginationSchema } from '../courses/dto';
 const router: Router = express.Router();
@@ -27,6 +28,8 @@ const articlesRoutes = {
   apiRoutes: () => {
     router.get('/:uri', validateParams(validateUri), getArticleByUri);
     router.post('/', validateBody(createArticleSchema), createArticle);
+    router.post('/multiple', validateBody(createArticlesSchema), createMultiArticle);
+
     router.put('/:id', validateParams(validateId), validateBody(editArticleSchema), updateArticle);
     router.delete('/:id', validateParams(validateId), deleteArticle);
     return router;

@@ -2,6 +2,8 @@ import Article from './article.model';
 import IArticle from './blog.interface';
 import { basicFields as articleFields } from './dto';
 import { basicFields as mediaFields, minimalFields as mediaMinFields } from '../media/dto';
+import ICategory from '../categories/category.interface';
+import Category from '../categories/category.model';
 
 export class BlogService {
   async getArticles(query: object, extractFields: string = articleFields, limit: number = 30): Promise<Partial<IArticle[]> | null> {
@@ -47,6 +49,14 @@ export class BlogService {
       return await newArticle.save();
     } catch (error) {
       throw new Error(`Error creating Article: ${error.message}`);
+    }
+  }
+
+  async createMultiArticle(articles: IArticle[]): Promise<Partial<IArticle>[]> {
+    try {
+      return await Article.insertMany(articles, { ordered: true });
+    } catch (error) {
+      throw new Error(`Error creating articles: ${error.message}`);
     }
   }
   async updateArticle(ArticleId: string, updatedData: Partial<IArticle>): Promise<Partial<IArticle> | null> {
