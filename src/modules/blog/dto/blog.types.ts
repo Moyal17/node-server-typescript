@@ -17,6 +17,10 @@ export type ArticleObject = {
   publishedAt?: string;
   isDraft?: boolean;
   createdAt?: string;
+  // extended to changes
+  authorName?: string;
+  authorProfession?: string;
+  authorAvatar?: mongoose.Types.ObjectId | string;
 };
 
 export const allFields = 'uri title subtitle content template order link media isDraft isRemoved isRemovable publishedAt updatedAt createdAt';

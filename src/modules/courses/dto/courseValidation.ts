@@ -30,5 +30,5 @@ export const editCourseSchema: Schema = Joi.object({
 
 export const queryPaginationSchema: Schema = Joi.object({
   cursor: Joi.string().optional(),
-  limit: Joi.number().integer().min(1).max(100).optional(),
+  limit: Joi.number().integer().min(1).max(50).optional(),
 }).unknown(false);

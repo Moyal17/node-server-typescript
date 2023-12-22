@@ -23,7 +23,7 @@ const mediaSchema = new Schema({
   sourceId: String, // model key / id
   thumbnail: String,
   thumbnailSquare: String,
-  type: String, // cloudinary format 'jpg'
+  type: String, // 'jpg' 'png' 'mp4'
   size: Number, // in kilobytes
   height: Number, // in pixels
   width: Number, // in pixels

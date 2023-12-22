@@ -5,7 +5,7 @@ import { generateId } from '../../utils';
 import { getPaginationParams } from '../shared/utils';
 import { ExtendedRequest } from '../shared/types';
 import { basicFields } from './dto';
-import { categoryGroupEnum } from "../categories/dto";
+import { categoryGroupEnum } from '../categories/dto';
 const articleService = new BlogService();
 const categoryService = new CategoryService();
 
