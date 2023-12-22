@@ -1,5 +1,5 @@
 import { LessonTypeEnum } from '../../modules/lessons/dto';
-import { categoryGroupEnum } from "../../modules/categories/dto";
+import { categoryGroupEnum } from '../../modules/categories/dto';
 
 export type Lesson = {
   sectionId: string | null;
@@ -32,5 +32,21 @@ export type Category = {
     description: string;
   };
   order: number;
-  searchKeywords: string[]
+  searchKeywords: string[];
+};
+
+export type Article = {
+  _id?: string;
+  uri?: string;
+  title?: string;
+  subtitle?: string;
+  content?: string;
+  language?: string;
+  category?: string[];
+  authorName?: string;
+  authorProfession?: string;
+  searchKeywords?: string[];
+  publishedAt?: string;
+  isDraft?: boolean;
+  createdAt?: string;
 };
