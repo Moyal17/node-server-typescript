@@ -8,9 +8,13 @@ import { basicFields } from './dto';
 import { categoryGroupEnum } from '../categories/dto';
 const articleService = new BlogService();
 const categoryService = new CategoryService();
+import { calculateReadingTime } from './blog.utils';
 
 const configArticleObject = (articleBody: any) => {
   try {
+    if (articleBody.content.length > 0) {
+      articleBody.readingTime = calculateReadingTime(articleBody.content);
+    }
     if (articleBody.authorName || articleBody.authorAvatar || articleBody.authorProfession) {
       articleBody.author = {
         name: articleBody.authorName,
@@ -127,7 +131,7 @@ export const updateArticle = async (req: Request, res: Response) => {
     const articleId = req.params.id;
     const articleBody = configArticleObject({ ...req.body });
     delete articleBody._id;
-    const article = await articleService.updateArticle(articleId, req.body);
+    const article = await articleService.updateArticle(articleId, articleBody);
     if (!article) {
       return res.status(404).json({ message: 'Article not found' });
     }

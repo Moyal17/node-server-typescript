@@ -12,10 +12,12 @@ interface IArticle {
     profession?: string;
   };
   order?: number;
+  readingTime?: number;
   media?: mongoose.Types.ObjectId | string;
   category?: mongoose.Types.ObjectId[] | string[];
   searchKeywords?: string[];
   isDraft?: boolean;
+  isPublic?: boolean;
   isRemoved?: boolean;
   publishedAt?: Date;
   createdAt?: Date;

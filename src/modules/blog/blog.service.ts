@@ -2,8 +2,6 @@ import Article from './article.model';
 import IArticle from './blog.interface';
 import { basicFields as articleFields } from './dto';
 import { basicFields as mediaFields, minimalFields as mediaMinFields } from '../media/dto';
-import ICategory from '../categories/category.interface';
-import Category from '../categories/category.model';
 
 export class BlogService {
   async getArticles(query: object, extractFields: string = articleFields, limit: number = 30): Promise<Partial<IArticle[]> | null> {

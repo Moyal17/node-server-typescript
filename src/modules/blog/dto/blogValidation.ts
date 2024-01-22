@@ -8,7 +8,7 @@ export const articleSchema = {
   authorProfession: Joi.string().allow(null).optional(),
   authorAvatar: Joi.string().allow(null).optional(),
   language: Joi.string().max(2).optional(),
-  media: Joi.string().optional(),
+  media: Joi.string().allow(null).optional(),
   category: Joi.array().items(Joi.string()).optional(),
   isDraft: Joi.boolean().optional(),
 };
@@ -26,4 +26,4 @@ export const createArticlesSchema: Schema = Joi.object({
 export const editArticleSchema: Schema = Joi.object({
   _id: Joi.string().pattern(new RegExp('^[0-9a-fA-F]{24}$')).required(),
   ...articleSchema,
-}).unknown(false);
+}).unknown(true);

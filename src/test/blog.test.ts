@@ -13,6 +13,12 @@ describe('Login and get user JWT Access', () => {
     expect(loginResponse.status).toBe(200);
   });
 
+  it('Get Articles', async () => {
+    const response = await request(app).get(`/public/blog`);
+    // console.log('Articles:\n', response.body);
+    expect(response.status).toBe(200);
+  });
+
   it('Create New Articles', async () => {
     // Access protected route with JWT token
     const articleObj = { ...articlesData[articlesData.length - 1] };

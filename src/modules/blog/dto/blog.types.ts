@@ -13,9 +13,11 @@ export type ArticleObject = {
     name?: string;
     profession?: string;
   };
+  readingTime?: number;
   searchKeywords?: string[];
   publishedAt?: string;
   isDraft?: boolean;
+  isPublic?: boolean;
   createdAt?: string;
   // extended to changes
   authorName?: string;
@@ -23,5 +25,5 @@ export type ArticleObject = {
   authorAvatar?: mongoose.Types.ObjectId | string;
 };
 
-export const allFields = 'uri title subtitle content template order link media isDraft isRemoved isRemovable publishedAt updatedAt createdAt';
-export const basicFields = 'uri title subtitle content template order link media publishedAt';
+export const allFields = 'uri title subtitle content template order link media readingTime isDraft isRemoved isRemovable isPublic publishedAt updatedAt createdAt';
+export const basicFields = 'uri title subtitle content template order link media publishedAt readingTime isPublic';

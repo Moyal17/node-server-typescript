@@ -6,15 +6,7 @@ export const articles: Article[] = [
     uri: 'navigating-modern-relationships-tips',
     title: 'Navigating Modern Relationships: Tips and Insights',
     subtitle: "Understanding the Dynamics of Today's Romantic Relationships",
-    content: `<p>
-    <strong>Understanding relationships</strong> is key to personal and emotional growth. <u>Effective communication</u> and mutual respect form the bedrock of any lasting relationship. This course delves into the dynamics of modern relationships, exploring how to nurture and maintain strong bonds over time. We'll uncover the secrets to effective communication, ensuring that both partners feel heard and valued.
-  </p>
-  <p>
-    In the realm of <strong>relationship psychology</strong>, it's crucial to understand the balance between independence and interdependence. This course offers insights into managing conflicts and disagreements, emphasizing the importance of empathy and understanding. By learning to navigate these challenges, couples can <u>strengthen their connection</u> and build a more fulfilling partnership.
-  </p>
-  <p>
-    Finally, we'll explore the role of trust and commitment in deepening intimacy. Trust is the foundation of any relationship, and this course provides strategies to build and maintain it. Whether you are starting a new relationship or looking to enhance an existing one, this course offers valuable lessons for a happier, healthier connection with your partner.
-  </p>`,
+    content: `<p><strong>Understanding relationships</strong> is key to personal and emotional growth. <u>Effective communication</u> and mutual respect form the bedrock of any lasting relationship. This course delves into the dynamics of modern relationships, exploring how to nurture and maintain strong bonds over time. We'll uncover the secrets to effective communication, ensuring that both partners feel heard and valued.In the realm of <strong>relationship psychology</strong>, it's crucial to understand the balance between independence and interdependence. This course offers insights into managing conflicts and disagreements, emphasizing the importance of empathy and understanding. By learning to navigate these challenges, couples can <u>strengthen their connection</u> and build a more fulfilling partnership.</p><p>Finally, we'll explore the role of trust and commitment in deepening intimacy. Trust is the foundation of any relationship, and this course provides strategies to build and maintain it. Whether you are starting a new relationship or looking to enhance an existing one, this course offers valuable lessons for a happier, healthier connection with your partner.</p><p>In the realm of <strong>relationship psychology</strong>, it's crucial to understand the balance between independence and interdependence. This course offers insights into managing conflicts and disagreements, emphasizing the importance of empathy and understanding. By learning to navigate these challenges, couples can <u>strengthen their connection</u> and build a more fulfilling partnership.</p>`,
     language: 'en',
     // "category": ["Relationships", "Modern Dating", "Self-Help"],
     authorName: 'John Doe',
@@ -27,15 +19,7 @@ export const articles: Article[] = [
     uri: 'the-art-of-communication-in-relationships',
     title: 'The Art of Communication in Relationships',
     subtitle: 'Mastering the Key to a Lasting Bond',
-    content: `<p>
-    <strong>Understanding relationships</strong> is key to personal and emotional growth. <u>Effective communication</u> and mutual respect form the bedrock of any lasting relationship. This course delves into the dynamics of modern relationships, exploring how to nurture and maintain strong bonds over time. We'll uncover the secrets to effective communication, ensuring that both partners feel heard and valued.
-  </p>
-  <p>
-    In the realm of <strong>relationship psychology</strong>, it's crucial to understand the balance between independence and interdependence. This course offers insights into managing conflicts and disagreements, emphasizing the importance of empathy and understanding. By learning to navigate these challenges, couples can <u>strengthen their connection</u> and build a more fulfilling partnership.
-  </p>
-  <p>
-    Finally, we'll explore the role of trust and commitment in deepening intimacy. Trust is the foundation of any relationship, and this course provides strategies to build and maintain it. Whether you are starting a new relationship or looking to enhance an existing one, this course offers valuable lessons for a happier, healthier connection with your partner.
-  </p>`,
+    content: `<p><strong>Understanding relationships</strong> is key to personal and emotional growth. <u>Effective communication</u> and mutual respect form the bedrock of any lasting relationship. This course delves into the dynamics of modern relationships, exploring how to nurture and maintain strong bonds over time. We'll uncover the secrets to effective communication, ensuring that both partners feel heard and valued.In the realm of <strong>relationship psychology</strong>, it's crucial to understand the balance between independence and interdependence. This course offers insights into managing conflicts and disagreements, emphasizing the importance of empathy and understanding. By learning to navigate these challenges, couples can <u>strengthen their connection</u> and build a more fulfilling partnership.</p><p>Finally, we'll explore the role of trust and commitment in deepening intimacy. Trust is the foundation of any relationship, and this course provides strategies to build and maintain it. Whether you are starting a new relationship or looking to enhance an existing one, this course offers valuable lessons for a happier, healthier connection with your partner.</p><p>In the realm of <strong>relationship psychology</strong>, it's crucial to understand the balance between independence and interdependence. This course offers insights into managing conflicts and disagreements, emphasizing the importance of empathy and understanding. By learning to navigate these challenges, couples can <u>strengthen their connection</u> and build a more fulfilling partnership.</p>`,
     language: 'en',
     // category: ['Communication', 'Relationship Advice', 'Personal Development'],
     authorName: 'Jane Doe',
@@ -48,15 +32,7 @@ export const articles: Article[] = [
     uri: 'rekindling-romance',
     title: 'Rekindling Romance: Keeping the Spark Alive',
     subtitle: 'Reviving Passion in Long-Term Relationships',
-    content: `<p>
-    <strong>Understanding relationships</strong> is key to personal and emotional growth. <u>Effective communication</u> and mutual respect form the bedrock of any lasting relationship. This course delves into the dynamics of modern relationships, exploring how to nurture and maintain strong bonds over time. We'll uncover the secrets to effective communication, ensuring that both partners feel heard and valued.
-  </p>
-  <p>
-    In the realm of <strong>relationship psychology</strong>, it's crucial to understand the balance between independence and interdependence. This course offers insights into managing conflicts and disagreements, emphasizing the importance of empathy and understanding. By learning to navigate these challenges, couples can <u>strengthen their connection</u> and build a more fulfilling partnership.
-  </p>
-  <p>
-    Finally, we'll explore the role of trust and commitment in deepening intimacy. Trust is the foundation of any relationship, and this course provides strategies to build and maintain it. Whether you are starting a new relationship or looking to enhance an existing one, this course offers valuable lessons for a happier, healthier connection with your partner.
-  </p>`,
+    content: `<p><strong>Understanding relationships</strong> is key to personal and emotional growth. <u>Effective communication</u> and mutual respect form the bedrock of any lasting relationship. This course delves into the dynamics of modern relationships, exploring how to nurture and maintain strong bonds over time. We'll uncover the secrets to effective communication, ensuring that both partners feel heard and valued.In the realm of <strong>relationship psychology</strong>, it's crucial to understand the balance between independence and interdependence. This course offers insights into managing conflicts and disagreements, emphasizing the importance of empathy and understanding. By learning to navigate these challenges, couples can <u>strengthen their connection</u> and build a more fulfilling partnership.</p><p>Finally, we'll explore the role of trust and commitment in deepening intimacy. Trust is the foundation of any relationship, and this course provides strategies to build and maintain it. Whether you are starting a new relationship or looking to enhance an existing one, this course offers valuable lessons for a happier, healthier connection with your partner.</p><p>In the realm of <strong>relationship psychology</strong>, it's crucial to understand the balance between independence and interdependence. This course offers insights into managing conflicts and disagreements, emphasizing the importance of empathy and understanding. By learning to navigate these challenges, couples can <u>strengthen their connection</u> and build a more fulfilling partnership.</p>`,
     language: 'en',
     // category: ['Long-Term Relationships', 'Romance', 'Marriage Advice'],
     authorName: 'Alex Smith',

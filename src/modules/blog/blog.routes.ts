@@ -19,10 +19,14 @@ const router: Router = express.Router();
 
 const articlesRoutes = {
   publicRoutes: () => {
-    router.get('/', setCacheHeaders('public', 5), checkForPublicAssets, getArticles);
+    router.get('/', setCacheHeaders('public', 5), getArticles);
     router.get('/categories', getBlogCategories);
     router.get('/list', setCacheHeaders('public', 10), validateQuery(queryPaginationSchema), getAdminArticles);
     router.get('/:uri', validateParams(validateUri), checkForPublicAssets, getFullArticleByUri);
+
+    router.post('/', validateBody(createArticleSchema), createArticle);
+    router.put('/:id', validateParams(validateId), validateBody(editArticleSchema), updateArticle);
+
     return router;
   },
   apiRoutes: () => {
