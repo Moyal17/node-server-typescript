@@ -6,7 +6,7 @@ import User from '../modules/users/user.model';
 import IUser from '../modules/users/user.interface';
 
 const JWT_SECRET = process.env.JWT_SECRET || ''; // Note: Ensure you have a fallback or an error check for the absence of JWT_SECRET
-
+const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || '';
 // Local Strategy
 passport.use(
   new LocalStrategy(

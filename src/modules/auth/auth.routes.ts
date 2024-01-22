@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { loginUser, signup } from './auth.controller';
+import { loginUser, refreshToken, signup } from './auth.controller';
 import { validateBody } from '../../middlewares/validation';
 import passport from '../../config/passport';
 import { signUpSchema, logInSchema } from './dto';
@@ -9,6 +9,7 @@ const router: Router = express.Router();
 const auth = {
   publicRoutes: () => {
     router.post('/register', validateBody(signUpSchema), signup);
+    router.post('/refresh', refreshToken);
     router.post('/login', validateBody(logInSchema), passport.authenticate('local', { session: false }), loginUser);
     return router;
   },

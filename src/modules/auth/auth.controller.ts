@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import IUser from '../users/user.interface';
+import { verifyRefreshToken } from '../../config/jwt';
 const authService = new AuthService();
 
 export const signup = async (req: Request, res: Response) => {
@@ -22,15 +23,23 @@ export const loginUser = async (req: Request, res: Response) => {
     if (!accessToken) {
       return res.status(404).json({ message: 'User not found' });
     }
-    res
-      .cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        secure: false,
-        // sameSite: 'strict',
-        maxAge: 20 * 24 * 60 * 60 * 1000, // 20 days
-      })
-      .header('Authorization', accessToken)
-      .json(accessToken);
+    const { name, email } = userBody;
+    res.json({ accessToken, refreshToken, name, email });
+  } catch (error) {
+    res.status(500).json({ error: 'getUserById', message: error.message });
+  }
+};
+
+export const refreshToken = async (req: Request, res: Response) => {
+  try {
+    const refreshToken = req.body.refresh;
+    const result = verifyRefreshToken(refreshToken);
+    const userBody = req.user as IUser;
+    const { accessToken } = await authService.loginUser(userBody);
+    if (!accessToken) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json({ accessToken });
   } catch (error) {
     res.status(500).json({ error: 'getUserById', message: error.message });
   }

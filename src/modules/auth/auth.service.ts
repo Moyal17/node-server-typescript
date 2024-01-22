@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import User from '../users/user.model'; // Assuming you have a Mongoose model for User
 import IUser from '../users/user.interface'; // Assuming you have a Mongoose model for User
-import { generateCookieRefreshToken, generateCookieToken, generateToken } from '../../config/jwt';
+import { generateRefreshToken, generateToken } from '../../config/jwt';
 
 export class AuthService {
   async signup(userData: { password: string; name: string; email: string }): Promise<Partial<IUser>> {
@@ -18,10 +18,10 @@ export class AuthService {
     }
   }
 
-  async loginUser(user: Partial<IUser>): Promise<{ accessToken: string, refreshToken: string }> {
+  async loginUser(user: Partial<IUser>): Promise<{ accessToken: string; refreshToken: string }> {
     try {
       // const accessToken = generateCookieToken({ id: user._id as string });
-      const refreshToken = generateCookieRefreshToken({ id: user._id as string });
+      const refreshToken = generateRefreshToken({ id: user._id as string });
       const accessToken = generateToken({ id: user._id as string });
       return { accessToken, refreshToken };
     } catch (error) {

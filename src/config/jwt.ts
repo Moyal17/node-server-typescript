@@ -1,9 +1,11 @@
 import jwt from 'jsonwebtoken';
+
 interface JwtPayload {
   id: string;
 }
 
 const JWT_SECRET = process.env.JWT_SECRET || ''; // Ensure you have a check or a fallback for the absence of JWT_SECRET
+const JWT_REFRESH_ECRET = process.env.JWT_REFRESH_ECRET || ''; // Ensure you have a check or a fallback for the absence of JWT_SECRET
 
 /**
  * Generates a JWT with the provided payload.
@@ -11,14 +13,14 @@ const JWT_SECRET = process.env.JWT_SECRET || ''; // Ensure you have a check or a
  * @returns JWT as a string.
  */
 export const generateToken = (payload: JwtPayload): string => {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' });
 };
 
 export const generateCookieToken = (payload: JwtPayload): string => {
   return jwt.sign(payload, JWT_SECRET, { expiresIn: '15m' });
 };
 
-export const generateCookieRefreshToken = (payload: JwtPayload): string => {
+export const generateRefreshToken = (payload: JwtPayload): string => {
   return jwt.sign(payload, JWT_SECRET, { expiresIn: '20d' });
 };
 
@@ -27,10 +29,9 @@ export const generateCookieRefreshToken = (payload: JwtPayload): string => {
  * @param token The JWT to decode.
  * @returns Decoded JWT or null if verification fails.
  */
-export const verifyToken = (token: string): JwtPayload | null => {
+export const verifyRefreshToken = (token: string): JwtPayload | null => {
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
-    return decoded;
+    return jwt.verify(token, JWT_REFRESH_ECRET) as JwtPayload;
   } catch (error) {
     return null;
   }
