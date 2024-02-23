@@ -3,7 +3,6 @@ import { describe, expect } from '@jest/globals';
 import { blogCategories, courseCategories, createMultipleCategoriesMockUp } from './testData/categories';
 import { userLogin } from './testData/users';
 import app from '../app';
-import { generateId } from "../utils";
 
 let jwtToken: string;
 let categoryUri: string;
