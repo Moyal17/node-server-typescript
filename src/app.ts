@@ -32,7 +32,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(compression());
-
 // Here, you'd also define your routes, e.g., app.use('/users', usersRouter);
 app.use(mainRoutes); // Use the imported routes
 export default app;

@@ -22,7 +22,7 @@ root/
 |   |   |   |-- user.model.ts            // Users Model
 |   |   |   |-- user.interface.ts        // Users Interface
 |   |   |-- media/
-|   |   |-- ...                          // Same file structure as users
+|   |   |-- ...                          // rest of mudules file structure
 |   |   |-- shared/                      // Shared enums, types, validations across modules.
 |   |-- services/                        // Shared services across modules.
 |   |-- routes/

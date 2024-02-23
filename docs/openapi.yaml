@@ -1,0 +1,166 @@
+openapi: 3.0.0
+info:
+  title: REST API Docs
+  version: 1.1.0
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The user ID
+        name:
+          type: string
+          description: The user's name
+        email:
+          type: string
+          description: The user's email address
+    NewUser:
+      type: object
+      required:
+        - name
+        - email
+        - hash
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        hash:
+          type: string
+          description: A hashed password
+    EditUser:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+security:
+  - bearerAuth: []
+paths:
+  /public/users:
+    get:
+      summary: Get a list of users
+      operationId: getPublicUsers
+      tags:
+        - Public Users
+      responses:
+        '200':
+          description: A JSON array of user objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: User not found
+  /api/users/{id}:
+    get:
+      summary: Get a user by ID
+      operationId: getApiUserById
+      tags:
+        - API Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A single user object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request. User ID must be an integer and larger than 0.
+        '401':
+          description: Authorization information is missing or invalid.
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: User not found
+        5XX:
+          description: Unexpected error.
+    put:
+      summary: Update a user
+      operationId: updateApiUser
+      tags:
+        - API Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditUser'
+      responses:
+        '200':
+          description: User updated
+    delete:
+      summary: Delete a user
+      operationId: deleteApiUser
+      tags:
+        - API Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: User deleted
+  /api/users:
+    post:
+      summary: Create a new user
+      operationId: createApiUser
+      tags:
+        - API Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+      responses:
+        '201':
+          description: User created
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: User not found
