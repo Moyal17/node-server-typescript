@@ -28,9 +28,6 @@ export const createUser = async (req: Request, res: Response) => {
   try {
     const userBody = req.body;
     const user = await userService.createUser(userBody);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
     res.json(user);
   } catch (error) {
     res.status(500).json({ error: 'createUser', message: error.message });

@@ -101,6 +101,7 @@ export const updateCourse = async (req: Request, res: Response) => {
     const courseId = req.params.id;
     const courseBody = configCourseObject({ ...req.body });
     delete courseBody._id;
+    delete courseBody.uri;
     const course = await courseService.updateCourse(courseId, courseBody);
     if (!course) {
       return res.status(404).json({ message: 'Course not found' });
