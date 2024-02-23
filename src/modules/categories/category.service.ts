@@ -58,7 +58,7 @@ export class CategoryService {
   // Delete a Category
   async deleteCategory(categoryId: string): Promise<Partial<ICategory> | null> {
     try {
-      return await Category.findByIdAndRemove(categoryId).exec();
+      return await Category.findByIdAndDelete(categoryId).exec();
     } catch (error) {
       throw new Error(`Error deleting category ${categoryId}: ${error.message}`);
     }

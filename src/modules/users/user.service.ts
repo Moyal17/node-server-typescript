@@ -49,8 +49,7 @@ export class UserService {
   // Delete a user
   async deleteUser(userId: string): Promise<Partial<IUser> | null> {
     try {
-      const deletedUser = await User.findByIdAndRemove(userId).exec();
-
+      const deletedUser = await User.findByIdAndDelete(userId).exec();
       return deletedUser;
     } catch (error) {
       throw new Error(`Error deleting user ${userId}: ${error.message}`);

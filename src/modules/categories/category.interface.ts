@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { categoryGroupEnum } from './dto';
-import { ISeo } from '../shared/types';
+import { AllowNullProperty, ISeo } from '../shared/types';
 
 interface ICategory {
   _id?: mongoose.Types.ObjectId | string;
@@ -20,5 +20,5 @@ interface ICategory {
   createdAt?: Date;
   updatedAt?: Date;
 }
-
-export default ICategory;
+type NullableICategory = AllowNullProperty<ICategory>;
+export default NullableICategory;

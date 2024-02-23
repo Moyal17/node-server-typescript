@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { AllowNullProperty } from '../shared/types';
 
 interface IUser {
   _id?: mongoose.Types.ObjectId | string;
@@ -9,4 +10,5 @@ interface IUser {
   // ... other fields with their types
 }
 
-export default IUser;
+type NullableIUser = AllowNullProperty<IUser>;
+export default NullableIUser;

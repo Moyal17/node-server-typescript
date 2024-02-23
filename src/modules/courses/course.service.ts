@@ -76,7 +76,7 @@ export class CourseService {
   // Delete a Course
   async deleteCourse(CourseId: string): Promise<Partial<ICourse> | null> {
     try {
-      return await Course.findByIdAndRemove(CourseId).exec();
+      return await Course.findByIdAndDelete(CourseId).exec();
     } catch (error) {
       throw new Error(`Error deleting Course ${CourseId}: ${error.message}`);
     }

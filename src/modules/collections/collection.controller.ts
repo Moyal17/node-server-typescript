@@ -83,8 +83,8 @@ export const createManyCollection = async (req: ExtendedRequest, res: Response, 
       const savedCollection: Partial<ICollection> = await collectionService.createCollection(collectionData);
       savedCollections.push(<ICollection>savedCollection);
     }
-    if (req.body.page) req.body.page.itemCollection = savedCollections.map((coll) => coll._id.toString());
-    else req.body.collectionIds = savedCollections.map((coll) => coll._id.toString());
+    if (req.body.page) req.body.page.itemCollection = savedCollections.map((coll) => coll._id);
+    else req.body.collectionIds = savedCollections.map((coll) => coll._id);
     next();
   } catch (error) {
     res.status(500).json({ error: 'createCollection', message: error.message });
@@ -114,8 +114,8 @@ export const createMockDataCollection = async (req: ExtendedRequest, res: Respon
       const savedCollection: Partial<ICollection> = await collectionService.createCollection(collectionData);
       savedCollections.push(<ICollection>savedCollection);
     }
-    if (req.body.page) req.body.page.itemCollection = savedCollections.map((coll) => coll._id.toString());
-    else req.body.collectionIds = savedCollections.map((coll) => coll._id.toString());
+    if (req.body.page) req.body.page.itemCollection = savedCollections.map((coll) => coll._id);
+    else req.body.collectionIds = savedCollections.map((coll) => coll._id);
     next();
   } catch (error) {
     res.status(500).json({ error: 'createCollection', message: error.message });

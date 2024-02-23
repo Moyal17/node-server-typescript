@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ISeo } from '../shared/types';
+import { AllowNullProperty, ISeo } from '../shared/types';
 import ICollection from '../collections/collection.interface';
 import IItem from '../items/item.interface';
 
@@ -27,4 +27,6 @@ export interface IFetchedPage extends IPage {
   // ... any other properties you expect
 }
 
-export type IndexablePage = IPage & { [key: string]: any };
+export type NullableIPage = AllowNullProperty<IPage>;
+
+export type IndexablePage = NullableIPage & { [key: string]: any };

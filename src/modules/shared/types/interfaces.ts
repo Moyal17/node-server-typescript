@@ -6,6 +6,10 @@ import { IPage } from '../../pages/page.interface';
 import ICollection from '../../collections/collection.interface';
 import IItem from '../../items/item.interface';
 
+export type AllowNullProperty<T> = {
+  [P in keyof T]: T[P] | null;
+};
+
 export interface ExtendedRequest extends Request {
   course?: Partial<ICourse> | null;
   sections?: Partial<ISection[]> | null;
@@ -18,6 +22,15 @@ export interface ExtendedRequest extends Request {
 }
 
 export interface ISeo {
-  title?: string;
-  description?: string;
+  title?: string | null;
+  description?: string | null;
 }
+
+export type QueryType = {
+  isPublic?: boolean;
+  isRemoved: boolean;
+  _id?: {
+    $gt?: string;
+    $lt?: string;
+  };
+};

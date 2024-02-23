@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { AllowNullProperty } from '../shared/types';
 
 interface IItem {
   _id?: mongoose.Types.ObjectId | string;
@@ -9,12 +10,13 @@ interface IItem {
   template?: string;
   icon?: string;
   link?: {
-    label?: string;
-    href?: string;
+    label?: string | null;
+    href?: string | null;
   };
   media?: mongoose.Types.ObjectId;
   isRemovable?: boolean;
   isRemoved?: boolean;
   createdAt?: Date;
 }
-export default IItem;
+type NullableIItem = AllowNullProperty<IItem>;
+export default NullableIItem;

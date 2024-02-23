@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { LessonObject } from '../lessons/dto';
+import { AllowNullProperty } from '../shared/types';
 
 interface ISection {
   _id: mongoose.Types.ObjectId | string;
@@ -15,4 +16,7 @@ interface ISection {
   createdAt?: Date;
   lessons?: Partial<LessonObject>[];
 }
-export default ISection;
+
+type NullableISection = AllowNullProperty<ISection>;
+
+export default NullableISection;

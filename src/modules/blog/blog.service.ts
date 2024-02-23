@@ -68,7 +68,7 @@ export class BlogService {
   }
   async deleteArticle(ArticleId: string): Promise<Partial<IArticle> | null> {
     try {
-      return await Article.findByIdAndRemove(ArticleId).exec();
+      return await Article.findByIdAndDelete(ArticleId).exec();
     } catch (error) {
       throw new Error(`Error deleting Article ${ArticleId}: ${error.message}`);
     }

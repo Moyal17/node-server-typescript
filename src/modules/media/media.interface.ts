@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { MediaTypeEnum, sourceTypes } from './dto';
+import { AllowNullProperty } from '../shared/types';
 
 interface ISourceHls {
   master?: string;
@@ -20,7 +21,7 @@ interface IMedia {
   sourceType?: sourceTypes;
   sourceOrigin?: string;
   source?: string;
-  sourceHls?: ISourceHls;
+  sourceHls?: AllowNullProperty<ISourceHls>;
   sourceId?: string;
   thumbnail?: string;
   thumbnailSquare?: string;
@@ -33,5 +34,5 @@ interface IMedia {
   createdAt?: Date;
   updatedAt?: Date;
 }
-
-export default IMedia;
+type NullableIMedia = AllowNullProperty<IMedia>;
+export default NullableIMedia;

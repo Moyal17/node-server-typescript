@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { LessonTypeEnum } from './dto';
+import { AllowNullProperty } from '../shared/types';
 
 interface ILesson {
   _id?: mongoose.Types.ObjectId | string;
@@ -22,5 +23,5 @@ interface ILesson {
   updatedAt?: Date | string;
   createdAt?: Date | string;
 }
-
-export default ILesson;
+type NullableILesson = AllowNullProperty<ILesson>;
+export default NullableILesson;

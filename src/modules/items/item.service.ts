@@ -47,7 +47,7 @@ export class ItemService {
 
   async deleteItem(ItemId: string): Promise<Partial<IItem> | null> {
     try {
-      return await Item.findByIdAndRemove(ItemId).exec();
+      return await Item.findByIdAndDelete(ItemId).exec();
     } catch (error) {
       throw new Error(`Error deleting Item ${ItemId}: ${error.message}`);
     }

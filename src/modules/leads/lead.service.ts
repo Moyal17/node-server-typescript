@@ -52,7 +52,7 @@ export class LeadService {
   // Delete a lead
   async deleteLead(leadId: string): Promise<Partial<ILead> | null> {
     try {
-      return await Lead.findByIdAndRemove(leadId).exec();
+      return await Lead.findByIdAndDelete(leadId).exec();
     } catch (error) {
       throw new Error(`Error deleting lead ${leadId}: ${error.message}`);
     }

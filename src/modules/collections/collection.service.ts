@@ -46,7 +46,7 @@ export class CollectionService {
 
   async deleteCollection(collectionId: string): Promise<Partial<ICollection> | null> {
     try {
-      return await Collection.findByIdAndRemove(collectionId).exec();
+      return await Collection.findByIdAndDelete(collectionId).exec();
     } catch (error) {
       throw new Error(`Error deleting Collection ${collectionId}: ${error.message}`);
     }

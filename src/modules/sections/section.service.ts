@@ -60,7 +60,7 @@ export class SectionService {
   // Delete a Section
   async deleteSection(SectionId: string): Promise<Partial<ISection> | null> {
     try {
-      return await Section.findByIdAndRemove(SectionId).exec();
+      return await Section.findByIdAndDelete(SectionId).exec();
     } catch (error) {
       throw new Error(`Error deleting Section ${SectionId}: ${error.message}`);
     }

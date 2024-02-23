@@ -3,7 +3,7 @@ import { LeadService } from './lead.service';
 import { CategoryService } from '../categories/category.service';
 import { generateId } from '../../utils';
 import { getPaginationParams } from '../shared/utils';
-import { ExtendedRequest } from '../shared/types';
+import { ExtendedRequest, QueryType } from '../shared/types';
 import { basicFields } from './dto';
 import { categoryGroupEnum } from '../categories/dto';
 const leadService = new LeadService();
@@ -27,7 +27,7 @@ const configLeadObject = (leadBody: any) => {
 export const getLeads = async (req: ExtendedRequest, res: Response) => {
   try {
     const { cursor, limit } = getPaginationParams(req.query);
-    const query: any = req.isPublic ? { isPublic: true, isRemoved: false } : { isRemoved: false };
+    const query: QueryType = req.isPublic ? { isPublic: true, isRemoved: false } : { isRemoved: false };
     if (cursor) {
       query['_id'] = { $gt: cursor };
     }

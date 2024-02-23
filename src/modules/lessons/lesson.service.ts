@@ -106,7 +106,7 @@ export class LessonService {
 
   async deleteLesson(LessonId: string): Promise<Partial<ILesson> | null> {
     try {
-      return await Lesson.findByIdAndRemove(LessonId).exec();
+      return await Lesson.findByIdAndDelete(LessonId).exec();
     } catch (error) {
       throw new Error(`Error deleting Lesson ${LessonId}: ${error.message}`);
     }

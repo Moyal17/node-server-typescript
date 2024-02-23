@@ -3,7 +3,7 @@ import { BlogService } from './blog.service';
 import { CategoryService } from '../categories/category.service';
 import { generateId } from '../../utils';
 import { getPaginationParams } from '../shared/utils';
-import { ExtendedRequest } from '../shared/types';
+import { ExtendedRequest, QueryType } from '../shared/types';
 import { basicFields } from './dto';
 import { categoryGroupEnum } from '../categories/dto';
 const articleService = new BlogService();
@@ -31,7 +31,7 @@ const configArticleObject = (articleBody: any) => {
 export const getArticles = async (req: ExtendedRequest, res: Response) => {
   try {
     const { cursor, limit } = getPaginationParams(req.query);
-    const query: any = req.isPublic ? { isPublic: true, isRemoved: false } : { isRemoved: false };
+    const query: QueryType = req.isPublic ? { isPublic: true, isRemoved: false } : { isRemoved: false };
     if (cursor) {
       query['_id'] = { $gt: cursor };
     }
@@ -48,7 +48,7 @@ export const getArticles = async (req: ExtendedRequest, res: Response) => {
 export const getAdminArticles = async (req: ExtendedRequest, res: Response) => {
   try {
     const { cursor, limit } = getPaginationParams(req.query);
-    const query: any = { isRemoved: false };
+    const query: QueryType = { isRemoved: false };
     if (cursor) {
       query['_id'] = { $gt: cursor };
     }

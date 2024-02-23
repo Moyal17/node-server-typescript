@@ -1,7 +1,7 @@
 import { CategoryObject } from '../../categories/dto';
 import { MediaObject } from '../../media/dto';
 import mongoose from 'mongoose';
-import Joi from "joi";
+import Joi from 'joi';
 
 export type CourseObject = {
   _id: mongoose.Types.ObjectId | string;

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { AllowNullProperty } from '../shared/types';
 
 interface ICollection {
   _id: mongoose.Types.ObjectId | string;
@@ -8,8 +9,8 @@ interface ICollection {
   content?: string;
   template?: string;
   link?: {
-    label?: string;
-    href?: string;
+    label?: string | null;
+    href?: string | null;
   };
   order?: number;
   media?: mongoose.Types.ObjectId | string;
@@ -19,4 +20,6 @@ interface ICollection {
   isRemoved?: boolean;
   createdAt?: Date;
 }
-export default ICollection;
+
+type NullableICollection = AllowNullProperty<ICollection>;
+export default NullableICollection;

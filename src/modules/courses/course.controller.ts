@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { CourseService } from './course.service';
-import { ExtendedRequest } from '../shared/types';
+import { ExtendedRequest, QueryType } from '../shared/types';
 import { LessonObject } from '../lessons/dto';
 import { adminBasicFields, basicFields } from './dto';
 import { generateId } from '../../utils';
@@ -21,11 +21,11 @@ const configCourseObject = (courseBody: any) => {
   } catch (e) {
     console.error('configCourseObject: ', e);
   }
-}
+};
 export const getCourses = async (req: ExtendedRequest, res: Response) => {
   try {
     const { cursor, limit } = getPaginationParams(req.query);
-    const query: any = req.isPublic ? { isPublic: true, isRemoved: false } : { isRemoved: false };
+    const query: QueryType = req.isPublic ? { isPublic: true, isRemoved: false } : { isRemoved: false };
     if (cursor) {
       query['_id'] = { $gt: cursor };
     }
@@ -42,7 +42,7 @@ export const getCourses = async (req: ExtendedRequest, res: Response) => {
 export const getAdminCourses = async (req: ExtendedRequest, res: Response) => {
   try {
     const { cursor, limit } = getPaginationParams(req.query);
-    const query: any = { isRemoved: false };
+    const query: QueryType = { isRemoved: false };
     if (cursor) {
       query['_id'] = { $gt: cursor };
     }

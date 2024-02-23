@@ -4,10 +4,9 @@ import { generateUploadURL } from '../../services/uploadService_v3';
 import { PreSignedBody } from './dto';
 
 export class MediaService {
-  async getMedia(): Promise<Partial<IMedia[]> | undefined> {
+  async getMedia(): Promise<Partial<IMedia[]> | null> {
     try {
-      const media = await Media.find({}).lean().exec();
-      return media;
+      return await Media.find({}).lean().exec();
     } catch (error) {
       return error;
     }
@@ -16,8 +15,7 @@ export class MediaService {
   // Fetch a Media by their ID
   async getMediaById(MediaId: string): Promise<Partial<IMedia> | null> {
     try {
-      const media = await Media.findById(MediaId).lean().exec();
-      return media;
+      return await Media.findById(MediaId).lean().exec();
     } catch (error) {
       return error;
     }
@@ -69,7 +67,7 @@ export class MediaService {
   // Delete a Media
   async deleteMedia(MediaId: string): Promise<Partial<IMedia> | null> {
     try {
-      return await Media.findByIdAndRemove(MediaId).exec();
+      return await Media.findByIdAndDelete(MediaId).exec();
     } catch (error) {
       throw new Error(`Error deleting Media ${MediaId}: ${error.message}`);
     }

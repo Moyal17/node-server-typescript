@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { AllowNullProperty } from '../shared/types';
 
 interface ICourse {
   _id: mongoose.Types.ObjectId | string;
@@ -25,4 +26,6 @@ interface ICourse {
   updatedAt?: Date;
   createdAt?: Date;
 }
-export default ICourse;
+
+type NullableICourse = AllowNullProperty<ICourse>;
+export default NullableICourse;

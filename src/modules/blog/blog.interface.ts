@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { AllowNullProperty } from '../shared/types';
 interface IArticle {
   _id: mongoose.Types.ObjectId | string;
   uri: string;
@@ -7,9 +8,9 @@ interface IArticle {
   content?: string;
   language?: string;
   author?: {
-    avatar?: mongoose.Types.ObjectId | string;
-    name?: string;
-    profession?: string;
+    avatar?: mongoose.Types.ObjectId | string | null;
+    name?: string | null;
+    profession?: string | null;
   };
   order?: number;
   readingTime?: number;
@@ -23,4 +24,5 @@ interface IArticle {
   createdAt?: Date;
   updatedAt?: Date;
 }
-export default IArticle;
+type NullableIArticle = AllowNullProperty<IArticle>;
+export default NullableIArticle;

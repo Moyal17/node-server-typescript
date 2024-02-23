@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { LeadSourceEnum, LeadStatusEnum } from './dto';
 import { GenderEnum } from '../shared/enums';
+import { AllowNullProperty } from '../shared/types';
 
 interface ILead {
   _id?: mongoose.Types.ObjectId | string;
@@ -18,5 +19,6 @@ interface ILead {
   isRemoved?: boolean;
   createdAt?: Date;
 }
+type NullableILead = AllowNullProperty<ILead>;
 
-export default ILead;
+export default NullableILead;
