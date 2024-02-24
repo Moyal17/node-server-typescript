@@ -10,7 +10,6 @@ User:
     email:
       type: string
       description: The user's email address
-
 NewUser:
   type: object
   required:
