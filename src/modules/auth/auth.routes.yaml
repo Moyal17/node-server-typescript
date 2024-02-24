@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  title: Authentication API
+  version: 1.0.0
+paths:
+  /public/auth/register:
+    post:
+      summary: Register a new user
+      operationId: registerUser
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'auth.components.yaml#/components/schemas/SignUp'
+      responses:
+        '200':
+          description: User registered successfully
+        '400':
+          description: Invalid input data
+
+  /public/auth/refresh:
+    post:
+      summary: Refresh authentication token
+      operationId: refreshToken
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: Token refreshed successfully
+        '401':
+          description: Unauthorized
+
+  /public/auth/login:
+    post:
+      summary: Log in a user
+      operationId: loginUser
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'auth.components.yaml#/components/schemas/LogIn'
+      responses:
+        '200':
+          description: User logged in successfully
+        '401':
+          description: Unauthorized
+
+  /api/auth/protected:
+    get:
+      summary: Access a protected endpoint
+      operationId: accessProtected
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: Accessed protected endpoint successfully
+        '401':
+          description: Unauthorized

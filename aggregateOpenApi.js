@@ -5,8 +5,8 @@ const path = require('path');
 const version = require('./package.json').version;
 
 const docsPath = path.join(__dirname, 'docs');
-const srcPath = path.join(__dirname, 'src/modules');
-const outputPath = path.join(docsPath, 'openapi.yaml');
+const outputFilePath = path.join(docsPath, 'openapi.yaml');
+const modulesPath = path.join(__dirname, 'src', 'modules');
 
 // Define the structure of your main OpenAPI document
 const mainOpenApi = {
@@ -33,44 +33,56 @@ const mainOpenApi = {
   paths: {},
 };
 
-// Function to read YAML file
-const readYaml = (filePath) => {
+// Function to update $ref to point to the same file
+const updateRefPath = (content) => {
+  return JSON.parse(
+    JSON.stringify(content, (key, value) => {
+      if (key === '$ref' && typeof value === 'string') {
+        // Split at '#' and keep the '#{split[1]}' part
+        const split = value.split('#');
+        return `#${split[1]}`;
+      }
+      return value;
+    }),
+  );
+};
+
+// Function to read and merge YAML content from a file
+const mergeYamlContent = (filePath, type) => {
   try {
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-    return yaml.load(fileContents);
-  } catch (err) {
-    console.error(`Error reading ${filePath}:`, err);
-    throw err;
+    const fileContent = yaml.load(fs.readFileSync(filePath, 'utf8'));
+    const updatedContent = updateRefPath(fileContent);
+    if (type === 'routes') {
+      mainOpenApi.paths = { ...mainOpenApi.paths, ...updatedContent.paths };
+    } else if (type === 'components') {
+      mainOpenApi.components.schemas = { ...mainOpenApi.components.schemas, ...updatedContent.components.schemas };
+    }
+  } catch (error) {
+    console.error(`Error processing file ${filePath}:`, error);
   }
 };
 
 // Function to merge module routes and models into the main document
-const aggregateModules = (modulePath) => {
-  fs.readdirSync(modulePath).forEach((moduleName) => {
-    const moduleDir = path.join(modulePath, moduleName);
-    if (fs.statSync(moduleDir).isDirectory()) {
-      // Aggregate routes
-      const routesPath = path.join(moduleDir, `${moduleName}.routes.yaml`);
-      if (fs.existsSync(routesPath)) {
-        const routes = readYaml(routesPath);
-        mainOpenApi.paths = { ...mainOpenApi.paths, ...routes.paths };
-      }
-
-      // Aggregate models
-      const modelPath = path.join(moduleDir, `${moduleName}.model.yaml`);
-      if (fs.existsSync(modelPath)) {
-        const models = readYaml(modelPath);
-        mainOpenApi.components.schemas = { ...mainOpenApi.components.schemas, ...models };
-      }
-    }
-  });
-};
-
-// Main function to generate the aggregated OpenAPI document
+// Main function to aggregate OpenAPI specs
 const generateOpenApi = () => {
-  aggregateModules(srcPath);
-  fs.writeFileSync(outputPath, yaml.dump(mainOpenApi), 'utf8');
-  console.log('Aggregated OpenAPI document generated at:', outputPath);
+  fs.readdirSync(modulesPath, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .forEach((moduleDir) => {
+      const modulePath = path.join(modulesPath, moduleDir.name);
+      const routesFilePath = path.join(modulePath, `${moduleDir.name}.routes.yaml`);
+      const componentsFilePath = path.join(modulePath, `${moduleDir.name}.components.yaml`);
+
+      if (fs.existsSync(routesFilePath)) {
+        mergeYamlContent(routesFilePath, 'routes');
+      }
+      if (fs.existsSync(componentsFilePath)) {
+        mergeYamlContent(componentsFilePath, 'components');
+      }
+    });
+
+  // Write the combined spec to the output file
+  fs.writeFileSync(outputFilePath, yaml.dump(mainOpenApi), 'utf8');
+  console.log(`Combined OpenAPI spec written to ${outputFilePath}`);
 };
 
 // Run the script

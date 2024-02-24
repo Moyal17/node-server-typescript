@@ -11,7 +11,7 @@ function swaggerDocs(app: Application): void {
   const swaggerDocument = YAML.load(path.join(__dirname, '../../docs/openapi.yaml'));
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   // Optionally, serve the raw OpenAPI spec at '/docs.json' endpoint
-  app.get('/docs.json', (req, res) => {
+  app.get('/api-docs.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(swaggerDocument);
   });

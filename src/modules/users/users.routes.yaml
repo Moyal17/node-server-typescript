@@ -17,7 +17,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/User'
+                  $ref: 'users.components.yaml#/components/schemas/User'
         '404':
           description: Not Found
           content:
@@ -46,7 +46,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: 'users.components.yaml#/components/schemas/User'
         '400':
           description: Bad request. User ID must be an integer and larger than 0.
         '401':
@@ -80,7 +80,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EditUser'
+              $ref: 'users.components.yaml#/components/schemas/EditUser'
       responses:
         '200':
           description: User updated
@@ -109,7 +109,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewUser'
+              $ref: 'users.components.yaml#/components/schemas/NewUser'
       responses:
         '201':
           description: User created
@@ -123,38 +123,3 @@ paths:
                   message:
                     type: string
                     example: User not found
-components:
-  schemas:
-    User:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The user ID
-        name:
-          type: string
-          description: The user's name
-        email:
-          type: string
-          description: The user's email address
-    NewUser:
-      type: object
-      required:
-        - name
-        - email
-        - hash
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        hash:
-          type: string
-          description: A hashed password
-    EditUser:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string

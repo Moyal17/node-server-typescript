@@ -1,50 +1,64 @@
 openapi: 3.0.0
 info:
-  title: REST API Docs
+  title: Node Server API
   version: 1.1.0
-components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-  schemas:
-    User:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The user ID
-        name:
-          type: string
-          description: The user's name
-        email:
-          type: string
-          description: The user's email address
-    NewUser:
-      type: object
-      required:
-        - name
-        - email
-        - hash
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        hash:
-          type: string
-          description: A hashed password
-    EditUser:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-security:
-  - bearerAuth: []
 paths:
+  /public/auth/register:
+    post:
+      summary: Register a new user
+      operationId: registerUser
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUp'
+      responses:
+        '200':
+          description: User registered successfully
+        '400':
+          description: Invalid input data
+  /public/auth/refresh:
+    post:
+      summary: Refresh authentication token
+      operationId: refreshToken
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: Token refreshed successfully
+        '401':
+          description: Unauthorized
+  /public/auth/login:
+    post:
+      summary: Log in a user
+      operationId: loginUser
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogIn'
+      responses:
+        '200':
+          description: User logged in successfully
+        '401':
+          description: Unauthorized
+  /api/auth/protected:
+    get:
+      summary: Access a protected endpoint
+      operationId: accessProtected
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: Accessed protected endpoint successfully
+        '401':
+          description: Unauthorized
   /public/users:
     get:
       summary: Get a list of users
@@ -164,3 +178,70 @@ paths:
                   message:
                     type: string
                     example: User not found
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    SignUp:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+          description: password
+    LogIn:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+          description: password
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The user ID
+        name:
+          type: string
+          description: The user's name
+        email:
+          type: string
+          description: The user's email address
+    EditUser:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+    NewUser:
+      type: object
+      required:
+        - name
+        - email
+        - hash
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        hash:
+          type: string
+          description: A hashed password
+security:
+  - bearerAuth: []
