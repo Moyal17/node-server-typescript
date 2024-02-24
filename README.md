@@ -47,7 +47,7 @@ root/
 
 - **Data Modeling & ORM**: Mongoose ORM setup for structured, schema-based data modeling.
 
-- **Validation**: Using `joi` for request validation ensuring data integrity.
+- **Validation**: Using `joi` for request validation, Ensure request and response payloads conform to predefined schemas, enhancing API reliability and developer experience..
 
 - **Security**: Utilizing packages such as `helmet` and `cors` to ensure security best practices are followed.
 
@@ -58,6 +58,20 @@ root/
 - **DevOps**: Environment-specific configuration handling with `dotenv`.
 
 - **Code Quality**: Enforced code quality and style with `eslint`, `prettier`, and `@typescript-eslint`.
+
+- **Automated OpenAPI Documentation**: Automated OpenAPI Documentation: This project utilizes a sophisticated approach to API documentation by integrating OpenAPI Swagger documentation that is automatically aggregated from modular definitions.
+
+- **API Testing**: Facilitate backend testing and frontend integration by providing an up-to-date and accessible API reference.
+
+
+## OpenAPI Swagger Documentation
+
+This project leverages OpenAPI Swagger documentation to provide a clear and interactive documentation of its RESTful APIs. The OpenAPI Specification (OAS) defines a standard, language-agnostic interface to RESTful APIs which allows both humans and computers to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection.
+
+
+### Automated Documentation Aggregation
+
+A custom Node.js script, `aggregateOpenApi.ts`, automates the process of merging individual module documentation into a single `openapi.yaml` file. This script dynamically updates `$ref` paths to ensure internal consistency and simplifies the integration with Swagger UI.
 
 ### **Dependencies Breakdown**
 
