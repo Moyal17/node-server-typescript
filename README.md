@@ -6,6 +6,8 @@ This repository houses a comprehensive, modular, and scalable Node.js server app
 
 ```
 root/
+|-- doc/
+|-- openapi.yaml                         // Centralized OpenAPI specification defining the entire API's structure.
 |-- src/
 |   |-- config/                          // Configuration loader (for environment-specific configurations)
 |   |   |-- config.js
